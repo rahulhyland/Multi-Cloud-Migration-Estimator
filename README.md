@@ -26,7 +26,7 @@ Use this template when running the agent:
 
 ```text
 Create a migration decision report for this repo.
-Scope: src/*.tf, all environments.
+Scope: input/*/src/*.tf, all environments.
 Planning horizon: 24 months.
 Assumptions:
 - Traffic profile: steady with moderate burst.

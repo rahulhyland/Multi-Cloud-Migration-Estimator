@@ -19,4 +19,9 @@ Gemfile.lock
 
 # Ignore local assessment input payloads
 /input/
+
+# macOS system files
+.DS_Store
+
+# IDE-specific files
 .idea/workspace.xml

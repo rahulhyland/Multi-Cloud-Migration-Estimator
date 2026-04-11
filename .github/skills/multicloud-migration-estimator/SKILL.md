@@ -9,9 +9,8 @@ description: "Use when creating AWS to Azure/GCP migration decision reports from
 Produce an architect-ready migration decision report that maps AWS services to Azure and GCP, estimates directional costs by region, highlights risks, and recommends a migration path.
 
 ## Default Scope
-- Primary discovery root: `input/` (read recursively)
-- Prioritize IaC from: `input/src/*.tf`, `input/src/tfvar_configs/**/*.tfvars`, `input/src/helm/**`
-- Also include relevant context from: `input/docs/**`, `input/script/**`, `input/logs/**`
+- Search all files under: `input/**`
+- Prioritize IaC from: `input/**/src/*.tf`, `input/**/src/tfvar_configs/**/*.tfvars`, `input/**/src/helm/**`
 - If `input/` is missing, fallback to `src/**`
 
 ## Required Inputs
@@ -26,7 +25,7 @@ Produce an architect-ready migration decision report that maps AWS services to A
 If assumptions are incomplete, proceed with explicit "Assumed" labels.
 
 ## Workflow
-1. Discover and inventory AWS resources from IaC.
+1. Recursively search all files under `input/**`, then discover and inventory AWS resources from IaC.
 2. Group resources by capability:
    - Compute
    - Networking

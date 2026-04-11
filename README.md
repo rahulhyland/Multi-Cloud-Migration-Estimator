@@ -3,11 +3,12 @@
 This folder contains a custom Copilot agent used to estimate AWS to Azure and GCP migration effort, regional cost (US, EU, AU), and architect decision guidance.
 
 ## Files
-- `multicloud-migration-estimator.agent.md`: Agent definition (frontmatter + behavior).
+- `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition (frontmatter + behavior).
+- `.github/skills/multicloud-migration-estimator/SKILL.md`: Reusable skill workflow and guardrails for report generation.
 - `Multi-Cloud Migration Decision Report.pdf`: Example generated report artifact (optional output).
 
 ## What This Agent Does
-The agent analyzes Terraform resources in this repository and produces a migration report with:
+The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*.tf`) and produces a migration report with:
 - AWS source footprint summary
 - Azure and GCP service mapping
 - Directional regional cost analysis (US, EU, AU)
@@ -26,7 +27,7 @@ Use this template when running the agent:
 
 ```text
 Create a migration decision report for this repo.
-Scope: src/*.tf, all environments.
+Scope: input/**/src/*.tf, all environments.
 Planning horizon: 24 months.
 Assumptions:
 - Traffic profile: steady with moderate burst.
@@ -50,7 +51,10 @@ The report is expected to include these sections:
 9. Open Questions
 
 ## How To Update The Agent
-Edit `multicloud-migration-estimator.agent.md`.
+Edit `.github/agents/multicloud-migration-estimator.agent.md`.
+
+## How To Update The Skill
+Edit `.github/skills/multicloud-migration-estimator/SKILL.md` when changing discovery scope, workflow, or report guardrails.
 
 ### 1) Update discovery and invocation metadata
 In YAML frontmatter:

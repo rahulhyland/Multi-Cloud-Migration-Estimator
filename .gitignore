@@ -19,3 +19,6 @@ Gemfile.lock
 
 # Ignore local assessment input payloads
 /input/
+
+# IDE-specific files
+.idea/workspace.xml

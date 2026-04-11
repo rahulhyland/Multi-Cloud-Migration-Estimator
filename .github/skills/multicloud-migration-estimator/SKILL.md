@@ -48,6 +48,8 @@ If assumptions are incomplete, proceed with explicit "Assumed" labels.
    - Target Azure infrastructure
    - Target GCP infrastructure
    Use Mermaid component/flow diagrams in fenced code blocks so they are renderable in markdown.
+   For multiline labels, use `<br/>` instead of `\n` to maximize GitHub Mermaid compatibility.
+   Avoid parentheses in `subgraph` titles and critical node labels; use quoted plain text labels such as `subgraph AWS["AWS Account per environment"]`.
 
 ## Output Format
 Return one markdown report with these sections in order:

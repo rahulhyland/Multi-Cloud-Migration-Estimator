@@ -125,11 +125,11 @@ flowchart LR
   U[Clients / Upstream Systems] --> DNS[Public DNS / Domain]
   DNS --> IN[Ingress / Transform REST]
 
-  subgraph AWS[AWS Account (per environment)]
+  subgraph AWS["AWS Account per environment"]
     subgraph EKS[EKS Cluster: hxts-env]
       REST[transform-rest]
       ROUTER[transform-router]
-      ENGINES[Transform Engines\n(tika, imagemagick, libreoffice, misc, docfilters, docmerge, aio)]
+      ENGINES["Transform Engines<br/>tika, imagemagick, libreoffice, misc, docfilters, docmerge, aio"]
       KEDA[KEDA Scalers]
       NP[Kubernetes Network Policies]
       SECRET[Kubernetes Secrets]
@@ -164,8 +164,8 @@ flowchart LR
   U[Clients / Upstream Systems] --> AFD[Azure Front Door / DNS]
   AFD --> AGW[Application Gateway / Ingress]
 
-  subgraph AZ[Azure Subscription(s)]
-    subgraph AKS[AKS Cluster(s)]
+  subgraph AZ["Azure Subscriptions"]
+    subgraph AKS["AKS Clusters"]
       RESTA[transform-rest]
       ROUTERA[transform-router]
       ENGA[Transform Engines]
@@ -174,7 +174,7 @@ flowchart LR
       SECA[K8s Secrets]
     end
 
-    SB[Azure Service Bus\n(Queues/Topics)]
+    SB["Azure Service Bus<br/>Queues and Topics"]
     KV[Azure Key Vault]
     MI[Managed Identity / Workload Identity]
     VNET[VNet + Private Subnets]
@@ -199,11 +199,11 @@ flowchart LR
 ### GCP Target Component Diagram
 ```mermaid
 flowchart LR
-  U[Clients / Upstream Systems] --> GLB[Global HTTP(S) LB / DNS]
+  U[Clients / Upstream Systems] --> GLB[Global HTTPS LB / DNS]
   GLB --> GING[Ingress]
 
-  subgraph GCP[GCP Project(s)]
-    subgraph GKE[GKE Cluster(s)]
+  subgraph GCP["GCP Projects"]
+    subgraph GKE["GKE Clusters"]
       RESTG[transform-rest]
       ROUTERG[transform-router]
       ENGG[Transform Engines]
@@ -212,7 +212,7 @@ flowchart LR
       SECG[K8s Secrets]
     end
 
-    PS[Pub/Sub\n(Topics + Subscriptions)]
+    PS["PubSub<br/>Topics and Subscriptions"]
     GKM[Cloud KMS]
     GSM[Secret Manager]
     WI[Workload Identity Federation]

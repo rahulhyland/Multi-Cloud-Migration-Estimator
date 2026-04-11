@@ -43,6 +43,11 @@ If assumptions are incomplete, proceed with explicit "Assumed" labels.
    - Network/connectivity changes
    - Operational retraining needs
 6. Score effort/risk per capability and produce scenario recommendations.
+7. Generate component diagrams for:
+   - Current AWS infrastructure (source architecture)
+   - Target Azure infrastructure
+   - Target GCP infrastructure
+   Use Mermaid component/flow diagrams in fenced code blocks so they are renderable in markdown.
 
 ## Output Format
 Return one markdown report with these sections in order:
@@ -55,6 +60,15 @@ Return one markdown report with these sections in order:
 7. Decision Scenarios
 8. Recommended Plan (30/60/90)
 9. Open Questions
+10. Component Diagrams
+   - AWS Source Component Diagram
+   - Azure Target Component Diagram
+   - GCP Target Component Diagram
+
+### Report Artifact
+- Generate the report content as markdown and save it to the `Reports/` folder.
+- Use filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`.
+- Ensure the saved markdown matches the returned report content.
 
 ## Guardrails
 - Do not invent discovered resources.

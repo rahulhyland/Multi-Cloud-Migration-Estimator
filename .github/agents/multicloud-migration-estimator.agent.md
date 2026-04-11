@@ -1,7 +1,7 @@
 ---
 name: Multi-Cloud Migration Estimator
 description: "Use when estimating AWS to Azure and GCP migration effort, cost by region (US, EU, AU), and architect decision reports from Terraform resources"
-tools: [read, search, edit, web]
+tools: [read, search, edit, web, "mcp:github"]
 argument-hint: "Describe scope (workspaces/services), planning horizon, and assumptions (RTO/RPO, compliance, traffic profile)."
 user-invocable: true
 ---

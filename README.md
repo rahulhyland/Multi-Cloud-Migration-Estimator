@@ -5,6 +5,7 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 ## Files
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition (frontmatter + behavior).
 - `.github/skills/multicloud-migration-estimator/SKILL.md`: Reusable skill workflow and guardrails for report generation.
+- `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
 - `Multi-Cloud Migration Decision Report.pdf`: Example generated report artifact (optional output).
 
 ## What This Agent Does
@@ -104,6 +105,83 @@ When updating this agent in a pull request:
 - Include one before/after sample prompt.
 - Include one sample output delta (section-level is enough).
 - Request review from platform and architecture stakeholders.
+
+## GitHub MCP Server Integration
+
+The agent integrates with the [GitHub MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/github) to interact with GitHub APIs (issues, PRs, repos, search) directly from Copilot Chat.
+
+### Prerequisites
+- **Node.js** (v18+) — required currently to run the MCP server via `npx`.
+- **GitHub Personal Access Token** — create one at **Settings → Developer settings → Personal access tokens** with scopes: `repo`, `read:org`.
+
+### Configuration
+
+The MCP server is configured in [`.vscode/mcp.json`](.vscode/mcp.json):
+
+```json
+{
+  "servers": {
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_pat}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "id": "github_pat",
+      "type": "promptString",
+      "description": "GitHub Personal Access Token",
+      "password": true
+    }
+  ]
+}
+```
+
+VS Code will prompt for your PAT on first use. The token is not stored in the file.
+
+### How It Connects to the Agent
+
+The agent file (`.github/agents/multicloud-migration-estimator.agent.md`) includes `"mcp:github"` in its `tools` list:
+
+```yaml
+tools: [read, search, edit, web, "mcp:github"]
+```
+
+This grants the agent access to all tools exposed by the GitHub MCP server. To restrict to specific tools, use the format `"mcp:github:tool_name"` (e.g., `"mcp:github:create_issue"`).
+
+### Available Capabilities
+
+Once connected, the agent can:
+
+| Capability | Example Use Case |
+|---|---|
+| **Create issues** | File tracking issues from the Open Questions or Challenge Register |
+| **Search repositories** | Find reference IaC patterns in other repos |
+| **Read repo files** | Pull Terraform modules or Helm charts from remote repos |
+| **Create/manage PRs** | Open a PR with the generated migration report |
+| **List branches/tags** | Discover environment branches for IaC discovery |
+
+### Verifying the Integration
+
+1. Open VS Code and reload the window (`Cmd+Shift+P` → `Developer: Reload Window`).
+2. Open Copilot Chat and select the **Multi-Cloud Migration Estimator** agent.
+3. Ask: _"List open issues in this repo"_.
+4. If prompted for a PAT, enter your token.
+5. The agent should return results from the GitHub API.
+
+### Troubleshooting MCP
+
+| Symptom | Fix |
+|---|---|
+| `npx` not found | Ensure Node.js is installed and `npx` is on your `PATH` |
+| Auth errors (401/403) | Regenerate your PAT with the required scopes (`repo`, `read:org`) |
+| MCP tools not available to agent | Confirm `"mcp:github"` is in the `tools` list in the agent file |
+| Server not starting | Check the **Output** panel → **MCP** for server logs |
+| Timeout on first run | First `npx` invocation downloads the package; retry after it completes |
 
 ## Troubleshooting
 - Agent not showing in picker: verify YAML frontmatter is valid and file path is `.github/agents/*.agent.md`.

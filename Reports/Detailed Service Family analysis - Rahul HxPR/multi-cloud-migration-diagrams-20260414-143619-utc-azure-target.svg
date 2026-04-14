@@ -1,0 +1,265 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1500" width="1920" height="1500" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0066cc"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff6600"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#009900"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#9900cc"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#cc0000"/>
+    </marker>
+    <style>
+      .title { font-size: 18px; font-weight: bold; fill: #1a1a2e; }
+      .section-label { font-size: 12px; font-weight: bold; fill: #0d47a1; }
+      .box-label { font-size: 10px; fill: #1a1a2e; text-anchor: middle; }
+      .box-label-top { font-size: 11px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+      .note { font-size: 9px; fill: #424242; text-anchor: middle; }
+      .dashed-note { font-size: 9px; fill: #888; text-anchor: middle; font-style: italic; }
+    </style>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1500" fill="#f0f4ff"/>
+
+  <!-- Title -->
+  <text x="960" y="35" text-anchor="middle" class="title">Azure Target Architecture — HxPR Platform Migration</text>
+
+  <!-- Internet -->
+  <rect x="660" y="50" width="600" height="55" rx="8" fill="#dae8fc" stroke="#6c8ebf" stroke-width="2"/>
+  <text x="960" y="72" class="box-label-top">Internet / Upstream Clients</text>
+  <text x="960" y="90" class="note">hxp.experience.hyland.com · hxp.app.hyland.com · hxp.app.hyland.eu</text>
+
+  <!-- Azure DNS -->
+  <rect x="450" y="128" width="320" height="52" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="610" y="150" class="box-label-top">Azure DNS</text>
+  <text x="610" y="168" class="note">experience.hyland.com / app.hyland.eu hosted zones</text>
+
+  <!-- cert-manager -->
+  <rect x="800" y="128" width="280" height="52" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5"/>
+  <text x="940" y="150" class="box-label-top">cert-manager v1.20.0</text>
+  <text x="940" y="168" class="note">Azure DNS01 solver · AD Workload Identity</text>
+
+  <!-- App Gateway WAF -->
+  <rect x="570" y="205" width="560" height="60" rx="8" fill="#fce4ec" stroke="#c62828" stroke-width="2"/>
+  <text x="850" y="227" class="box-label-top">Azure Application Gateway v2 Standard_v2 + WAF</text>
+  <text x="850" y="245" class="note">OWASP CRS 3.2 · custom exclusions · TLS policy AppGwSslPolicy20220101S (TLS 1.2+) · idle timeout 900s</text>
+
+  <!-- Azure VNet -->
+  <rect x="40" y="288" width="1840" height="1060" rx="10" fill="#e8eaf6" stroke="#3949ab" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="60" y="312" class="section-label">Azure Virtual Network (East US · West Europe) — 3 Availability Zones · Public + Private Subnets</text>
+
+  <!-- AKS Cluster -->
+  <rect x="460" y="330" width="1160" height="740" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="480" y="352" class="section-label">AKS Cluster (Standard tier) — Standard_D4s_v3 (4 vCPU / 16 GB) — 3 to 25 nodes — AKS CA + KEDA v2.x</text>
+
+  <!-- NGINX AKS -->
+  <rect x="480" y="368" width="210" height="72" rx="6" fill="#dae8fc" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="585" y="390" class="box-label-top">NGINX Ingress v4.15.1</text>
+  <text x="585" y="406" class="note">Azure ILB-backed (private)</text>
+  <text x="585" y="422" class="note">Service annotations: azure ILB</text>
+
+  <!-- AKS CA + KEDA -->
+  <rect x="480" y="455" width="210" height="70" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="585" y="477" class="box-label-top">AKS Cluster Autoscaler</text>
+  <text x="585" y="494" class="note">+ KEDA v2.x (event-driven HPA)</text>
+  <text x="585" y="510" class="note">Karpenter equivalent</text>
+
+  <!-- cert-manager cluster -->
+  <rect x="480" y="540" width="210" height="58" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5"/>
+  <text x="585" y="562" class="box-label-top">cert-manager v1.20.0</text>
+  <text x="585" y="578" class="note">Azure DNS01 · Workload Identity</text>
+
+  <!-- Datadog -->
+  <rect x="480" y="612" width="210" height="58" rx="6" fill="#e1d5e7" stroke="#7b1fa2" stroke-width="1.5"/>
+  <text x="585" y="634" class="box-label-top">Datadog Agent v3.193.0</text>
+  <text x="585" y="651" class="note">APM · JVM · SLO (unchanged)</text>
+
+  <!-- Velero -->
+  <rect x="480" y="684" width="210" height="58" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="585" y="706" class="box-label-top">Velero v12.0.0</text>
+  <text x="585" y="723" class="note">→ Azure Blob GRS · Workload Identity</text>
+
+  <!-- Key Vault CSI -->
+  <rect x="480" y="756" width="210" height="58" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5"/>
+  <text x="585" y="778" class="box-label-top">Azure Key Vault CSI Driver</text>
+  <text x="585" y="795" class="note">Mounts secrets to pods · AD WI</text>
+
+  <!-- OpenSearch on AKS node pool -->
+  <rect x="480" y="828" width="210" height="80" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <text x="585" y="850" class="box-label-top">OpenSearch 2.11 on AKS</text>
+  <text x="585" y="866" class="note">Standard_E2s_v3 × 12 nodes</text>
+  <text x="585" y="882" class="note">(9 data + 3 masters)</text>
+  <text x="585" y="898" class="note">Azure Disk P30 · 128 GB/node</text>
+
+  <!-- hxpr namespace AKS -->
+  <rect x="720" y="345" width="880" height="708" rx="8" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="740" y="368" class="section-label">hxpr namespace (AKS)</text>
+
+  <!-- AKS Pods -->
+  <rect x="740" y="385" width="210" height="90" rx="6" fill="#dae8fc" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="845" y="407" class="box-label-top">HXPR API Pod 1</text>
+  <text x="845" y="423" class="note">hxpr-app-jvm v2.1.280</text>
+  <text x="845" y="439" class="note">azure-messaging-servicebus SDK</text>
+  <text x="845" y="455" class="note">Azure Blob Storage SDK</text>
+  <text x="845" y="469" class="note">0.3–1 vCPU / 1.5–2 Gi</text>
+
+  <rect x="965" y="385" width="210" height="90" rx="6" fill="#dae8fc" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="1070" y="407" class="box-label-top">HXPR API Pod 2</text>
+  <text x="1070" y="423" class="note">hxpr-app-jvm v2.1.280</text>
+  <text x="1070" y="439" class="note">Azure OpenSearch SDK</text>
+  <text x="1070" y="455" class="note">Atlas JDBC driver unchanged</text>
+  <text x="1070" y="469" class="note">0.3–1 vCPU / 1.5–2 Gi</text>
+
+  <rect x="1190" y="385" width="210" height="90" rx="6" fill="#dae8fc" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="1295" y="407" class="box-label-top">HXPR API Pod 3</text>
+  <text x="1295" y="423" class="note">hxpr-app-jvm v2.1.280</text>
+  <text x="1295" y="439" class="note">liveness /nuxeo/runningstatus</text>
+  <text x="1295" y="455" class="note">Azure Key Vault CSI secrets</text>
+  <text x="1295" y="469" class="note">0.3–1 vCPU / 1.5–2 Gi</text>
+
+  <rect x="1415" y="385" width="165" height="90" rx="6" fill="#dae8fc" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="1497" y="413" class="box-label-top">Router Pod</text>
+  <text x="1497" y="431" class="note">transform routing</text>
+  <text x="1497" y="449" class="note">Azure-hosted hxts URL</text>
+
+  <rect x="740" y="492" width="840" height="55" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1"/>
+  <text x="1160" y="516" class="box-label-top">Transform Engine Workers [Not provisioned in this IaC scope]</text>
+  <text x="1160" y="533" class="note">tika · imagemagick · libreoffice · docfilters · docmerge — config in hxts scope</text>
+
+  <rect x="740" y="562" width="280" height="58" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5"/>
+  <text x="880" y="584" class="box-label-top">Azure AD Workload Identity</text>
+  <text x="880" y="601" class="note">Replaces IRSA · 10+ service accounts</text>
+
+  <rect x="740" y="635" width="280" height="55" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5"/>
+  <text x="880" y="657" class="box-label-top">Azure Key Vault Secrets</text>
+  <text x="880" y="674" class="note">DB creds · SB connection strings · CMK refs</text>
+
+  <!-- KEDA inside cluster -->
+  <rect x="1040" y="562" width="200" height="55" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="1140" y="582" class="box-label-top">KEDA v2.x</text>
+  <text x="1140" y="599" class="note">Event-driven HPA · Karpenter equiv.</text>
+
+  <!-- Azure Functions (outside AKS) -->
+  <rect x="80" y="380" width="320" height="115" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="240" y="402" class="box-label-top">Azure Functions (Python 3.10)</text>
+  <text x="240" y="420" class="note">Flex Consumption · VNet-integrated</text>
+  <text x="240" y="436" class="note">env_decommission_lambda</text>
+  <text x="240" y="452" class="note">malware_quarantine_function</text>
+  <text x="240" y="468" class="note">Triggered by Defender for Storage</text>
+  <text x="240" y="484" class="note">event + Azure Event Grid</text>
+
+  <!-- ── Bottom messaging, storage ── -->
+  <!-- Service Bus -->
+  <rect x="60" y="1055" width="420" height="130" rx="6" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+  <text x="270" y="1077" class="box-label-top">Azure Service Bus Premium</text>
+  <text x="270" y="1095" class="note">21 queues + 3 topics</text>
+  <text x="270" y="1113" class="note">dead-letter · lock duration (visibility timeout equiv.)</text>
+  <text x="270" y="1129" class="note">SQL filter rules (SNS filter policy equiv.)</text>
+  <text x="270" y="1147" class="note">VNet service-endpoint · CMK encryption</text>
+  <text x="270" y="1165" class="note">Geo-DR (Primary + Secondary namespace)</text>
+
+  <!-- Azure Blob -->
+  <rect x="510" y="1055" width="400" height="130" rx="6" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+  <text x="710" y="1077" class="box-label-top">Azure Blob Storage (LRS primary · GRS cross-region)</text>
+  <text x="710" y="1095" class="note">content · upload · bulk-ingest containers</text>
+  <text x="710" y="1113" class="note">retention container (Immutable Blob — S3 Object Lock equiv.)</text>
+  <text x="710" y="1129" class="note">velero backup container (GRS ≤15 min cross-region)</text>
+  <text x="710" y="1147" class="note">Azure Key Vault CMK encryption (SSE)</text>
+
+  <!-- MongoDB Atlas Azure -->
+  <rect x="1690" y="420" width="210" height="120" rx="6" fill="#e1d5e7" stroke="#7b1fa2" stroke-width="2"/>
+  <text x="1795" y="445" class="box-label-top">MongoDB Atlas</text>
+  <text x="1795" y="462" class="note">(Azure-backed)</text>
+  <text x="1795" y="480" class="note">M40 × 3 + M30 × 1</text>
+  <text x="1795" y="498" class="note">v7.0 · Azure Private Link</text>
+  <text x="1795" y="516" class="note">auto-scale M40→M60</text>
+  <text x="1795" y="534" class="note">West Europe / East US</text>
+
+  <!-- Azure Key Vault -->
+  <rect x="1690" y="560" width="210" height="90" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5"/>
+  <text x="1795" y="582" class="box-label-top">Azure Key Vault (Standard)</text>
+  <text x="1795" y="600" class="note">5+ CMKs · rotation enabled</text>
+  <text x="1795" y="618" class="note">Secrets · Certificates</text>
+  <text x="1795" y="636" class="note">Workload Identity RBAC</text>
+
+  <!-- Defender for Storage -->
+  <rect x="1690" y="668" width="210" height="95" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="2"/>
+  <text x="1795" y="690" class="box-label-top">Microsoft Defender</text>
+  <text x="1795" y="706" class="note">for Storage</text>
+  <text x="1795" y="724" class="note">Built-in malware scan</text>
+  <text x="1795" y="742" class="note">→ Azure Event Grid</text>
+  <text x="1795" y="758" class="note">→ Azure Functions quarantine</text>
+
+  <!-- Azure Monitor -->
+  <rect x="1690" y="780" width="210" height="90" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="1795" y="802" class="box-label-top">Azure Monitor</text>
+  <text x="1795" y="820" class="note">+ Log Analytics Workspace</text>
+  <text x="1795" y="838" class="note">AKS control plane · WAF</text>
+  <text x="1795" y="856" class="note">Functions logs · 14d retention</text>
+
+  <!-- Datadog SaaS -->
+  <rect x="1690" y="888" width="210" height="80" rx="6" fill="#e1d5e7" stroke="#7b1fa2" stroke-width="2"/>
+  <text x="1795" y="910" class="box-label-top">Datadog SaaS</text>
+  <text x="1795" y="928" class="note">APM · Metrics · Logs</text>
+  <text x="1795" y="946" class="note">SLO Monitors (unchanged)</text>
+  <text x="1795" y="964" class="note">Azure integration plugin</text>
+
+  <!-- Rancher -->
+  <rect x="1690" y="986" width="210" height="70" rx="6" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="1795" y="1010" class="box-label-top">Rancher (AKS import)</text>
+  <text x="1795" y="1028" class="note">rancher.us.tools.hyland.dev</text>
+  <text x="1795" y="1046" class="note">OKTA RBAC groups preserved</text>
+
+  <!-- ── Arrows ── -->
+  <!-- Internet → Azure DNS → App GW -->
+  <line x1="900" y1="105" x2="680" y2="128" stroke="#0066cc" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrow-blue)" filter="url(#glow)"/>
+  <line x1="730" y1="180" x2="800" y2="205" stroke="#0066cc" stroke-width="2.5" marker-end="url(#arrow-blue)" filter="url(#glow)"/>
+  <!-- App GW → NGINX -->
+  <line x1="760" y1="265" x2="555" y2="368" stroke="#0066cc" stroke-width="2.5" marker-end="url(#arrow-blue)" filter="url(#glow)"/>
+  <!-- NGINX → Pods -->
+  <line x1="690" y1="404" x2="740" y2="430" stroke="#0066cc" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="690" y1="414" x2="965" y2="430" stroke="#0066cc" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="690" y1="424" x2="1190" y2="430" stroke="#0066cc" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <!-- Pods → Service Bus -->
+  <path d="M845,475 C845,1000 270,1000 270,1055" fill="none" stroke="#ff6600" stroke-width="2.5" stroke-dasharray="7,3" marker-end="url(#arrow-orange)"/>
+  <!-- Pods → Blob -->
+  <path d="M1070,475 C1070,1000 710,1000 710,1055" fill="none" stroke="#ff9900" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow-orange)"/>
+  <!-- Pods → OpenSearch -->
+  <path d="M1295,475 C1295,900 585,900 585,908" fill="none" stroke="#009900" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow-green)"/>
+  <!-- Pods → Atlas -->
+  <path d="M1580,430 C1660,430 1690,480 1690,480" fill="none" stroke="#9900cc" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arrow-purple)"/>
+  <!-- Datadog Agent → Datadog SaaS -->
+  <line x1="690" y1="641" x2="1690" y2="928" stroke="#9673a6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+  <!-- Velero → Blob -->
+  <path d="M585,742 C585,1100 710,1100 710,1185" fill="none" stroke="#aa6600" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow-orange)"/>
+  <!-- Defender → Functions -->
+  <line x1="1795" y1="668" x2="400" y2="495" stroke="#cc0000" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arrow-red)"/>
+
+  <!-- Legend -->
+  <rect x="40" y="1220" width="1150" height="240" rx="6" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <text x="60" y="1245" class="section-label">Legend — Azure Target Architecture</text>
+  <line x1="70" y1="1270" x2="130" y2="1270" stroke="#0066cc" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <text x="140" y="1274" class="box-label" style="text-anchor:start">Request flow: Clients → Azure DNS → App Gateway WAF → NGINX Ingress → HXPR Pods</text>
+  <line x1="70" y1="1300" x2="130" y2="1300" stroke="#ff6600" stroke-width="2" stroke-dasharray="7,3" marker-end="url(#arrow-orange)"/>
+  <text x="140" y="1304" class="box-label" style="text-anchor:start">Messaging flow: Pods → Azure Service Bus (SDK: azure-messaging-servicebus)</text>
+  <line x1="70" y1="1330" x2="130" y2="1330" stroke="#009900" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow-green)"/>
+  <text x="140" y="1334" class="box-label" style="text-anchor:start">Search flow: Pods → OpenSearch 2.11 self-hosted on AKS (Standard_E2s_v3 × 12)</text>
+  <line x1="70" y1="1360" x2="130" y2="1360" stroke="#9900cc" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arrow-purple)"/>
+  <text x="140" y="1364" class="box-label" style="text-anchor:start">Database flow: Pods → MongoDB Atlas M40 (Azure-backed, Azure Private Link)</text>
+  <line x1="70" y1="1390" x2="130" y2="1390" stroke="#cc0000" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arrow-red)"/>
+  <text x="140" y="1394" class="box-label" style="text-anchor:start">Security flow: Defender for Storage → Azure Event Grid → Azure Functions (malware quarantine)</text>
+  <line x1="70" y1="1420" x2="130" y2="1420" stroke="#9673a6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+  <text x="140" y="1424" class="box-label" style="text-anchor:start">Observability: Datadog Agent → Datadog SaaS (cloud-agnostic, no change)</text>
+  <text x="140" y="1450" class="note" style="text-anchor:start">Cost delta vs AWS: −2.4% (US) · −2.3% (EU) · −0.8% (AU) at on-demand pricing</text>
+</svg>

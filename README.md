@@ -3,10 +3,9 @@
 This folder contains a custom Copilot agent used to estimate AWS to Azure and GCP migration effort, regional cost (US, EU, AU), and architect decision guidance.
 
 ## Files
-- `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition (frontmatter + behavior).
-- `.github/skills/multicloud-migration-estimator/SKILL.md`: Reusable skill workflow and guardrails for report generation.
+- `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
-- `Multi-Cloud Migration Decision Report.pdf`: Example generated report artifact (optional output).
+- `Reports/`: Generated migration decision report artifacts (markdown format with timestamp).
 
 ## What This Agent Does
 The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*.tf`) and produces a migration report with:
@@ -72,31 +71,9 @@ The report is expected to include these sections:
 9. Open Questions
 
 ## How To Update The Agent
-Edit `.github/agents/multicloud-migration-estimator.agent.md`.
+Edit `.github/agents/multicloud-migration-estimator.agent.md` to modify discovery scope, workflow, report format, or guardrails.
 
-## How To Update The Skill
-Edit `.github/skills/multicloud-migration-estimator/SKILL.md` when changing discovery scope, workflow, or report guardrails.
-
-### 1) Update discovery and invocation metadata
-In YAML frontmatter:
-- `name`: Display name in agent picker.
-- `description`: Discovery trigger text. Keep specific keywords.
-- `tools`: Keep minimal required tools.
-- `argument-hint`: Input guidance shown to users.
-
-### 2) Update behavior safely
-In body sections:
-- `Objective`: Keep scope clear (AWS source, Azure/GCP target).
-- `Hard Constraints`: Keep non-negotiables (no invented resources, directional cost only, confidence levels).
-- `Approach`: Keep extraction -> mapping -> costing -> risk -> recommendation flow.
-- `Output Format`: Keep section order stable for stakeholder consistency.
-
-### 3) Validate after edits
-1. Start a new chat.
-2. Invoke the agent with a small scope request.
-3. Confirm report contains all required sections.
-4. Confirm unknowns are marked as assumptions or missing IaC facts.
-5. Check cost outputs are clearly labeled directional.
+All agent behavior, discovery logic, and report generation instructions are contained within the agent file. No external skill dependencies exist.
 
 ## Common Update Patterns
 

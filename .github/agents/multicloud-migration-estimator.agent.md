@@ -89,7 +89,7 @@ Also identify whether workload behavior appears steady or bursty when not explic
    
    Use draw.io diagrams as the primary artifact.
    Also generate an editable draw.io artifact with one page each for the AWS source, Azure target, and GCP target component diagrams.
-   Save the draw.io artifact as valid `.drawio` XML in the `Reports/` folder.
+   Save the draw.io artifact as valid `.drawio` XML in a newly created timestamped subfolder under `Reports/`.
 
     After creating the `.drawio` file, also generate one SVG file per diagram page by creating each SVG using the `create_file` tool:
     - Generate standards-compliant SVG that renders directly in browsers and markdown previews.
@@ -102,7 +102,7 @@ Also identify whether workload behavior appears steady or bursty when not explic
     - Do not rely on default text color. Define font family, size, fill color, and a subtle outline/glow for labels and connectors.
    - Use filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{page-slug}.svg`
      - `{page-slug}` values: `aws-source`, `azure-target`, `gcp-target`
-   - Save all SVG files in the `Reports/` folder alongside the `.drawio` file.
+    - Save all SVG files in the same newly created timestamped subfolder under `Reports/`, alongside the `.drawio` file.
 
     Diagram detail baseline (required):
     - Draw.io and SVG diagrams must be as detailed as the prior Mermaid-style logical architecture; do not collapse into only high-level capability boxes.
@@ -151,20 +151,22 @@ Return one markdown report with these sections in order:
 10. Open Questions
 11. Component Diagrams
    - Do not list SVG file paths explicitly. Only embed the diagrams using markdown image syntax.
-   - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)` (without listing the path separately before the image)
+   - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)` (without listing the path separately before the image)
    - Include a brief legend or note listing the major component groups rendered on each page so diagram detail is auditable.
    - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
    - When supplemental charts are generated, include a sub-list for chart page mapping and embed each chart SVG below the architecture diagrams.
    - Do not embed Mermaid blocks in the markdown report
 
 ### Report Artifact (Required)
-- **Generate the report as markdown and persist it immediately to the `Reports/` folder.**
-- Use filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md` (e.g., `multi-cloud-migration-report-20260414-153000-utc.md`).
-- **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact to the `Reports/` folder in the current workspace (for example: `Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`).
-- Generate a matching draw.io diagram artifact in the same folder using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc.drawio`.
-- Generate three SVG exports from the draw.io pages — one per architecture view — using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-azure-target.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-gcp-target.svg`. Save all SVG files in the `Reports/` folder.
-- When charts are requested, also generate chart SVG exports from draw.io pages using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-cost-comparison.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-effort-risk.svg`, and `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-scenario-comparison.svg`.
-- Embed all three SVG files inside section 11 of the markdown report using markdown image links to the generated SVG paths.
+- **Create a new output folder in `Reports/` for each run before writing artifacts.**
+- Use output folder format: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/` (e.g., `Reports/multi-cloud-migration-20260414-153000-utc/`).
+- **Generate the report as markdown and persist it immediately in that new folder.**
+- Use report filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`.
+- **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact inside the new folder (for example: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`).
+- Generate a matching draw.io diagram artifact in the same new folder using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc.drawio`.
+- Generate three SVG exports from the draw.io pages — one per architecture view — using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-azure-target.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-gcp-target.svg`. Save all SVG files in the same new folder.
+- When charts are requested, also generate chart SVG exports from draw.io pages using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-cost-comparison.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-effort-risk.svg`, and `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-scenario-comparison.svg`, and save them in the same new folder.
+- Embed all three SVG files inside section 11 of the markdown report using markdown image links to the generated SVG paths within the new folder.
 - When charts are generated, embed the chart SVGs in sections 5/7/8 and also under section 11.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
 - Confirm file creation and provide the exact file paths for the markdown report and the draw.io artifact in the response to the user.

@@ -98,7 +98,7 @@ The Hyland Experience Platform Repository (HxPR) currently runs on AWS with a di
 ### 5.2 30-Day Total Cost Breakdown by Capability & Region
 
 | Capability | Azure US | Azure EU | Azure AU | GCP US | GCP EU | GCP AU | Confidence |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | **Compute (AKS)** | $4,200 | $4,500 | $5,200 | $3,800 | $4,300 | $5,900 | Medium |
 | **Networking & LB** | $520 | $520 | $650 | $480 | $500 | $720 | Medium |
 | **Database (MongoDB/CosmosDB)** | $2,100 | $2,400 | N/A | $1,900 | $2,200 | N/A | Medium-Low |
@@ -128,7 +128,7 @@ The Hyland Experience Platform Repository (HxPR) currently runs on AWS with a di
 #### **5.3.1 Compute Tiers (vCPU-Hours)**
 
 | Service | Unit | Tier | Azure US ($/unit) | Azure EU ($/unit) | GCP US ($/unit) | GCP EU ($/unit) | Confidence |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | **AKS Nodes (D4s v3 equivalent: 4vCPU, 16GB RAM)** | vCPU-hour | On-demand (730 hrs/vCPU/month standard VM) | $0.192 | $0.216 | $0.176 | $0.194 | High |
 | | | Reserved 1-year (30% discount) | $0.134 | $0.151 | $0.123 | $0.136 | High |
 | | | Spot/Preemptible (70% discount) | $0.058 | $0.065 | $0.053 | $0.058 | High |
@@ -147,7 +147,7 @@ The Hyland Experience Platform Repository (HxPR) currently runs on AWS with a di
 #### **5.3.3 Storage Tiers (GB-Month)**
 
 | Service | Unit | Tier | Azure US | Azure EU | GCP US | GCP EU | Confidence |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | **Blob Storage / Cloud Storage** | GB-month | Hot tier (standard access) | $0.0184/GB-month | $0.0208/GB | $0.020/GB | $0.020/GB | High |
 | | | Cool tier (30-day minimum) | $0.0146/GB-month | $0.0165/GB | $0.016/GB | $0.016/GB | High |
 | | | Archive tier (90-day minimum) | $0.0036/GB-month | $0.0041/GB | $0.004/GB | $0.004/GB | High |
@@ -160,7 +160,7 @@ The Hyland Experience Platform Repository (HxPR) currently runs on AWS with a di
 #### **5.3.4 Messaging Tiers (Messages, Operations)**
 
 | Service | Unit | Tier | Azure US | Azure EU | GCP US | GCP EU | Confidence |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | **Service Bus / Cloud Pub/Sub** | 1M operations | First 1M/month | $0.50/1M ops (standard tier) | $0.60/1M (markup) | $5.00/GB ingested + $0.40/1M publish + $0.40/1M pull | $5.00 + $0.48 / $0.48 | Medium |
 | | | 1–10M/month | $0.50/1M (tiered discount starts at 10M) | $0.60/1M | $5.00 + $0.30/1M above 10M | $5.00 + $0.36 | Medium |
 | **30-day alloc: 2M publish + 3M subscribe (SNS/SQS fanout pattern) ~ 5M total ops** | | | 5 × $0.50 = $2.50 | 5 × $0.60 = $3.00 | 5 GB ingested @ $5.00 + (2M pub × $0.0004 + 3M sub × $0.0004) = $5.00 + $2.00 = $7.00 | $8.40 | Medium |
@@ -170,7 +170,7 @@ The Hyland Experience Platform Repository (HxPR) currently runs on AWS with a di
 #### **5.3.5 Backup Tiers (Velero + Cross-Region)**
 
 | Service | Unit | Tier | Azure US | Azure EU | GCP US | GCP EU | Confidence |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|
 | **Blob Archive (Velero snapshots)** | GB-month | Archive (90-day min retention) | $0.0036/GB-month retrieval ops $1.00 per 10K | $0.0041/GB, $1.20/10K ops | $0.004/GB, $0.05/1M ops retrieval | $0.004/GB × 1.2 | High |
 | **30-day alloc: 10 TB daily snapshots (30 days) = ~30 TB stored** | | | 30000 × $0.0036 = $108 + retrieval $1.00 per restore = $109/mo | $123 + retrieval | 30000 × $0.004 = $120 | $144 | High |
 | **Cross-Region Replication (to DR)** | GB-month | Replication cost (same as storage) | +$108 (2x to secondary region) | +$123 | +$120 | +$144 | High |

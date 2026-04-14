@@ -92,10 +92,12 @@ Return one markdown report with these sections in order:
    - Azure Target Component Diagram
    - GCP Target Component Diagram
 
-### Report Artifact
-- Generate the report content as markdown and save it to the `Reports/` folder.
-- Use filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`.
-- Ensure the saved markdown matches the returned report content.
+### Report Artifact (Required)
+- **Generate the report as markdown and persist it immediately to the `Reports/` folder.**
+- Use filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md` (e.g., `multi-cloud-migration-report-20260414-153000-utc.md`).
+- **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact to disk at absolute path: `/Users/srimanta.singh/IdeaProjects/Multi-Cloud-Migration-Estimator/Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`.
+- Ensure the saved markdown file contains all 10 report sections and matches the display output exactly.
+- Confirm file creation and provide the exact file path in the response to the user.
 
 ## Guardrails
 - Do not invent discovered resources.

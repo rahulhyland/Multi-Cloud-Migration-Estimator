@@ -26,9 +26,29 @@ The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*
 ## Recommended Prompt Input
 Use this template when running the agent:
 
+### Local Files
 ```text
 Create a migration decision report for this repo.
 Scope: input/**/src/*.tf, all environments.
+Planning horizon: 24 months.
+Assumptions:
+- Traffic profile: steady with moderate burst.
+- Availability target: 99.9%.
+- RTO: 4 hours.
+- RPO: 30 minutes.
+- Compliance: SOC2 + regional data residency.
+- Performance: latency sensitive APIs.
+```
+
+### Remote Repositories (Multi-Repo)
+```text
+Create a migration decision report by fetching Terraform files from these repositories:
+- https://github.com/org/service-api
+- https://github.com/org/data-platform
+- https://github.com/org/infra-modules
+
+Use the main branch for all repos.
+Look for .tf files in src/, infra/, and terraform/ directories.
 Planning horizon: 24 months.
 Assumptions:
 - Traffic profile: steady with moderate burst.
@@ -116,6 +136,16 @@ The agent integrates with the [GitHub MCP server](https://github.com/modelcontex
 
 ### Configuration
 
+1. Copy the `.env.example` file to `.env`:
+   ```sh
+   cp .env.example .env
+   ```
+2. Edit `.env` and replace `your_token_here` with your GitHub PAT:
+   ```
+   GITHUB_PERSONAL_ACCESS_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
+   ```
+3. The `.env` file is gitignored and will **not** be committed.
+
 The MCP server is configured in [`.vscode/mcp.json`](.vscode/mcp.json):
 
 ```json
@@ -123,25 +153,17 @@ The MCP server is configured in [`.vscode/mcp.json`](.vscode/mcp.json):
   "servers": {
     "github": {
       "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_pat}"
-      }
+      "command": "sh",
+      "args": [
+        "-c",
+        "set -a && . '${workspaceFolder}/.env' && set +a && npx -y @modelcontextprotocol/server-github"
+      ]
     }
-  },
-  "inputs": [
-    {
-      "id": "github_pat",
-      "type": "promptString",
-      "description": "GitHub Personal Access Token",
-      "password": true
-    }
-  ]
+  }
 }
 ```
 
-VS Code will prompt for your PAT on first use. The token is not stored in the file.
+The server sources the `.env` file at startup — no interactive prompt needed.
 
 ### How It Connects to the Agent
 
@@ -167,10 +189,10 @@ Once connected, the agent can:
 
 ### Verifying the Integration
 
-1. Open VS Code and reload the window (`Cmd+Shift+P` → `Developer: Reload Window`).
-2. Open Copilot Chat and select the **Multi-Cloud Migration Estimator** agent.
-3. Ask: _"List open issues in this repo"_.
-4. If prompted for a PAT, enter your token.
+1. Ensure `.env` contains a valid PAT.
+2. Open VS Code and reload the window (`Cmd+Shift+P` → `Developer: Reload Window`).
+3. Open Copilot Chat and select the **Multi-Cloud Migration Estimator** agent.
+4. Ask: _"List open issues in this repo"_.
 5. The agent should return results from the GitHub API.
 
 ### Troubleshooting MCP
@@ -178,7 +200,9 @@ Once connected, the agent can:
 | Symptom | Fix |
 |---|---|
 | `npx` not found | Ensure Node.js is installed and `npx` is on your `PATH` |
-| Auth errors (401/403) | Regenerate your PAT with the required scopes (`repo`, `read:org`) |
+| Auth errors (401/403) | Check your PAT in `.env` has the required scopes (`repo`, `read:org`) |
+| **404 on private repos** | Your PAT needs `repo` scope (not just `public_repo`). Update `.env` and restart the MCP server |
+| **`.env` not found error** | Run `cp .env.example .env` and fill in your token |
 | MCP tools not available to agent | Confirm `"mcp:github"` is in the `tools` list in the agent file |
 | Server not starting | Check the **Output** panel → **MCP** for server logs |
 | Timeout on first run | First `npx` invocation downloads the package; retry after it completes |

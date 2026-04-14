@@ -13,6 +13,25 @@ Produce an architect-ready migration decision report that maps AWS services to A
 - Prioritize IaC from: `input/**/src/*.tf`, `input/**/src/tfvar_configs/**/*.tfvars`, `input/**/src/helm/**`
 - If `input/` is missing, fallback to `src/**`
 
+## Remote Repository Scope (GitHub MCP)
+When the user provides one or more GitHub repository URLs instead of (or in addition to) local files:
+
+1. **Parse repo references** — accept URLs like `https://github.com/{owner}/{repo}` or shorthand `{owner}/{repo}`. Extract owner, repo name, and optional branch/path.
+2. **Discover TF files** — for each repo, use the GitHub MCP tool `mcp_github_get_file_contents` to list the repo root and recursively discover `.tf` and `.tfvars` files. Common paths to check:
+   - Root directory
+   - `src/`, `infra/`, `terraform/`, `infrastructure/`, `iac/`, `deploy/`
+   - Any subdirectory structure the user specifies
+3. **Fetch file contents** — use `mcp_github_get_file_contents` to read each discovered `.tf` / `.tfvars` / Helm file. Decode Base64-encoded content returned by the API.
+4. **Aggregate across repos** — combine all discovered resources into a unified inventory, tagging each resource with its source repo for traceability.
+5. **Proceed with standard workflow** — once all remote files are fetched, continue with the normal Workflow steps below (inventory, mapping, costing, risk, recommendation).
+
+### Authentication
+- The GitHub MCP server reads the PAT from a `.env` file at the workspace root.
+- Users must copy `.env.example` to `.env` and set `GITHUB_PERSONAL_ACCESS_TOKEN` with a token that has `repo` and `read:org` scopes.
+- The `.env` file is gitignored and never committed.
+- For private repositories, the PAT **must** have `repo` scope. A token with only `public_repo` scope will return 404 errors on private repos.
+- If the server fails to start, verify `.env` exists and contains a valid token, then restart the MCP server.
+
 ## Required Inputs
 - Scope (workspaces/services)
 - Planning horizon (months)
@@ -25,8 +44,13 @@ Produce an architect-ready migration decision report that maps AWS services to A
 If assumptions are incomplete, proceed with explicit "Assumed" labels.
 
 ## Workflow
-1. Recursively search all files under `input/**`, then discover and inventory AWS resources from IaC.
-2. Group resources by capability:
+1. **Source discovery** — determine source mode:
+   - If the user provides GitHub repo URLs: use `mcp_github_get_file_contents` to list directories and fetch `.tf`, `.tfvars`, and Helm files from each repo. Tag each resource with its source repo (`owner/repo@branch`).
+   - If local `input/**` exists: recursively search all files under `input/**`.
+   - Fallback: search `src/**`.
+   Combine all sources into a unified file set.
+2. Discover and inventory AWS resources from the collected IaC files.
+3. Group resources by capability:
    - Compute
    - Networking
    - Data
@@ -54,7 +78,8 @@ If assumptions are incomplete, proceed with explicit "Assumed" labels.
 ## Output Format
 Return one markdown report with these sections in order:
 1. Executive Summary
-2. Source AWS Footprint
+2. Source Repository Inventory (when using remote repos — list repos analyzed with branch and file count)
+3. Source AWS Footprint
 3. Service Mapping Matrix
 4. Regional Cost Analysis (Directional)
 5. Migration Challenge Register

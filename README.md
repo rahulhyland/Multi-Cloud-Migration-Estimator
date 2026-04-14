@@ -75,6 +75,11 @@ Edit `.github/agents/multicloud-migration-estimator.agent.md` to modify discover
 
 All agent behavior, discovery logic, and report generation instructions are contained within the agent file. No external skill dependencies exist.
 
+## Improvement
+Current approach: we use a single agent, so all workflow and guardrails are intentionally centralized in one agent file for simpler maintenance.
+
+Future scaling approach: if we introduce multiple agents, we can extract shared logic into one reusable skill file and have each agent reference that same skill to avoid duplication and keep behavior consistent.
+
 ## Common Update Patterns
 
 ### Add a new target region

@@ -3,12 +3,15 @@
 This folder contains a custom Copilot agent used to estimate AWS to Azure and GCP migration effort, regional cost (US, EU, AU), and architect decision guidance.
 
 ## Files
+
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
 - `Reports/`: Generated migration decision report artifacts. Each run creates a timestamped subfolder containing the markdown report, draw.io diagram file, and SVG exports (three architecture SVGs always; optional chart SVGs when requested).
 
 ## What This Agent Does
+
 The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*.tf`) and produces a migration report with:
+
 - AWS source footprint summary
 - Azure and GCP service mapping
 - Directional regional cost analysis (US, EU, AU)
@@ -19,15 +22,18 @@ The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*
 - Optional supplemental draw.io charts (when explicitly requested): cost comparison, effort-risk, and scenario comparison, also exported as SVG in the same per-run folder
 
 ## How To Use
+
 1. Open Copilot Chat in VS Code.
 2. Select the agent named `Multi-Cloud Migration Estimator`.
 3. Provide your scope and assumptions.
 4. Ask for a report.
 
 ## Recommended Prompt Input
+
 Use this template when running the agent:
 
 ### Local Files
+
 ```text
 Create a migration decision report for this repo.
 Scope: input/**/src/*.tf, all environments.
@@ -42,6 +48,7 @@ Assumptions:
 ```
 
 ### Remote Repositories (Multi-Repo)
+
 ```text
 Create a migration decision report by fetching Terraform files from these repositories:
 - https://github.com/org/service-api
@@ -61,7 +68,9 @@ Assumptions:
 ```
 
 ## Expected Output Sections
+
 The report is expected to include these sections:
+
 1. Executive Summary
 2. Source Repository Inventory
 3. Source AWS Footprint
@@ -89,11 +98,13 @@ Notes:
 - Mermaid blocks are not embedded in the markdown report.
 
 ## How To Update The Agent
+
 Edit `.github/agents/multicloud-migration-estimator.agent.md` to modify discovery scope, workflow, report format, or guardrails.
 
 All agent behavior, discovery logic, and report generation instructions are contained within the agent file. No external skill dependencies exist.
 
 ## Improvement
+
 Current approach: we use a single agent, so all workflow and guardrails are intentionally centralized in one agent file for simpler maintenance.
 
 Future scaling approach: if we introduce multiple agents, we can extract shared logic into one reusable skill file and have each agent reference that same skill to avoid duplication and keep behavior consistent.
@@ -101,26 +112,32 @@ Future scaling approach: if we introduce multiple agents, we can extract shared 
 ## Common Update Patterns
 
 ### Add a new target region
+
 - Update `Approach` and `Output Format` cost table columns.
 - Mention the region explicitly in `description` if discoverability matters.
 
 ### Add a new cloud target
+
 - Update all references from "Azure and GCP" to include the new cloud.
 - Extend the Service Mapping Matrix and cost table columns.
 - Add cloud-specific risk items to migration challenges.
 
 ### Tighten governance/compliance requirements
+
 - Add requirements under `Hard Constraints`.
 - Add explicit checks in `Approach` and `Open Questions`.
 
 ## Authoring Guidelines
+
 - Keep instructions explicit and testable.
 - Avoid vague wording like "best effort" without criteria.
 - Keep output format stable to avoid report drift across runs.
 - Prefer additive updates over full rewrites.
 
 ## Versioning And Review
+
 When updating this agent in a pull request:
+
 - Summarize what changed in prompt behavior.
 - Include one before/after sample prompt.
 - Include one sample output delta (section-level is enough).
@@ -131,6 +148,7 @@ When updating this agent in a pull request:
 The agent integrates with the [GitHub MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/github) to interact with GitHub APIs (issues, PRs, repos, search) directly from Copilot Chat.
 
 ### Prerequisites
+
 - **Node.js** (v18+) — required currently to run the MCP server via `npx`.
 - **GitHub Personal Access Token** — create one at **Settings → Developer settings → Personal access tokens** with scopes: `repo`, `read:org`.
 
@@ -179,13 +197,13 @@ This grants the agent access to all tools exposed by the GitHub MCP server. To r
 
 Once connected, the agent can:
 
-| Capability | Example Use Case |
-|---|---|
-| **Create issues** | File tracking issues from the Open Questions or Challenge Register |
-| **Search repositories** | Find reference IaC patterns in other repos |
-| **Read repo files** | Pull Terraform modules or Helm charts from remote repos |
-| **Create/manage PRs** | Open a PR with the generated migration report |
-| **List branches/tags** | Discover environment branches for IaC discovery |
+| Capability              | Example Use Case                                                   |
+| ----------------------- | ------------------------------------------------------------------ |
+| **Create issues**       | File tracking issues from the Open Questions or Challenge Register |
+| **Search repositories** | Find reference IaC patterns in other repos                         |
+| **Read repo files**     | Pull Terraform modules or Helm charts from remote repos            |
+| **Create/manage PRs**   | Open a PR with the generated migration report                      |
+| **List branches/tags**  | Discover environment branches for IaC discovery                    |
 
 ### Verifying the Integration
 
@@ -197,19 +215,125 @@ Once connected, the agent can:
 
 ### Troubleshooting MCP
 
-| Symptom | Fix |
-|---|---|
-| `npx` not found | Ensure Node.js is installed and `npx` is on your `PATH` |
-| Auth errors (401/403) | Check your PAT in `.env` has the required scopes (`repo`, `read:org`) |
-| **404 on private repos** | Your PAT needs `repo` scope (not just `public_repo`). Update `.env` and restart the MCP server |
-| **`.env` not found error** | Run `cp .env.example .env` and fill in your token |
-| MCP tools not available to agent | Confirm `"mcp:github"` is in the `tools` list in the agent file |
-| Server not starting | Check the **Output** panel → **MCP** for server logs |
-| Timeout on first run | First `npx` invocation downloads the package; retry after it completes |
+| Symptom                          | Fix                                                                                            |
+| -------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `npx` not found                  | Ensure Node.js is installed and `npx` is on your `PATH`                                        |
+| Auth errors (401/403)            | Check your PAT in `.env` has the required scopes (`repo`, `read:org`)                          |
+| **404 on private repos**         | Your PAT needs `repo` scope (not just `public_repo`). Update `.env` and restart the MCP server |
+| **`.env` not found error**       | Run `cp .env.example .env` and fill in your token                                              |
+| MCP tools not available to agent | Confirm `"mcp:github"` is in the `tools` list in the agent file                                |
+| Server not starting              | Check the **Output** panel → **MCP** for server logs                                           |
+| Timeout on first run             | First `npx` invocation downloads the package; retry after it completes                         |
+
+## Atlassian Confluence Integration
+
+The agent can publish generated migration reports to Atlassian Confluence for team sharing and archival.
+
+### Prerequisites
+
+- **Atlassian Confluence Cloud** account with access to a space where you have Write permission.
+- **Atlassian API Token** — create one at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
+
+### Configuration
+
+1. Open `.env` and add your Atlassian credentials (these are in addition to your GitHub token):
+
+   ```ini
+   ATLASSIAN_API_EMAIL=your_email@company.com
+   ATLASSIAN_API_TOKEN=your_api_token_here
+   ATLASSIAN_API_ENDPOINT=https://your-instance.atlassian.net
+   ATLASSIAN_DOMAIN=your-instance.atlassian.net
+   ```
+
+2. Verify your workspace has a valid `.env` with all three variables filled in.
+
+3. The agent uses an Atlassian MCP server for Confluence operations:
+   - It connects using `.env` credentials.
+   - It publishes reports to your personal Confluence space (`~anandy`).
+   - It returns a direct link to the created/updated page.
+
+### How Publishing Works
+
+When you ask the agent to publish a report to Confluence:
+
+1. Agent reads the generated report from `Reports/` folder.
+2. Agent uses `confluence_list_spaces` / `confluence_search` to resolve destination and duplicates.
+3. Agent creates or updates a page with `confluence_create_page` / `confluence_update_page`.
+4. Agent verifies with `confluence_get_page`.
+5. Agent returns a direct link to the published page.
+
+### Example Usage
+
+After the agent generates a migration report:
+
+```text
+Publish this report to Confluence.
+```
+
+Or explicitly:
+
+```text
+Create a migration decision report for this repo, then publish it to Confluence.
+```
+
+### Published Reports
+
+Your published migration reports are accessible at:
+
+🔗 [Personal Confluence Space](https://hyland.atlassian.net/wiki/spaces/~anandy/overview)
+
+(Note: You must have access to this space; adjust the space key if targeting a different space.)
+
+### Available Capabilities
+
+| Capability                 | Status | Notes                                                                   |
+| -------------------------- | ------ | ----------------------------------------------------------------------- |
+| **Create page**            | ✓      | Published to personal Confluence space with date-stamped title          |
+| **Update page**            | ✓      | Agent detects title collisions and updates existing pages               |
+| **Space discovery**        | ✓      | Uses MCP tools to resolve destination space and IDs                     |
+| **Cross-space publishing** | ◐      | Currently targets personal space; team space requires permission change |
+
+### Error Handling
+
+| Error                | Cause                          | Fix                                                                |
+| -------------------- | ------------------------------ | ------------------------------------------------------------------ |
+| **401 Unauthorized** | Invalid credentials in `.env`  | Verify email matches your Atlassian account and API token is valid |
+| **403 Forbidden**    | No Write permission in space   | Check your personal Confluence space settings                      |
+| **400 Bad Request**  | Invalid markdown or page title | Check report content for special characters in title               |
+| **409 Conflict**     | Page with same title exists    | Agent will offer to update existing page instead                   |
+
+### Troubleshooting Authentication
+
+1. **Verify API Token**:
+   - Go to [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
+   - Ensure the token has been created and is not expired.
+   - Copy the full token (it's only shown once).
+
+2. **Test MCP startup locally**:
+
+   ```bash
+      set -a && . ./.env && set +a
+      ATLASSIAN_DOMAIN=${ATLASSIAN_API_ENDPOINT#https://}
+      npx -y @xuandev/atlassian-mcp --domain "$ATLASSIAN_DOMAIN" --email "$ATLASSIAN_API_EMAIL" --token "$ATLASSIAN_API_TOKEN" --help
+   ```
+
+   If help output appears successfully, MCP startup wiring is valid.
+
+3. **Check `.env` formatting**:
+   - Ensure no extra spaces or trailing newlines.
+   - Verify email matches your Atlassian account exactly.
+
+### Opting Out
+
+Confluence publishing is **optional**. If you don't configure `.env` with Atlassian credentials:
+
+- The agent still generates and saves reports locally to `Reports/`.
+- Confluence publishing will be skipped or fail gracefully.
+- All core migration analysis functionality remains available.
 
 ## Troubleshooting
+
 - Agent not showing in picker: verify YAML frontmatter is valid and file path is `.github/agents/*.agent.md`.
 - Agent not selected automatically: improve `description` with clear trigger phrases.
 - Output missing sections: check `Output Format` section and section numbering.
 - Inconsistent costs: ensure assumptions are provided and confidence labels are included.
-

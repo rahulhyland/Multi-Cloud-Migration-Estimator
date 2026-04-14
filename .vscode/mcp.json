@@ -7,6 +7,14 @@
         "-c",
         "set -a && . '${workspaceFolder}/.env' && set +a && npx -y @modelcontextprotocol/server-github"
       ]
+    },
+    "atlassian": {
+      "type": "stdio",
+      "command": "sh",
+      "args": [
+        "-c",
+        "cd '${workspaceFolder}' && set -a && . ./.env && set +a && npx -y @xuandev/atlassian-mcp --domain \"$ATLASSIAN_DOMAIN\" --email \"$ATLASSIAN_API_EMAIL\" --token \"$ATLASSIAN_API_TOKEN\""
+      ]
     }
   }
 }

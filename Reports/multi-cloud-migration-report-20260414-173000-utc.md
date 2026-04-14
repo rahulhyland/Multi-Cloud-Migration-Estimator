@@ -164,6 +164,14 @@ SVG exports (one per architecture view):
 - Azure Target: [Reports/multi-cloud-migration-diagrams-20260414-173000-utc-azure-target.svg](multi-cloud-migration-diagrams-20260414-173000-utc-azure-target.svg)
 - GCP Target: [Reports/multi-cloud-migration-diagrams-20260414-173000-utc-gcp-target.svg](multi-cloud-migration-diagrams-20260414-173000-utc-gcp-target.svg)
 
+Embedded diagrams:
+
+![AWS Source](multi-cloud-migration-diagrams-20260414-173000-utc-aws-source.svg)
+
+![Azure Target](multi-cloud-migration-diagrams-20260414-173000-utc-azure-target.svg)
+
+![GCP Target](multi-cloud-migration-diagrams-20260414-173000-utc-gcp-target.svg)
+
 Page mapping (draw.io):
 - **AWS Source** — current-state AWS component architecture (EKS, SNS/SQS, ALB/WAF/Route53, EFS, S3, Datadog).
 - **Azure Target** — recommended Azure target architecture (AKS, Service Bus, App Gateway/WAF/Azure DNS, Azure Files, Blob, Azure Monitor).

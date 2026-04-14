@@ -126,6 +126,7 @@ Return one markdown report with these sections in order:
 11. Component Diagrams
    - Reference the generated draw.io artifact path
    - Reference each generated SVG file path (aws-source, azure-target, gcp-target)
+   - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)`
    - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
    - Do not embed Mermaid blocks in the markdown report
 
@@ -135,6 +136,7 @@ Return one markdown report with these sections in order:
 - **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact to the `Reports/` folder in the current workspace (for example: `Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`).
 - Generate a matching draw.io diagram artifact in the same folder using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc.drawio`.
 - Generate three SVG exports from the draw.io pages — one per architecture view — using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-azure-target.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-gcp-target.svg`. Save all SVG files in the `Reports/` folder.
+- Embed all three SVG files inside section 11 of the markdown report using markdown image links to the generated SVG paths.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
 - Confirm file creation and provide the exact file paths for the markdown report, the draw.io artifact, and all three SVG files in the response to the user.
 

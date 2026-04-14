@@ -75,6 +75,7 @@ The report is expected to include these sections:
 
 Notes:
 - The markdown report references the generated draw.io artifact path and all three SVG file paths for diagrams.
+- The markdown report embeds all three SVG files directly in section 11 using markdown image syntax.
 - SVG files are saved as `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{aws-source|azure-target|gcp-target}.svg` in `Reports/`.
 - Mermaid blocks are not embedded in the markdown report.
 

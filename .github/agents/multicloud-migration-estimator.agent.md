@@ -18,6 +18,13 @@ Deliver an architect-ready migration decision report for AWS-to-Azure/GCP using 
 Cost analysis must include both a 30-day total run-rate view and a metered billing tier view aligned to official pricing units and breakpoints.
 All cost outputs must explicitly state currency (default: USD) wherever cost is shown.
 
+
+For remote repositories, use GitHub API access only (via MCP tools and token-authenticated requests). Do not clone, pull, fetch, or checkout remote repositories into local folders.
+
+Execution guardrail for remote repositories:
+- Do not use shell-based discovery/fetch flows (for example `curl` + `jq` + `grep` in terminal) for remote repo inventory or file reads.
+- Use `mcp:github` tools first for listing and content retrieval.
+- If `mcp:github` is unavailable or failing in the current run, stop and report the MCP issue with a concrete recovery step (for example restart MCP server / validate `.env` token). Do not silently fall back to terminal scraping.
 ## Default Scope
 
 **Local Priority:**
@@ -27,6 +34,12 @@ All cost outputs must explicitly state currency (default: USD) wherever cost is 
 
 **Remote Repository Support (GitHub MCP):**
 When the user provides one or more GitHub repository URLs instead of (or in addition to) local files:
+
+Hard rule for remote repos:
+- Never run `git clone`, `git fetch`, `git pull`, `git checkout`, or any local mirror operation for those remote repos.
+- Use only GitHub API based retrieval (`mcp_github_get_file_contents`, `web/githubRepo`, or equivalent API-backed tooling).
+- Access private repos only through PAT-authenticated API calls.
+- For agent behavior, prefer `mcp:github` over generic web/terminal methods whenever both are available.
 
 1. **Parse repo references** — accept URLs like `https://github.com/{owner}/{repo}` or shorthand `{owner}/{repo}`. Extract owner, repo name, and optional branch/path.
 2. **Discover TF files** — for each repo, use the GitHub MCP tool `mcp_github_get_file_contents` to list the repo root and recursively discover `.tf` and `.tfvars` files. Common paths to check:
@@ -287,15 +300,6 @@ Return one markdown report with these sections in order:
 - When supplemental charts are generated, include a sub-list for chart page mapping and embed each chart SVG below the architecture diagrams.
 - Do not embed Mermaid blocks in the markdown report
 
-Generate a PDF version of the report as a secondary artifact in the same folder, using filename format: `report.pdf`. Ensure the PDF formatting is clean and readable, with tables properly rendered and diagrams included. Confirm PDF creation and provide the exact file path in the response to the user.
-
-1. Use the previously generated Markdown file as the source for PDF generation to ensure consistency between the two formats.
-2. Convert the markdown to a self-contained HTML file first using a Python script (inline conversion with `python3 -c` or a heredoc), then render to PDF with Chrome headless (`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --disable-gpu --no-sandbox --print-to-pdf=<path> --print-to-pdf-no-header <file:// URL>`). Remove the intermediate HTML file after PDF is confirmed.
-3. Use a dark-themed, professional CSS layout in the HTML intermediate: `background:#0d1726; color:#ddf0ff` body, high-contrast heading styles, and explicit table border/cell styling so tables render clearly in the PDF.
-4. Confirm that the PDF file is saved in the same newly created timestamped subfolder under `Reports/` alongside the markdown report and draw.io files.
-5. After successful PDF generation, provide the exact file path for the PDF in the response to the user, confirming that both the markdown and PDF artifacts are available for review.
-6. If Chrome headless is not available, note the limitation and provide the install command (`brew install --cask google-chrome`) as a fallback.
-
 ### Report Artifact (Required)
 
 - **Create a new output folder in `Reports/` for each run before writing artifacts.**
@@ -323,8 +327,32 @@ Generate a PDF version of the report as a secondary artifact in the same folder,
   - **Section 11 (Component Diagrams):** Always embed the three architecture diagrams (AWS Source, Azure Target, GCP Target) and **ONLY these three**. Do not embed cost chart, effort-risk chart, or scenario chart here.
   - **Critical Constraint:** Each SVG file should be embedded in exactly ONE location per report. No duplicate embeddings across sections. Verify with grep/search before finalizing report.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
-- Confirm file creation and provide the exact file paths for the markdown report, the PDF report, and the draw.io artifact in the response to the user.
 - Do not print SVG file paths in the chat response; keep SVG path references inside section 11 of the saved markdown report.
+
+### PDF Generation (Required)
+After saving the markdown report, **also generate a PDF version** using the helper script at `scripts/generate-pdf.sh`.
+
+**One-time install — no sudo, no system packages (requires Node.js ≥ 18):**
+```
+npm install -g @mermaid-js/mermaid-cli md-to-pdf
+```
+
+**Why this toolchain:**
+- `md-to-pdf` renders Markdown to PDF via a headless Chromium — produces GitHub-quality formatting with proper table scaling and code block wrapping.
+- `mmdc` (Mermaid CLI) pre-renders every Mermaid diagram block to a real embedded PNG image. Falls back to the `mermaid.ink` public API if `mmdc` is not installed (requires internet). Falls back to a placeholder note if neither is available.
+- No LaTeX, no sudo, no system-level installation. Node.js (already present) is the only system dependency.
+
+**Steps:**
+1. Check if `md-to-pdf` is installed:
+   ```
+   which md-to-pdf || npm install -g @mermaid-js/mermaid-cli md-to-pdf
+   ```
+2. Ensure the markdown report has been saved to `Reports/`.
+3. Run the script:
+   ```
+   bash scripts/generate-pdf.sh Reports/<report-filename>.md Reports/<report-filename>.pdf
+   ```
+4. Confirm both the `.md` and `.pdf` files exist and provide their paths to the user.
 
 ### Post-Generation Validation (Required Before Finalizing Report)
 - **SVG Embedding Verification:** After generating the report, search for each SVG filename in the markdown to confirm:
@@ -343,6 +371,8 @@ Generate a PDF version of the report as a secondary artifact in the same folder,
 ## Guardrails
 
 - Do not invent discovered resources.
+- Do not clone or locally checkout remote repositories when repo URLs are provided.
+- For remote repositories, rely only on token-authenticated GitHub API based file discovery and file reads.
 - Mark unknowns as "Not found in IaC".
 - Use public pricing references where available and keep all costs clearly directional, not contractual quotes.
 - Clearly label all pricing as directional estimates.

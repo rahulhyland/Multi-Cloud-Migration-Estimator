@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .label { font-size: 11px; fill: #ffffff; font-weight: bold; }
+      .label-dark { font-size: 11px; fill: #1a1a1a; font-weight: bold; }
+      .label-sm { font-size: 9px; fill: #ffffff; }
+      .caption { font-size: 10px; fill: #333333; }
+    </style>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0078D4"/>
+    </marker>
+    <marker id="arr-g" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00CC44"/>
+    </marker>
+    <marker id="arr-b" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00AAFF"/>
+    </marker>
+    <marker id="arr-p" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#AA00FF"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1000" fill="#f0f4ff"/>
+
+  <!-- Title -->
+  <text x="800" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a" font-family="Segoe UI, Arial, sans-serif">HxTS Azure Target Architecture — AKS 1.33 | East US / West Europe | Scenario A (Cost-First)</text>
+
+  <!-- VNET container -->
+  <rect x="10" y="50" width="1580" height="930" rx="12" fill="#e8f0fe" stroke="#0078D4" stroke-width="3"/>
+  <text x="20" y="75" font-size="13" font-weight="bold" fill="#0078D4" font-family="Segoe UI, Arial, sans-serif">Azure Virtual Network — 10.17.0.0/18  |  Private subnets (3 AZs)  |  NSG + Calico NetworkPolicy</text>
+
+  <!-- External Clients -->
+  <rect x="20" y="100" width="150" height="65" rx="8" fill="#1565C0" stroke="#0d47a1" stroke-width="2"/>
+  <text x="95" y="127" class="label" text-anchor="middle">External Clients</text>
+  <text x="95" y="143" class="label-sm" text-anchor="middle">HxPR / CIC</text>
+  <text x="95" y="157" class="label-sm" text-anchor="middle">Browsers</text>
+
+  <!-- Azure DNS -->
+  <rect x="200" y="90" width="200" height="50" rx="8" fill="#0078D4" stroke="#004da0" stroke-width="2"/>
+  <text x="300" y="111" class="label" text-anchor="middle">Azure DNS</text>
+  <text x="300" y="128" class="label-sm" text-anchor="middle">*.{env}.experience.hyland.com</text>
+  <text x="300" y="138" class="label-sm" text-anchor="middle">CNAME → App Gateway</text>
+
+  <!-- App Gateway + WAF -->
+  <rect x="430" y="84" width="250" height="85" rx="8" fill="#0078D4" stroke="#004da0" stroke-width="2"/>
+  <text x="555" y="108" class="label" text-anchor="middle">Application Gateway v2</text>
+  <text x="555" y="125" class="label-sm" text-anchor="middle">WAF Policy (West Premium)</text>
+  <text x="555" y="141" class="label-sm" text-anchor="middle">OWASP 3.2 + 4 custom rules</text>
+  <text x="555" y="157" class="label-sm" text-anchor="middle">HTTPS :443 | TLS 1.2+ | idle 60s</text>
+  <rect x="636" y="87" width="40" height="18" rx="4" fill="#d32f2f"/>
+  <text x="656" y="100" font-size="9" text-anchor="middle" fill="#ffffff" font-family="Arial">WAF</text>
+
+  <!-- Key Vault note near App GW -->
+  <rect x="710" y="84" width="180" height="60" rx="8" fill="#e65100" stroke="#bf360c" stroke-width="2"/>
+  <text x="800" y="107" class="label" text-anchor="middle">Azure Key Vault</text>
+  <text x="800" y="124" class="label-sm" text-anchor="middle">TLS cert (App Gateway)</text>
+  <text x="800" y="138" class="label-sm" text-anchor="middle">Monthly key rotation (SOC2)</text>
+
+  <!-- ⚠ Karpenter warning -->
+  <rect x="935" y="84" width="225" height="65" rx="8" fill="#f57f17" stroke="#e65100" stroke-width="2"/>
+  <text x="1047" y="107" class="label-dark" text-anchor="middle" font-size="12">⚠ Karpenter Interim</text>
+  <text x="1047" y="124" class="label-sm" text-anchor="middle" fill="#1a1a1a">AKS Karpenter GA: Target H2 2026</text>
+  <text x="1047" y="141" class="label-sm" text-anchor="middle" fill="#1a1a1a">Using VMSS autoscaler until GA</text>
+  <text x="1047" y="148" class="label-sm" text-anchor="middle" fill="#1a1a1a">Standard_D4s_v3 (≈m5.xlarge)</text>
+
+  <!-- Private Subnets border -->
+  <rect x="20" y="175" width="1550" height="760" rx="10" fill="#dceefb" stroke="#1565C0" stroke-width="2"/>
+  <text x="30" y="198" font-size="12" font-weight="bold" fill="#1565C0" font-family="Arial">Private Subnets (3 AZs)</text>
+
+  <!-- AKS Cluster Box -->
+  <rect x="30" y="210" width="1100" height="690" rx="10" fill="#e3f2fd" stroke="#0d47a1" stroke-width="3"/>
+  <text x="580" y="234" font-size="13" font-weight="bold" text-anchor="middle" fill="#0d47a1" font-family="Arial">AKS Cluster — hxts-{env} | Kubernetes 1.33 | Standard_D4s_v3 | min 3, max 25 | VMSS interim autoscaler | Entra ID OIDC</text>
+
+  <!-- T-REST -->
+  <rect x="50" y="255" width="130" height="75" rx="6" fill="#0d47a1" stroke="#001970" stroke-width="2"/>
+  <text x="115" y="278" class="label" text-anchor="middle">T-REST</text>
+  <text x="115" y="295" class="label-sm" text-anchor="middle">:8080 HTTP</text>
+  <text x="115" y="312" class="label-sm" text-anchor="middle">Service Bus trigger</text>
+  <text x="115" y="328" class="label-sm" text-anchor="middle">Azure Files NFS</text>
+
+  <!-- T-Router -->
+  <rect x="200" y="255" width="130" height="75" rx="6" fill="#0d47a1" stroke="#001970" stroke-width="2"/>
+  <text x="265" y="278" class="label" text-anchor="middle">T-Router</text>
+  <text x="265" y="295" class="label-sm" text-anchor="middle">SB fanout</text>
+  <text x="265" y="312" class="label-sm" text-anchor="middle">RBAC auth</text>
+
+  <!-- T-Engines -->
+  <rect x="350" y="245" width="740" height="100" rx="8" fill="#bbdefb" stroke="#1565C0" stroke-width="2"/>
+  <text x="720" y="268" font-size="11" font-weight="bold" text-anchor="middle" fill="#1565C0" font-family="Arial">T-Engines (9 pods — unchanged Kubernetes spec)</text>
+  <rect x="362" y="278" width="80" height="48" rx="4" fill="#1565C0" stroke="#0d47a1"/>
+  <text x="402" y="298" class="label-sm" text-anchor="middle">Tika</text>
+  <rect x="452" y="278" width="80" height="48" rx="4" fill="#1565C0" stroke="#0d47a1"/>
+  <text x="492" y="298" class="label-sm" text-anchor="middle">ImageMagick</text>
+  <rect x="542" y="278" width="80" height="48" rx="4" fill="#1565C0" stroke="#0d47a1"/>
+  <text x="582" y="298" class="label-sm" text-anchor="middle">LibreOffice</text>
+  <rect x="632" y="278" width="80" height="48" rx="4" fill="#1565C0" stroke="#0d47a1"/>
+  <text x="672" y="298" class="label-sm" text-anchor="middle">DocFilters</text>
+  <rect x="722" y="278" width="80" height="48" rx="4" fill="#1565C0" stroke="#0d47a1"/>
+  <text x="762" y="298" class="label-sm" text-anchor="middle">DocMerge</text>
+  <rect x="812" y="278" width="70" height="48" rx="4" fill="#1565C0" stroke="#0d47a1"/>
+  <text x="847" y="298" class="label-sm" text-anchor="middle">Misc</text>
+  <rect x="892" y="278" width="70" height="48" rx="4" fill="#1565C0" stroke="#0d47a1"/>
+  <text x="927" y="298" class="label-sm" text-anchor="middle">AIO (opt)</text>
+
+  <!-- KEDA -->
+  <rect x="50" y="380" width="165" height="75" rx="8" fill="#4a148c" stroke="#311b92" stroke-width="2"/>
+  <text x="132" y="403" class="label" text-anchor="middle">KEDA 2.17.2</text>
+  <text x="132" y="420" class="label-sm" text-anchor="middle">Service Bus trigger</text>
+  <text x="132" y="437" class="label-sm" text-anchor="middle">MI / conn-string auth</text>
+  <text x="132" y="454" class="label-sm" text-anchor="middle">min 2-5 | max 50-150</text>
+
+  <!-- Datadog -->
+  <rect x="230" y="380" width="165" height="75" rx="8" fill="#6a0dad" stroke="#4a148c" stroke-width="2"/>
+  <text x="312" y="403" class="label" text-anchor="middle">Datadog 3.146.1</text>
+  <text x="312" y="420" class="label-sm" text-anchor="middle">DaemonSet (same)</text>
+  <text x="312" y="437" class="label-sm" text-anchor="middle">datadoghq.com endpoint</text>
+  <text x="312" y="454" class="label-sm" text-anchor="middle">Java Agent v1.60.1</text>
+
+  <!-- Workload Identity -->
+  <rect x="410" y="380" width="175" height="75" rx="8" fill="#880e4f" stroke="#560027" stroke-width="2"/>
+  <text x="497" y="403" class="label" text-anchor="middle">Workload Identity</text>
+  <text x="497" y="420" class="label-sm" text-anchor="middle">Entra ID OIDC</text>
+  <text x="497" y="437" class="label-sm" text-anchor="middle">Managed Identity (pod)</text>
+  <text x="497" y="454" class="label-sm" text-anchor="middle">Hyland CAM integration</text>
+
+  <!-- Network Policies -->
+  <rect x="600" y="380" width="175" height="75" rx="8" fill="#795548" stroke="#4e342e" stroke-width="2"/>
+  <text x="687" y="403" class="label" text-anchor="middle">Network Policies</text>
+  <text x="687" y="420" class="label-sm" text-anchor="middle">Calico (preview AKS)</text>
+  <text x="687" y="437" class="label-sm" text-anchor="middle">NSG rules equiv. SGs</text>
+  <text x="687" y="454" class="label-sm" text-anchor="middle">egress-only default</text>
+
+  <!-- Azure Files NFS -->
+  <rect x="790" y="380" width="175" height="75" rx="8" fill="#795548" stroke="#4e342e" stroke-width="2"/>
+  <text x="877" y="403" class="label" text-anchor="middle">Azure Files (NFS v4.1)</text>
+  <text x="877" y="420" class="label-sm" text-anchor="middle">50Gi NFS mount</text>
+  <text x="877" y="437" class="label-sm" text-anchor="middle">Shared File Store (SFS)</text>
+  <text x="877" y="454" class="label-sm" text-anchor="middle">Storage Acct KV-encrypted</text>
+  <rect x="962" y="383" width="40" height="16" rx="3" fill="#f44336"/>
+  <text x="982" y="395" font-size="8" text-anchor="middle" fill="#ffffff" font-family="Arial">NEW</text>
+
+  <!-- ACR -->
+  <rect x="980" y="380" width="120" height="75" rx="8" fill="#546e7a" stroke="#263238" stroke-width="2"/>
+  <text x="1040" y="403" class="label" text-anchor="middle">ACR</text>
+  <text x="1040" y="420" class="label-sm" text-anchor="middle">9 images</text>
+  <text x="1040" y="437" class="label-sm" text-anchor="middle">geo-replicated</text>
+  <text x="1040" y="454" class="label-sm" text-anchor="middle">MI pull auth</text>
+
+  <!-- EKS addons row -->
+  <rect x="50" y="480" width="1060" height="55" rx="8" fill="#37474f" stroke="#263238" stroke-width="1"/>
+  <text x="580" y="500" class="label" text-anchor="middle">AKS Managed Addons: azure-cni | coredns | kube-proxy | pod-identity-webhook | KEDA | cert-manager | external-dns</text>
+  <text x="580" y="526" class="label-sm" text-anchor="middle">Velero 11.4.0 (Blob plugin) | Datadog operator | brupop equivalent (node OS) | Karpenter (VMSS interim until GA H2 2026)</text>
+
+  <!-- Datadog monitors -->
+  <rect x="50" y="550" width="1060" height="50" rx="8" fill="#1a237e" stroke="#0d47a1" stroke-width="1"/>
+  <text x="580" y="573" class="label" text-anchor="middle">Datadog Monitors — same 5 infra monitors (Memory crit 85% | CPU crit 95% | Disk crit 90% | DD Agent Ready | DD Cluster Agent Ready)</text>
+  <text x="580" y="591" class="label-sm" text-anchor="middle">Teams (cloud-content-hxts-{env}-notifications) | PagerDuty (P1/P2 prod only)</text>
+
+  <!-- Right column: Azure services -->
+  <!-- Service Bus -->
+  <rect x="1165" y="210" width="225" height="130" rx="8" fill="#0078D4" stroke="#004da0" stroke-width="2"/>
+  <text x="1277" y="235" class="label" text-anchor="middle" font-size="12">Azure Service Bus Standard</text>
+  <text x="1277" y="253" class="label-sm" text-anchor="middle">~28 queues (1:1 from SQS names)</text>
+  <text x="1277" y="270" class="label-sm" text-anchor="middle">2 Topics: transform-request/reply</text>
+  <text x="1277" y="287" class="label-sm" text-anchor="middle">RBAC auth | KEDA SB trigger</text>
+  <text x="1277" y="304" class="label-sm" text-anchor="middle">256KB max | 4-day retention</text>
+  <text x="1277" y="321" class="label-sm" text-anchor="middle">Cross-tenant: Entra B2B</text>
+  <text x="1277" y="335" class="label-sm" text-anchor="middle">(equiv. SQS cross-acct)</text>
+
+  <!-- Key Vault (secrets) -->
+  <rect x="1165" y="360" width="225" height="100" rx="8" fill="#b71c1c" stroke="#7f0000" stroke-width="2"/>
+  <text x="1277" y="385" class="label" text-anchor="middle" font-size="12">Azure Key Vault — CMK</text>
+  <text x="1277" y="403" class="label-sm" text-anchor="middle">Monthly key rotation (SOC2)</text>
+  <text x="1277" y="420" class="label-sm" text-anchor="middle">Secrets: idp_client_secret</text>
+  <text x="1277" y="437" class="label-sm" text-anchor="middle">MI-based access</text>
+  <text x="1277" y="454" class="label-sm" text-anchor="middle">Soft-delete + purge protection</text>
+
+  <!-- Velero -->
+  <rect x="1165" y="480" width="225" height="100" rx="8" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+  <text x="1277" y="505" class="label" text-anchor="middle" font-size="12">Velero 11.4.0</text>
+  <text x="1277" y="523" class="label-sm" text-anchor="middle">Azure Blob Storage plugin</text>
+  <text x="1277" y="540" class="label-sm" text-anchor="middle">RA-GRS (geo-redundant)</text>
+  <text x="1277" y="557" class="label-sm" text-anchor="middle">US: EastUS→WestUS2</text>
+  <text x="1277" y="574" class="label-sm" text-anchor="middle">EU: WestEurope→NorthEurope</text>
+
+  <!-- VMSS note -->
+  <rect x="1165" y="600" width="225" height="80" rx="8" fill="#f57f17" stroke="#e65100" stroke-width="2"/>
+  <text x="1277" y="623" class="label-dark" text-anchor="middle" font-size="12">⚠ Karpenter Risk</text>
+  <text x="1277" y="641" class="label-sm" text-anchor="middle" fill="#1a1a1a">Karpenter for AKS: preview</text>
+  <text x="1277" y="658" class="label-sm" text-anchor="middle" fill="#1a1a1a">Monitor AKS 1.34+ release</text>
+  <text x="1277" y="675" class="label-sm" text-anchor="middle" fill="#1a1a1a">Fallback: VMSS node pools</text>
+
+  <!-- Arrows -->
+  <line x1="170" y1="132" x2="430" y2="128" stroke="#0078D4" stroke-width="3" marker-end="url(#arr)"/>
+  <line x1="680" y1="128" x2="710" y2="128" stroke="#0078D4" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="555" y1="169" x2="115" y2="255" stroke="#0078D4" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="115" y1="330" x2="265" y2="330" stroke="#00AAFF" stroke-width="2" marker-end="url(#arr-b)"/>
+  <line x1="265" y1="330" x2="1165" y2="280" stroke="#00CC44" stroke-width="2" marker-end="url(#arr-g)"/>
+  <line x1="1165" y1="300" x2="1090" y2="330" stroke="#00CC44" stroke-width="2" marker-end="url(#arr-g)"/>
+  <line x1="132" y1="380" x2="132" y2="345" stroke="#AA00FF" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-p)"/>
+
+  <!-- Legend -->
+  <rect x="20" y="960" width="1560" height="30" rx="4" fill="#263238"/>
+  <text x="30" y="980" font-size="10" fill="#0078D4" font-weight="bold" font-family="Arial">── Request flow</text>
+  <text x="170" y="980" font-size="10" fill="#00CC44" font-weight="bold" font-family="Arial">── Messaging (Service Bus)</text>
+  <text x="380" y="980" font-size="10" fill="#AA00FF" font-weight="bold" font-family="Arial">- - Scaling signal (KEDA)</text>
+  <text x="580" y="980" font-size="10" fill="#f57f17" font-weight="bold" font-family="Arial">⚠ Interim (VMSS until Karpenter GA)</text>
+  <text x="850" y="980" font-size="10" fill="#f44336" font-weight="bold" font-family="Arial">NEW = Migration delta from AWS baseline</text>
+  <text x="1200" y="980" font-size="10" fill="#aaaaaa" font-family="Arial">Scenario A — Cost-First | Directional estimate</text>
+</svg>

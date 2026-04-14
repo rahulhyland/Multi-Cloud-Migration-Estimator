@@ -1,0 +1,252 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 16px; font-weight: bold; fill: #1a1a1a; }
+      .label { font-size: 11px; fill: #ffffff; font-weight: bold; }
+      .label-dark { font-size: 11px; fill: #1a1a1a; font-weight: bold; }
+      .label-sm { font-size: 9px; fill: #ffffff; }
+      .section-title { font-size: 12px; font-weight: bold; fill: #1a1a1a; }
+      .caption { font-size: 10px; fill: #333333; }
+      marker#arr { markerWidth:10; markerHeight:7; refX:9; refY:3.5; orient:auto; }
+      marker#arr-green { markerWidth:10; markerHeight:7; refX:9; refY:3.5; orient:auto; }
+      marker#arr-blue { markerWidth:10; markerHeight:7; refX:9; refY:3.5; orient:auto; }
+      marker#arr-purple { markerWidth:10; markerHeight:7; refX:9; refY:3.5; orient:auto; }
+    </style>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#FF6600"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00CC44"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00AAFF"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#AA00FF"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="1000" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="800" y="32" class="title" text-anchor="middle" font-size="18">HxTS AWS Source Architecture — EKS 1.33 | us-east-1 (prod) / eu-central-1 (prod-eu)</text>
+
+  <!-- VPC Container -->
+  <rect x="10" y="50" width="1580" height="930" rx="12" fill="#fffbf0" stroke="#FF9900" stroke-width="3"/>
+  <text x="20" y="75" class="section-title" fill="#FF6600" font-size="13">AWS VPC — 10.17.0.0/18 (hts)  |  Private subnets: hts-private-*  |  Public subnets: hts-public-*  |  3 AZs</text>
+
+  <!-- External Clients -->
+  <rect x="20" y="100" width="150" height="65" rx="8" fill="#1565C0" stroke="#0d47a1" stroke-width="2"/>
+  <text x="95" y="127" class="label" text-anchor="middle">External Clients</text>
+  <text x="95" y="143" class="label-sm" text-anchor="middle">HxPR / CIC</text>
+  <text x="95" y="157" class="label-sm" text-anchor="middle">Browsers</text>
+
+  <!-- Route53 -->
+  <rect x="200" y="90" width="200" height="55" rx="8" fill="#FF9900" stroke="#c47a00" stroke-width="2"/>
+  <text x="300" y="113" class="label-dark" text-anchor="middle">Route53 — wildcard</text>
+  <text x="300" y="130" class="caption" text-anchor="middle" fill="#1a1a1a">*.{env}.experience.hyland.com</text>
+  <text x="300" y="145" class="caption" text-anchor="middle" fill="#1a1a1a">ALIAS → ALB</text>
+
+  <!-- WAFv2 -->
+  <rect x="430" y="90" width="220" height="80" rx="8" fill="#b71c1c" stroke="#7f0000" stroke-width="2"/>
+  <text x="540" y="113" class="label" text-anchor="middle">WAFv2 REGIONAL</text>
+  <text x="540" y="130" class="label-sm" text-anchor="middle">CoreRuleSet + 5 overrides</text>
+  <text x="540" y="145" class="label-sm" text-anchor="middle">BlockUris | SizeRestrictions</text>
+  <text x="540" y="162" class="label-sm" text-anchor="middle">CW logs 7d (DROP default)</text>
+
+  <!-- ALB -->
+  <rect x="680" y="90" width="230" height="80" rx="8" fill="#FF9900" stroke="#c47a00" stroke-width="2"/>
+  <text x="795" y="113" class="label-dark" text-anchor="middle">ALB — transform-ingress</text>
+  <text x="795" y="130" class="label-sm" text-anchor="middle" fill="#1a1a1a">HTTPS :443 | ELBSecurityPolicy</text>
+  <text x="795" y="146" class="label-sm" text-anchor="middle" fill="#1a1a1a">FS-1-2-Res-2020-10</text>
+  <text x="795" y="162" class="label-sm" text-anchor="middle" fill="#1a1a1a">HTTP→HTTPS redirect | idle 60s</text>
+
+  <!-- ACM -->
+  <rect x="940" y="90" width="155" height="80" rx="8" fill="#e65100" stroke="#bf360c" stroke-width="2"/>
+  <text x="1017" y="118" class="label" text-anchor="middle">ACM</text>
+  <text x="1017" y="135" class="label-sm" text-anchor="middle">Wildcard Cert</text>
+  <text x="1017" y="152" class="label-sm" text-anchor="middle">*.{env}.hyland.com</text>
+  <text x="1017" y="167" class="label-sm" text-anchor="middle">Auto-renew</text>
+
+  <!-- Private NLB / nginx -->
+  <rect x="200" y="200" width="220" height="70" rx="8" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+  <text x="310" y="223" class="label" text-anchor="middle">Private NLB</text>
+  <text x="310" y="240" class="label-sm" text-anchor="middle">transform-eks-nlb-{env}-priv</text>
+  <text x="310" y="256" class="label-sm" text-anchor="middle">nginx ingress controller</text>
+
+  <!-- EKS Cluster Box -->
+  <rect x="20" y="295" width="1120" height="690" rx="10" fill="#e3f2fd" stroke="#0d47a1" stroke-width="3"/>
+  <text x="580" y="320" class="section-title" text-anchor="middle" fill="#0d47a1" font-size="13">EKS Cluster — hxts-{env} | Kubernetes 1.33 | m5.xlarge (4vCPU/16GB) | min 3, max 25 nodes | Karpenter 1.10.0 / Bottlerocket@latest | IMDSv2 required | auth_mode=API</text>
+
+  <!-- T-REST -->
+  <rect x="40" y="340" width="130" height="75" rx="6" fill="#0d47a1" stroke="#001970" stroke-width="2"/>
+  <text x="105" y="365" class="label" text-anchor="middle">T-REST</text>
+  <text x="105" y="382" class="label-sm" text-anchor="middle">:8080 HTTP | SQS</text>
+  <text x="105" y="398" class="label-sm" text-anchor="middle">sqs_max=10</text>
+  <text x="105" y="412" class="label-sm" text-anchor="middle">Shared File Store</text>
+
+  <!-- T-Router -->
+  <rect x="190" y="340" width="130" height="75" rx="6" fill="#0d47a1" stroke="#001970" stroke-width="2"/>
+  <text x="255" y="365" class="label" text-anchor="middle">T-Router</text>
+  <text x="255" y="382" class="label-sm" text-anchor="middle">SQS fanout</text>
+  <text x="255" y="398" class="label-sm" text-anchor="middle">sqs_max=10</text>
+  <text x="255" y="412" class="label-sm" text-anchor="middle">Poll 30s</text>
+
+  <!-- T-Engines group -->
+  <rect x="340" y="330" width="760" height="110" rx="8" fill="#bbdefb" stroke="#1565C0" stroke-width="2"/>
+  <text x="720" y="352" class="section-title" text-anchor="middle">T-Engines (9 pods)</text>
+  <rect x="352" y="365" width="90" height="55" rx="5" fill="#1565C0" stroke="#0d47a1" stroke-width="1"/>
+  <text x="397" y="385" class="label-sm" text-anchor="middle">Tika</text>
+  <text x="397" y="400" class="label-sm" text-anchor="middle">sqs_max=3</text>
+  <text x="397" y="414" class="label-sm" text-anchor="middle">Corretto 17</text>
+  <rect x="452" y="365" width="90" height="55" rx="5" fill="#1565C0" stroke="#0d47a1" stroke-width="1"/>
+  <text x="497" y="385" class="label-sm" text-anchor="middle">ImageMagick</text>
+  <text x="497" y="400" class="label-sm" text-anchor="middle">sqs_max=3</text>
+  <rect x="552" y="365" width="90" height="55" rx="5" fill="#1565C0" stroke="#0d47a1" stroke-width="1"/>
+  <text x="597" y="385" class="label-sm" text-anchor="middle">LibreOffice</text>
+  <text x="597" y="400" class="label-sm" text-anchor="middle">sqs_max=10</text>
+  <rect x="652" y="365" width="90" height="55" rx="5" fill="#1565C0" stroke="#0d47a1" stroke-width="1"/>
+  <text x="697" y="385" class="label-sm" text-anchor="middle">DocFilters</text>
+  <text x="697" y="400" class="label-sm" text-anchor="middle">sqs_max=2</text>
+  <text x="697" y="414" class="label-sm" text-anchor="middle">Quay.io base</text>
+  <rect x="752" y="365" width="90" height="55" rx="5" fill="#1565C0" stroke="#0d47a1" stroke-width="1"/>
+  <text x="797" y="385" class="label-sm" text-anchor="middle">DocMerge</text>
+  <text x="797" y="400" class="label-sm" text-anchor="middle">sqs_max=2</text>
+  <rect x="852" y="365" width="80" height="55" rx="5" fill="#1565C0" stroke="#0d47a1" stroke-width="1"/>
+  <text x="892" y="385" class="label-sm" text-anchor="middle">Misc</text>
+  <text x="892" y="400" class="label-sm" text-anchor="middle">sqs_max=3</text>
+  <rect x="942" y="365" width="80" height="55" rx="5" fill="#1565C0" stroke="#0d47a1" stroke-width="1"/>
+  <text x="982" y="385" class="label-sm" text-anchor="middle">AIO</text>
+  <text x="982" y="400" class="label-sm" text-anchor="middle">sqs_max=2</text>
+  <text x="982" y="414" class="label-sm" text-anchor="middle">optional</text>
+
+  <!-- KEDA -->
+  <rect x="40" y="465" width="165" height="80" rx="8" fill="#4a148c" stroke="#311b92" stroke-width="2"/>
+  <text x="122" y="488" class="label" text-anchor="middle">KEDA 2.17.2</text>
+  <text x="122" y="505" class="label-sm" text-anchor="middle">SQS trigger (CW)</text>
+  <text x="122" y="521" class="label-sm" text-anchor="middle">Poll 30s | cool 300s</text>
+  <text x="122" y="537" class="label-sm" text-anchor="middle">min 2-5 | max 50-150</text>
+
+  <!-- Datadog -->
+  <rect x="225" y="465" width="165" height="80" rx="8" fill="#6a0dad" stroke="#4a148c" stroke-width="2"/>
+  <text x="307" y="488" class="label" text-anchor="middle">Datadog 3.146.1</text>
+  <text x="307" y="505" class="label-sm" text-anchor="middle">DaemonSet</text>
+  <text x="307" y="521" class="label-sm" text-anchor="middle">Java Agent v1.60.1</text>
+  <text x="307" y="537" class="label-sm" text-anchor="middle">APM | Logs | Metrics</text>
+
+  <!-- K8s Secrets + Network Policies -->
+  <rect x="410" y="465" width="195" height="80" rx="8" fill="#880e4f" stroke="#560027" stroke-width="2"/>
+  <text x="507" y="488" class="label" text-anchor="middle">Kubernetes Secrets</text>
+  <text x="507" y="505" class="label-sm" text-anchor="middle">quay-registry-secret</text>
+  <text x="507" y="521" class="label-sm" text-anchor="middle">idp_client_secret</text>
+  <text x="507" y="537" class="label-sm" text-anchor="middle">Network Policies (VPC-CNI)</text>
+
+  <!-- EFS -->
+  <rect x="620" y="465" width="195" height="80" rx="8" fill="#795548" stroke="#4e342e" stroke-width="2"/>
+  <text x="717" y="488" class="label" text-anchor="middle">EFS (KMS multi-region)</text>
+  <text x="717" y="505" class="label-sm" text-anchor="middle">nfs-client StorageClass</text>
+  <text x="717" y="521" class="label-sm" text-anchor="middle">50Gi PVC</text>
+  <text x="717" y="537" class="label-sm" text-anchor="middle">/tmp/filestore-shared (SFS)</text>
+
+  <!-- Pod Identity Agent -->
+  <rect x="830" y="465" width="165" height="80" rx="8" fill="#e65100" stroke="#bf360c" stroke-width="2"/>
+  <text x="912" y="488" class="label" text-anchor="middle">Pod Identity Agent</text>
+  <text x="912" y="505" class="label-sm" text-anchor="middle">EKS Addon</text>
+  <text x="912" y="521" class="label-sm" text-anchor="middle">Spacelift OIDC</text>
+  <text x="912" y="537" class="label-sm" text-anchor="middle">hxts-svc-acct-role</text>
+
+  <!-- EKS Addons row -->
+  <rect x="40" y="570" width="590" height="60" rx="8" fill="#37474f" stroke="#263238" stroke-width="1"/>
+  <text x="335" y="593" class="label" text-anchor="middle">EKS Managed Addons: kube-proxy | coredns | vpc-cni (enableNetworkPolicy=true) | pod-identity-agent | karpenter 1.10.0 | velero 11.4.0</text>
+  <text x="335" y="620" class="label-sm" text-anchor="middle">cert-manager | brupop (Bottlerocket updates) | Rancher agent (cluster import) | external-dns | kube-state-metrics</text>
+
+  <!-- Datadog Monitors -->
+  <rect x="650" y="570" width="460" height="60" rx="8" fill="#1a237e" stroke="#0d47a1" stroke-width="1"/>
+  <text x="880" y="593" class="label" text-anchor="middle">Datadog Monitors (5 confirmed infra monitors)</text>
+  <text x="880" y="620" class="label-sm" text-anchor="middle">Memory crit 85% | CPU crit 95% | Disk crit 90% | DD Agent Ready | DD Cluster Agent Ready | Teams + PagerDuty</text>
+
+  <!-- Right column: AWS Services (outside K8s but in VPC) -->
+  <!-- SQS -->
+  <rect x="1170" y="295" width="220" height="140" rx="8" fill="#FF9900" stroke="#c47a00" stroke-width="2"/>
+  <text x="1280" y="320" class="label-dark" text-anchor="middle" font-size="12">SQS — ~28 queues/env</text>
+  <text x="1280" y="338" class="caption" text-anchor="middle" fill="#1a1a1a">Standard queues | KMS-encrypted</text>
+  <text x="1280" y="355" class="caption" text-anchor="middle" fill="#1a1a1a">External: transform-request</text>
+  <text x="1280" y="372" class="caption" text-anchor="middle" fill="#1a1a1a">transform-reply (+ batch variants)</text>
+  <text x="1280" y="389" class="caption" text-anchor="middle" fill="#1a1a1a">Internal: tika | imgmgk | libre |</text>
+  <text x="1280" y="406" class="caption" text-anchor="middle" fill="#1a1a1a">docfilters | docmerge | misc | aio</text>
+  <text x="1280" y="423" class="caption" text-anchor="middle" fill="#1a1a1a">Retain 4d | 256KB | vis 1s | poll 10s</text>
+
+  <!-- SNS -->
+  <rect x="1170" y="455" width="220" height="100" rx="8" fill="#FF9900" stroke="#c47a00" stroke-width="2"/>
+  <text x="1280" y="478" class="label-dark" text-anchor="middle" font-size="12">SNS — 2 Standard Topics</text>
+  <text x="1280" y="496" class="caption" text-anchor="middle" fill="#1a1a1a">hxts-transform-request</text>
+  <text x="1280" y="513" class="caption" text-anchor="middle" fill="#1a1a1a">hxts-transform-reply</text>
+  <text x="1280" y="530" class="caption" text-anchor="middle" fill="#1a1a1a">KMS-encrypted</text>
+  <text x="1280" y="547" class="caption" text-anchor="middle" fill="#1a1a1a">Cross-acct: HXPR/HXTS/NCP</text>
+
+  <!-- KMS -->
+  <rect x="1170" y="575" width="220" height="75" rx="8" fill="#b71c1c" stroke="#7f0000" stroke-width="2"/>
+  <text x="1280" y="598" class="label" text-anchor="middle" font-size="12">KMS — CMKs (rotation on)</text>
+  <text x="1280" y="616" class="label-sm" text-anchor="middle">SQS | SNS | EFS | EBS keys</text>
+  <text x="1280" y="633" class="label-sm" text-anchor="middle">alias/hy/sqs/hxts-{env}</text>
+  <text x="1280" y="650" class="label-sm" text-anchor="middle">deletion_window=30d</text>
+
+  <!-- Secrets Manager -->
+  <rect x="1170" y="670" width="220" height="65" rx="8" fill="#c62828" stroke="#7f0000" stroke-width="2"/>
+  <text x="1280" y="693" class="label" text-anchor="middle" font-size="12">Secrets Manager</text>
+  <text x="1280" y="711" class="label-sm" text-anchor="middle">/hxts/idp_client_secret</text>
+  <text x="1280" y="728" class="label-sm" text-anchor="middle">IRSA + Pod Identity access</text>
+
+  <!-- ECR + Quay -->
+  <rect x="1170" y="755" width="220" height="80" rx="8" fill="#546e7a" stroke="#263238" stroke-width="2"/>
+  <text x="1280" y="778" class="label" text-anchor="middle" font-size="12">ECR — 9 repositories</text>
+  <text x="1280" y="796" class="label-sm" text-anchor="middle">Corretto 17 + Alpine base</text>
+  <text x="1280" y="813" class="label-sm" text-anchor="middle">Quay.io (DocFilters base)</text>
+  <text x="1280" y="830" class="label-sm" text-anchor="middle">90d lifecycle policy</text>
+
+  <!-- Velero + S3 -->
+  <rect x="1170" y="855" width="220" height="90" rx="8" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+  <text x="1280" y="878" class="label" text-anchor="middle" font-size="12">Velero 11.4.0</text>
+  <text x="1280" y="896" class="label-sm" text-anchor="middle">S3: velero-hxts-{env}.{region}-hy</text>
+  <text x="1280" y="913" class="label-sm" text-anchor="middle">Cross-region KMS replication</text>
+  <text x="1280" y="930" class="label-sm" text-anchor="middle">US→us-west-2 | EU→eu-west-1</text>
+  <text x="1280" y="944" class="label-sm" text-anchor="middle">Schedule 30m | RTO 4h | RPO 30m</text>
+
+  <!-- Arrows (request flow) -->
+  <!-- Clients → ALB -->
+  <line x1="170" y1="132" x2="680" y2="128" stroke="#FF6600" stroke-width="3" marker-end="url(#arr)"/>
+  <!-- Route53 → ALB (dotted) -->
+  <line x1="400" y1="117" x2="680" y2="120" stroke="#FF9900" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr)"/>
+  <!-- WAFv2 → ALB -->
+  <line x1="650" y1="130" x2="680" y2="130" stroke="#FF6600" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- ALB → Private NLB -->
+  <line x1="795" y1="170" x2="310" y2="200" stroke="#FF6600" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- NLB → T-REST -->
+  <line x1="310" y1="270" x2="105" y2="340" stroke="#FF6600" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- T-REST → T-Router -->
+  <line x1="170" y1="377" x2="190" y2="377" stroke="#00AAFF" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- T-Router → SQS -->
+  <line x1="320" y1="377" x2="1170" y2="365" stroke="#00CC44" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- SQS → T-Engines -->
+  <line x1="1170" y1="390" x2="1100" y2="400" stroke="#00CC44" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- KEDA monitors SQS (dashed) -->
+  <line x1="122" y1="465" x2="122" y2="420" stroke="#AA00FF" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-purple)"/>
+  <!-- Engine writes to SQS (reply) -->
+  <line x1="800" y1="420" x2="1170" y2="450" stroke="#00CC44" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <!-- REST reads EFS -->
+  <line x1="105" y1="415" x2="620" y2="495" stroke="#795548" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <!-- SNS cross-account arrows label -->
+  <text x="1280" y="570" font-size="10" text-anchor="middle" fill="#FFF59D">⬆ SNS publishes to T-Router via transform-request subscription</text>
+
+  <!-- Legend -->
+  <rect x="20" y="960" width="1560" height="30" rx="4" fill="#263238"/>
+  <text x="30" y="980" font-size="10" fill="#FF6600" font-weight="bold">── Request flow</text>
+  <text x="170" y="980" font-size="10" fill="#00CC44" font-weight="bold">── Messaging (SQS)</text>
+  <text x="340" y="980" font-size="10" fill="#00AAFF" font-weight="bold">── Internal service call</text>
+  <text x="510" y="980" font-size="10" fill="#AA00FF" font-weight="bold">- - Scaling signal (KEDA)</text>
+  <text x="700" y="980" font-size="10" fill="#795548" font-weight="bold">- - EFS read/write</text>
+  <text x="900" y="980" font-size="10" fill="#ffffff">Source: HylandSoftware/tf-cfg-hxts-infrastructure • HylandSoftware/terraform-aws-hxts-environment</text>
+  <text x="1380" y="980" font-size="10" fill="#aaaaaa">Directional estimate</text>
+</svg>

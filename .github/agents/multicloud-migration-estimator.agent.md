@@ -151,7 +151,7 @@ Return one markdown report with these sections in order:
 10. Open Questions
 11. Component Diagrams
    - Do not list SVG file paths explicitly. Only embed the diagrams using markdown image syntax.
-   - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)` (without listing the path separately before the image)
+   - Embed each generated SVG in the markdown report using standard markdown image syntax, using paths relative to the report file location, for example: `![AWS Source](multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)` (without listing the path separately before the image)
    - Include a brief legend or note listing the major component groups rendered on each page so diagram detail is auditable.
    - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
    - When supplemental charts are generated, include a sub-list for chart page mapping and embed each chart SVG below the architecture diagrams.
@@ -166,7 +166,7 @@ Return one markdown report with these sections in order:
 - Generate a matching draw.io diagram artifact in the same new folder using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc.drawio`.
 - Generate three SVG exports from the draw.io pages — one per architecture view — using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-azure-target.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-gcp-target.svg`. Save all SVG files in the same new folder.
 - When charts are requested, also generate chart SVG exports from draw.io pages using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-cost-comparison.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-effort-risk.svg`, and `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-scenario-comparison.svg`, and save them in the same new folder.
-- Embed all three SVG files inside section 11 of the markdown report using markdown image links to the generated SVG paths within the new folder.
+- Embed all three SVG files inside section 11 of the markdown report using markdown image links with relative filenames (the report and SVG files are in the same folder).
 - When charts are generated, embed the chart SVGs in sections 5/7/8 and also under section 11.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
 - Confirm file creation and provide the exact file paths for the markdown report and the draw.io artifact in the response to the user.

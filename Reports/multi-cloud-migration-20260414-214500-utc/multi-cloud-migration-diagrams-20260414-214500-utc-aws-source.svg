@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1020" viewBox="0 0 1800 1020" role="img" aria-label="AWS source architecture">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .title { font-family: Arial, sans-serif; font-size: 28px; font-weight: 700; fill: #111827; stroke: #ffffff; stroke-width: 0.9; paint-order: stroke fill; }
+      .label { font-family: Arial, sans-serif; font-size: 15px; font-weight: 700; fill: #111827; stroke: #ffffff; stroke-width: 0.8; paint-order: stroke fill; }
+      .box { rx: 12; ry: 12; stroke-width: 2; }
+      .aws { fill: #f6f8fb; stroke: #334155; }
+      .compute { fill: #d9f99d; stroke: #3f6212; }
+      .edge { fill: #fde68a; stroke: #92400e; }
+      .sec { fill: #fecaca; stroke: #991b1b; }
+      .obs { fill: #bfdbfe; stroke: #1d4ed8; }
+      .storage { fill: #ddd6fe; stroke: #5b21b6; }
+      .flow { stroke: #00e5ff; stroke-width: 3.2; fill: none; filter: url(#glow); }
+      .control { stroke: #ffd166; stroke-width: 3; stroke-dasharray: 8 5; fill: none; filter: url(#glow); }
+    </style>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="1.8" flood-color="#ffffff" flood-opacity="0.95"/></filter>
+    <marker id="arrowFlow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#00e5ff"/></marker>
+    <marker id="arrowControl" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd166"/></marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1800" height="1020"/>
+  <text class="title" x="40" y="52">AWS Source Architecture</text>
+  <rect class="box aws" x="20" y="80" width="1760" height="900"/>
+  <rect class="box edge" x="40" y="120" width="220" height="64"/><text class="label" x="54" y="158">Clients and Upstream</text>
+  <rect class="box edge" x="300" y="120" width="220" height="64"/><text class="label" x="320" y="158">Route53 and ACM</text>
+  <rect class="box edge" x="560" y="120" width="250" height="64"/><text class="label" x="580" y="158">Public ALB and WAF</text>
+  <rect class="box aws" x="40" y="220" width="1200" height="540"/><text class="label" x="56" y="248">EKS cluster boundary</text>
+  <rect class="box compute" x="70" y="270" width="170" height="58"/><text class="label" x="88" y="305">Ingress controller</text>
+  <rect class="box compute" x="270" y="270" width="120" height="58"/><text class="label" x="302" y="305">REST pod</text>
+  <rect class="box compute" x="420" y="270" width="130" height="58"/><text class="label" x="450" y="305">Router pod</text>
+  <rect class="box compute" x="70" y="360" width="1110" height="90"/><text class="label" x="90" y="415">Engine group: tika, imagemagick, libreoffice, misc, docfilters, docmerge, aio</text>
+  <rect class="box aws" x="70" y="480" width="220" height="58"/><text class="label" x="110" y="515">KEDA</text>
+  <rect class="box sec" x="320" y="480" width="240" height="58"/><text class="label" x="350" y="515">Network policies</text>
+  <rect class="box sec" x="590" y="480" width="240" height="58"/><text class="label" x="620" y="515">Kubernetes secrets</text>
+  <rect class="box obs" x="860" y="480" width="260" height="58"/><text class="label" x="900" y="515">Datadog</text>
+  <rect class="box edge" x="1280" y="250" width="470" height="90"/><text class="label" x="1300" y="302">SQS queues: request, reply, per-engine, batch</text>
+  <rect class="box edge" x="1280" y="370" width="470" height="70"/><text class="label" x="1300" y="412">SNS topics: transform-request, transform-reply</text>
+  <rect class="box sec" x="1280" y="460" width="470" height="70"/><text class="label" x="1300" y="502">KMS keys: SQS, SNS, EBS, EFS, S3</text>
+  <rect class="box sec" x="1280" y="550" width="470" height="70"/><text class="label" x="1300" y="592">Secrets Manager</text>
+  <rect class="box storage" x="1280" y="650" width="220" height="70"/><text class="label" x="1340" y="692">EFS</text>
+  <rect class="box storage" x="1530" y="650" width="220" height="70"/><text class="label" x="1568" y="692">Velero and S3 DR</text>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M260 152 L300 152"/>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M520 152 L560 152"/>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M685 184 L155 270"/>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M240 299 L270 299"/>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M390 299 L420 299"/>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M550 299 L1280 295"/>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M1515 340 L1515 370"/>
+  <path class="flow" marker-end="url(#arrowFlow)" d="M1280 695 L830 515"/>
+  <path class="control" marker-end="url(#arrowControl)" d="M1515 340 L180 480"/>
+  <path class="control" marker-end="url(#arrowControl)" d="M1515 530 L710 480"/>
+  <path class="control" marker-end="url(#arrowControl)" d="M1515 620 L710 510"/>
+  <path class="control" marker-end="url(#arrowControl)" d="M1640 685 L980 510"/>
+</svg>

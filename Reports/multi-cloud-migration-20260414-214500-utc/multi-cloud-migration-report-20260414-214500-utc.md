@@ -128,11 +128,11 @@ Page mapping:
 - Azure Target: proposed Azure target architecture
 - GCP Target: proposed GCP target architecture
 
-![AWS Source](Reports/multi-cloud-migration-20260414-214500-utc/multi-cloud-migration-diagrams-20260414-214500-utc-aws-source.svg)
+![AWS Source](multi-cloud-migration-diagrams-20260414-214500-utc-aws-source.svg)
 
-![Azure Target](Reports/multi-cloud-migration-20260414-214500-utc/multi-cloud-migration-diagrams-20260414-214500-utc-azure-target.svg)
+![Azure Target](multi-cloud-migration-diagrams-20260414-214500-utc-azure-target.svg)
 
-![GCP Target](Reports/multi-cloud-migration-20260414-214500-utc/multi-cloud-migration-diagrams-20260414-214500-utc-gcp-target.svg)
+![GCP Target](multi-cloud-migration-diagrams-20260414-214500-utc-gcp-target.svg)
 
 Legend and auditable component coverage:
 - AWS Source page shows clients and upstream, DNS, ingress edge, VPC and subnets, EKS boundary, REST pod, Router pod, engine group, KEDA, network policies, Kubernetes secrets, SQS, SNS, KMS, Secrets Manager, Datadog, EFS, and Velero backup flows.

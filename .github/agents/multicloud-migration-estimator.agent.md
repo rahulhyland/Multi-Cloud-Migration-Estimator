@@ -98,6 +98,13 @@ Also identify whether workload behavior appears steady or bursty when not explic
      - `{page-slug}` values: `aws-source`, `azure-target`, `gcp-target`
    - Save all SVG files in the `Reports/` folder alongside the `.drawio` file.
 
+    Diagram detail baseline (required):
+    - Draw.io and SVG diagrams must be as detailed as the prior Mermaid-style logical architecture; do not collapse into only high-level capability boxes.
+    - AWS source page must explicitly include, at minimum: Clients/Upstream, DNS/Domain, Ingress, EKS cluster boundary, REST pod, Router pod, Engine group (tika/imagemagick/libreoffice/misc/docfilters/docmerge/aio), KEDA, Network Policies, Kubernetes Secrets, SQS, SNS, KMS, Secrets Manager, Datadog, and VPC/Subnets.
+    - AWS source page must include the key relationships between those components (request flow, messaging flow, scaling signals, security/secret dependencies, and observability flow).
+    - Azure and GCP target pages must use equivalent granularity (not necessarily identical services), including cluster boundary, ingress/edge services, messaging components, identity/security components, storage/backup, observability, and core service-to-service flows.
+    - If a component is not found in IaC, represent it as "Not found in IaC" instead of omitting silently.
+
 ## Output Format
 
 Return one markdown report with these sections in order:
@@ -127,6 +134,7 @@ Return one markdown report with these sections in order:
    - Reference the generated draw.io artifact path
    - Reference each generated SVG file path (aws-source, azure-target, gcp-target)
    - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)`
+   - Include a brief legend or note listing the major component groups rendered on each page so diagram detail is auditable.
    - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
    - Do not embed Mermaid blocks in the markdown report
 

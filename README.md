@@ -5,7 +5,7 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 ## Files
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
-- `Reports/`: Generated migration decision report artifacts (markdown format with timestamp).
+- `Reports/`: Generated migration decision report artifacts (markdown and draw.io files with timestamps).
 
 ## What This Agent Does
 The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*.tf`) and produces a migration report with:
@@ -15,6 +15,7 @@ The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*
 - Migration challenge and risk register
 - Effort scoring and 30/60/90 day plan
 - Open questions for architects
+- Component diagrams delivered as a draw.io artifact (AWS source, Azure target, GCP target)
 
 ## How To Use
 1. Open Copilot Chat in VS Code.
@@ -61,14 +62,20 @@ Assumptions:
 ## Expected Output Sections
 The report is expected to include these sections:
 1. Executive Summary
-2. Source AWS Footprint
-3. Service Mapping Matrix
-4. Regional Cost Analysis (Directional)
-5. Migration Challenge Register
-6. Migration Effort View
-7. Decision Scenarios
-8. Recommended Plan (30/60/90)
-9. Open Questions
+2. Source Repository Inventory
+3. Source AWS Footprint
+4. Service Mapping Matrix
+5. Regional Cost Analysis (Directional)
+6. Migration Challenge Register
+7. Migration Effort View
+8. Decision Scenarios
+9. Recommended Plan (30/60/90)
+10. Open Questions
+11. Component Diagrams (draw.io reference and page mapping)
+
+Notes:
+- The markdown report references the generated draw.io artifact path for diagrams.
+- Mermaid blocks are not embedded in the markdown report.
 
 ## How To Update The Agent
 Edit `.github/agents/multicloud-migration-estimator.agent.md` to modify discovery scope, workflow, report format, or guardrails.

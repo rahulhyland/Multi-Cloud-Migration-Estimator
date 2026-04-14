@@ -87,9 +87,7 @@ Also identify whether workload behavior appears steady or bursty when not explic
    - Target Azure infrastructure
    - Target GCP infrastructure
    
-   Use Mermaid component/flow diagrams in fenced code blocks so they are renderable in markdown.
-   For multiline labels, use `<br/>` instead of `\n` to maximize GitHub Mermaid compatibility.
-   Avoid parentheses in `subgraph` titles and critical node labels; use quoted plain text labels such as `subgraph AWS["AWS Account per environment"]`.
+   Use draw.io diagrams as the primary artifact.
    Also generate an editable draw.io artifact with one page each for the AWS source, Azure target, and GCP target component diagrams.
    Save the draw.io artifact as valid `.drawio` XML in the `Reports/` folder.
 
@@ -119,9 +117,9 @@ Return one markdown report with these sections in order:
    - Required architecture decisions before execution
 10. Open Questions
 11. Component Diagrams
-    - AWS Source Component Diagram
-    - Azure Target Component Diagram
-    - GCP Target Component Diagram
+   - Reference the generated draw.io artifact path
+   - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
+   - Do not embed Mermaid blocks in the markdown report
 
 ### Report Artifact (Required)
 - **Generate the report as markdown and persist it immediately to the `Reports/` folder.**

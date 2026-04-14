@@ -96,6 +96,10 @@ Also identify whether workload behavior appears steady or bursty when not explic
     - SVGs must use valid SVG elements (for example: `svg`, `defs`, `style`, `g`, `rect`, `text`, `path`) and proper XML/SVG namespaces.
     - Do not embed raw `<mxGraphModel>` inside `<svg>` because it is not browser-renderable.
     - Include explicit width/height or viewBox, and ensure all tags are properly closed.
+    - Use highlighted, high-contrast arrows and arrowheads that remain visible in both light and dark mode browser themes.
+    - Avoid dark gray arrow strokes; use bright contrasting colors and sufficient stroke width (optionally with glow/outline) for readability.
+    - Use explicit, high-contrast font styling so text remains readable in both light and dark mode browser themes.
+    - Do not rely on default text color. Define font family, size, fill color, and a subtle outline/glow for labels and connectors.
    - Use filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{page-slug}.svg`
      - `{page-slug}` values: `aws-source`, `azure-target`, `gcp-target`
    - Save all SVG files in the `Reports/` folder alongside the `.drawio` file.
@@ -148,7 +152,8 @@ Return one markdown report with these sections in order:
 - Generate three SVG exports from the draw.io pages — one per architecture view — using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-azure-target.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-gcp-target.svg`. Save all SVG files in the `Reports/` folder.
 - Embed all three SVG files inside section 11 of the markdown report using markdown image links to the generated SVG paths.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
-- Confirm file creation and provide the exact file paths for the markdown report, the draw.io artifact, and all three SVG files in the response to the user.
+- Confirm file creation and provide the exact file paths for the markdown report and the draw.io artifact in the response to the user.
+- Do not print SVG file paths in the chat response; keep SVG path references inside section 11 of the saved markdown report.
 
 ## Guardrails
 - Do not invent discovered resources.

@@ -9,12 +9,18 @@
       .box-red { fill: #f8cecc; stroke: #b85450; stroke-width: 2; }
       .box-yellow { fill: #ffe6cc; stroke: #d79b00; stroke-width: 2; }
       .box-gray { fill: #f5f5f5; stroke: #666666; stroke-width: 2; stroke-dasharray: 5,5; }
-      .text { font-family: Arial, sans-serif; font-size: 12px; text-anchor: middle; }
-      .arrow { stroke: #333333; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
-      .dashed-arrow { stroke: #666666; stroke-width: 1.5; fill: none; stroke-dasharray: 3,3; marker-end: url(#arrowhead); }
+      .text { font-family: Arial, sans-serif; font-size: 12px; text-anchor: middle; fill: #111827; stroke: #ffffff; stroke-width: 0.75; paint-order: stroke; }
+      .arrow { stroke: #00e5ff; stroke-width: 2.4; fill: none; marker-end: url(#arrowhead); filter: url(#arrow-glow); }
+      .dashed-arrow { stroke: #ffd166; stroke-width: 2.2; fill: none; stroke-dasharray: 6,4; marker-end: url(#arrowhead-dashed); filter: url(#arrow-glow); }
     </style>
+    <filter id="arrow-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.6" flood-color="#ffffff" flood-opacity="0.85" />
+    </filter>
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#333333" />
+      <polygon points="0 0, 10 3, 0 6" fill="#00e5ff" />
+    </marker>
+    <marker id="arrowhead-dashed" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#ffd166" />
     </marker>
   </defs>
   <text x="860" y="25" class="text" style="font-size: 14px; font-weight: bold;">GCP Target Architecture</text>

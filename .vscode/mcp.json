@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "github": {
+      "type": "stdio",
+      "command": "sh",
+      "args": [
+        "-c",
+        "set -a && . '${workspaceFolder}/.env' && set +a && npx -y @modelcontextprotocol/server-github"
+      ]
+    }
+  }
+}

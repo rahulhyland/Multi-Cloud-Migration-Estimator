@@ -111,6 +111,19 @@ Also identify whether workload behavior appears steady or bursty when not explic
     - Azure and GCP target pages must use equivalent granularity (not necessarily identical services), including cluster boundary, ingress/edge services, messaging components, identity/security components, storage/backup, observability, and core service-to-service flows.
     - If a component is not found in IaC, represent it as "Not found in IaC" instead of omitting silently.
 
+9. When the user explicitly asks for charts, generate supplemental draw.io chart pages in the same `.drawio` artifact and export them as SVG:
+    - Cost comparison chart (Azure vs GCP by region/capability)
+    - Effort-risk chart (capability effort vs migration risk)
+    - Scenario comparison chart (cost-first, speed-first, risk-first)
+    - Keep chart labels and legends high-contrast for dark/light mode readability.
+    - Use filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{chart-slug}.svg`
+       - `{chart-slug}` values: `cost-comparison`, `effort-risk`, `scenario-comparison`
+    - Embed these chart SVGs in the relevant report sections when generated:
+       - Cost chart in section 5
+       - Effort-risk chart in section 7
+       - Scenario chart in section 8
+    - Also list and embed generated chart SVGs under section 11 as supplemental visuals.
+
 ## Output Format
 
 Return one markdown report with these sections in order:
@@ -142,6 +155,7 @@ Return one markdown report with these sections in order:
    - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)`
    - Include a brief legend or note listing the major component groups rendered on each page so diagram detail is auditable.
    - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
+   - When supplemental charts are generated, include a sub-list for chart page mapping and embed each chart SVG below the architecture diagrams.
    - Do not embed Mermaid blocks in the markdown report
 
 ### Report Artifact (Required)
@@ -150,7 +164,9 @@ Return one markdown report with these sections in order:
 - **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact to the `Reports/` folder in the current workspace (for example: `Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`).
 - Generate a matching draw.io diagram artifact in the same folder using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc.drawio`.
 - Generate three SVG exports from the draw.io pages — one per architecture view — using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-azure-target.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-gcp-target.svg`. Save all SVG files in the `Reports/` folder.
+- When charts are requested, also generate chart SVG exports from draw.io pages using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-cost-comparison.svg`, `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-effort-risk.svg`, and `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-scenario-comparison.svg`.
 - Embed all three SVG files inside section 11 of the markdown report using markdown image links to the generated SVG paths.
+- When charts are generated, embed the chart SVGs in sections 5/7/8 and also under section 11.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
 - Confirm file creation and provide the exact file paths for the markdown report and the draw.io artifact in the response to the user.
 - Do not print SVG file paths in the chat response; keep SVG path references inside section 11 of the saved markdown report.

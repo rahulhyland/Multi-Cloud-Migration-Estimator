@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1820 700" width="1820" height="700">
+  <defs>
+    <style>
+      .box{fill:#dae8fc;stroke:#6c8ebf;stroke-width:2}
+      .edge{fill:#fff2cc;stroke:#d6b656;stroke-width:2}
+      .k8s{fill:#d5e8d4;stroke:#82b366;stroke-width:2}
+      .sec{fill:#f8cecc;stroke:#b85450;stroke-width:2}
+      .ops{fill:#ffe6cc;stroke:#d79b00;stroke-width:2}
+      .zone{fill:#f5f5f5;stroke:#666;stroke-width:2;stroke-dasharray:6 6}
+      .text{font-family:Arial,sans-serif;font-size:12px;text-anchor:middle;fill:#111827;stroke:#fff;stroke-width:.75;paint-order:stroke}
+      .arrow{stroke:#00e5ff;stroke-width:2.4;fill:none;marker-end:url(#ah);filter:url(#glow)}
+      .carrow{stroke:#ffd166;stroke-width:2.2;fill:none;stroke-dasharray:6 4;marker-end:url(#ahc);filter:url(#glow)}
+    </style>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#fff" flood-opacity="0.9"/></filter>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="0 0,10 3,0 6" fill="#00e5ff"/></marker>
+    <marker id="ahc" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><polygon points="0 0,10 3,0 6" fill="#ffd166"/></marker>
+  </defs>
+
+  <text x="910" y="26" class="text" style="font-size:15px;font-weight:bold">AWS Source Architecture</text>
+  <rect x="40" y="90" width="180" height="60" rx="6" class="box"/><text x="130" y="125" class="text">Clients / Upstream</text>
+  <rect x="250" y="90" width="170" height="60" rx="6" class="edge"/><text x="335" y="118" class="text">DNS/Domain</text><text x="335" y="133" class="text">Route53</text>
+  <rect x="450" y="90" width="220" height="60" rx="6" class="edge"/><text x="560" y="112" class="text">Ingress</text><text x="560" y="127" class="text">ALB + WAF + ACM</text>
+
+  <rect x="710" y="45" width="1040" height="580" rx="6" class="zone"/><text x="795" y="62" class="text" style="font-size:11px">VPC + Private Subnets</text>
+  <rect x="770" y="120" width="590" height="390" rx="6" class="zone"/><text x="845" y="138" class="text" style="font-size:11px">EKS Cluster Boundary</text>
+
+  <rect x="810" y="175" width="150" height="56" rx="6" class="k8s"/><text x="885" y="207" class="text">transform-rest pod</text>
+  <rect x="990" y="175" width="170" height="56" rx="6" class="k8s"/><text x="1075" y="207" class="text">transform-router pod</text>
+  <rect x="810" y="265" width="360" height="95" rx="6" class="k8s"/>
+  <text x="990" y="286" class="text" style="font-size:11px">Engine Group</text>
+  <text x="990" y="301" class="text" style="font-size:10px">tika, imagemagick, libreoffice, misc</text>
+  <text x="990" y="315" class="text" style="font-size:10px">docfilters, docmerge, aio</text>
+
+  <rect x="1200" y="175" width="130" height="56" rx="6" class="k8s"/><text x="1265" y="207" class="text">KEDA</text>
+  <rect x="1200" y="255" width="130" height="56" rx="6" class="sec"/><text x="1265" y="287" class="text">Network Policies</text>
+  <rect x="1200" y="335" width="130" height="56" rx="6" class="sec"/><text x="1265" y="367" class="text">Kubernetes Secrets</text>
+
+  <rect x="1390" y="175" width="160" height="56" rx="6" class="sec"/><text x="1470" y="207" class="text">SQS Queues (~28)</text>
+  <rect x="1390" y="255" width="160" height="56" rx="6" class="sec"/><text x="1470" y="287" class="text">SNS Topics</text>
+  <rect x="1580" y="175" width="130" height="56" rx="6" class="ops"/><text x="1645" y="207" class="text">KMS CMK</text>
+  <rect x="1580" y="255" width="130" height="56" rx="6" class="ops"/><text x="1645" y="287" class="text">Secrets Manager</text>
+  <rect x="1390" y="335" width="160" height="56" rx="6" class="ops"/><text x="1470" y="367" class="text">Datadog</text>
+  <rect x="1390" y="430" width="130" height="52" rx="6" class="k8s"/><text x="1455" y="460" class="text">EFS</text>
+  <rect x="1540" y="430" width="190" height="52" rx="6" class="k8s"/><text x="1635" y="452" class="text">Velero + S3</text><text x="1635" y="467" class="text">replication</text>
+
+  <path d="M220 120 L250 120" class="arrow"/>
+  <path d="M420 120 L450 120" class="arrow"/>
+  <path d="M670 120 L810 203" class="arrow"/>
+  <path d="M670 120 L990 203" class="arrow"/>
+  <path d="M885 231 L955 265" class="arrow"/>
+  <path d="M1075 231 L1025 265" class="arrow"/>
+  <path d="M1170 312 L1390 203" class="arrow"/>
+  <path d="M1265 203 L1390 203" class="carrow"/>
+  <path d="M1265 363 L1140 312" class="carrow"/>
+  <path d="M1580 203 L1580 255" class="carrow"/>
+  <path d="M1170 312 L1390 363" class="carrow"/>
+  <path d="M990 360 L1390 456" class="arrow"/>
+
+  <text x="46" y="655" class="text" style="font-size:10px;text-anchor:start">Legend: Cyan arrows = request/data flow, Amber dashed = control/scaling/security/observability flow</text>
+</svg>

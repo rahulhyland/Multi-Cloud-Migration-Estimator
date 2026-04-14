@@ -15,9 +15,8 @@ Cost analysis must include both a 30-day total run-rate view and a metered billi
 ## Default Scope
 
 **Local Priority:**
-- Search all files under: `input/**`
-- Prioritize IaC from: `input/**/src/*.tf`, `input/**/src/tfvar_configs/**/*.tfvars`, `input/**/src/helm/**`
-- If `input/` is missing, fallback to `src/**`
+- If user provides local filesystem paths to cloned repositories, treat those paths as explicit high-priority scope roots.
+- Prioritize IaC discovery under provided local repo paths from: `src/**/*.tf`, `infra/**/*.tf`, `terraform/**/*.tf`, `**/*.tfvars`, and Helm paths such as `**/helm/**`.
 
 **Remote Repository Support (GitHub MCP):**
 When the user provides one or more GitHub repository URLs instead of (or in addition to) local files:
@@ -39,7 +38,7 @@ When the user provides one or more GitHub repository URLs instead of (or in addi
 - If the server fails to start, verify `.env` exists and contains a valid token, then restart the MCP server.
 
 ## Required Inputs
-- Scope (workspaces/services, local or remote repos)
+- Scope (workspaces/services, local paths to cloned repos, and/or remote repos)
 - Planning horizon (months)
 - Assumptions:
   - Traffic profile
@@ -48,16 +47,22 @@ When the user provides one or more GitHub repository URLs instead of (or in addi
   - Compliance and residency constraints
   - Performance requirements
 
+Accepted scope input formats:
+- Local filesystem paths to cloned repos (for example `/Users/name/code/repo`, `./input/hxpr`, `../terraform-aws-hxpr-environment`)
+- GitHub URLs (for example `https://github.com/{owner}/{repo}`)
+- GitHub shorthand (for example `{owner}/{repo}`)
+
 If assumptions are incomplete, proceed with explicit "Assumed" labels.
 Also identify whether workload behavior appears steady or bursty when not explicitly provided.
 
 ## Workflow
 
 1. **Source discovery** — determine source mode:
+   - If the user provides local filesystem repo paths and they exist, scan those paths first for `.tf`, `.tfvars`, and Helm files.
+   - If both local paths and GitHub URLs are provided, prefer local paths for file content and use remote URLs only for missing/unavailable paths.
    - If the user provides GitHub repo URLs: use `mcp_github_get_file_contents` to list directories and fetch `.tf`, `.tfvars`, and Helm files from each repo. Tag each resource with its source repo (`owner/repo@branch`).
-   - If local `input/**` exists: recursively search all files under `input/**`.
-   - Fallback: search `src/**`.
-   - Combine all sources into a unified file set.
+   - If no valid local paths or remote repos are provided, stop and request at least one local cloned repo path or GitHub repo URL.
+   - Combine all sources into a unified file set and tag each item with source type (`local-path` or `remote-repo`) for traceability.
 
 2. Discover and inventory AWS resources from the collected IaC files.
 
@@ -73,9 +78,10 @@ Also identify whether workload behavior appears steady or bursty when not explic
 4. Map each AWS service to Azure and GCP equivalents.
 
 5. Build directional regional cost view for US, EU, and AU with two required segments:
-   - 30-day total run-rate cost by capability and cloud/region.
-   - Metered billing tier breakdown by service using official pricing units and bands (for example first 1M requests and over 1M requests where applicable).
+   - 30-day total run-rate cost by capability and cloud/region. Include the current AWS cost as a baseline column (AWS US / AWS EU / AWS AU where applicable) so readers can directly compare against Azure and GCP. Add a cost-delta row or column showing Azure vs. AWS % and GCP vs. AWS % variance.
+   - Metered billing tier breakdown by service using official pricing units and bands (for example first 1M requests and over 1M requests where applicable). Include AWS tier pricing as a baseline column for each service so the per-unit cost delta vs. Azure and GCP is immediately visible.
    - If a service does not use request-based pricing, use the official meter and tier model for that service (for example GB-month, vCPU-hour, DTU-hour, data transfer GB).
+   - Derive AWS baseline costs from the same IaC-discovered resources and the same usage assumptions applied to Azure and GCP; label clearly as directional estimates.
 
 6. Identify blockers and migration challenges:
    - Feature gaps
@@ -141,8 +147,9 @@ Return one markdown report with these sections in order:
 4. Service Mapping Matrix
    - Table: AWS service | Azure equivalent | GCP equivalent | Porting notes
 5. Regional Cost Analysis (Directional)
-   - 30-Day Total Cost Table: Capability | Azure US | Azure EU | Azure AU | GCP US | GCP EU | GCP AU | Confidence
-   - Metered Billing Tier Table: Service | Metering unit | Tier/Band | Azure US | Azure EU | Azure AU | GCP US | GCP EU | GCP AU | Confidence
+   - 30-Day Total Cost Table: Capability | AWS US (baseline) | AWS EU | AWS AU | Azure US | Azure EU | Azure AU | GCP US | GCP EU | GCP AU | Confidence
+   - Include a cost-delta row at the bottom of the 30-Day table: delta % vs. AWS for each cloud/region column
+   - Metered Billing Tier Table: Service | Metering unit | Tier/Band | AWS US (baseline) | AWS EU | Azure US | Azure EU | Azure AU | GCP US | GCP EU | GCP AU | Confidence
    - Include assumptions, usage volumes, and unit economics used
    - Explicitly show tier segmentation when relevant (for example `< 1M requests` and `> 1M requests`), following official vendor pricing structures
 6. Migration Challenge Register

@@ -97,6 +97,8 @@ Also identify whether workload behavior appears steady or bursty when not explic
 
 7. Score effort/risk per capability and produce scenario recommendations.
    Include Low/Medium/High migration difficulty with a short rationale by capability.
+   Build a dynamic implementation timeline based on discovered service count, dependency depth, data migration complexity, and risk profile. Do not force a fixed 30/60/90 structure.
+   Provide a detailed recommendation plan, not just a phase label. The recommendation must explain why the selected timeline fits the discovered infrastructure and what must happen in each phase before moving forward.
 
 8. Generate component diagrams for:
    - Current AWS infrastructure (source architecture)
@@ -167,7 +169,12 @@ Return one markdown report with these sections in order:
    - Cost-first scenario
    - Speed-first scenario
    - Risk-first scenario
-9. Recommended Plan (30/60/90)
+9. Recommended Plan (Dynamic Timeline)
+   - Use a complexity-based phased timeline (for example 30/60, 30/60/90, or 30/60/90/120)
+   - Include the selected timeline explicitly
+   - Include a detailed rationale for selected phase lengths tied to discovered service count, dependency depth, data migration complexity, and risk
+   - For each phase, include concrete objectives, key activities, and expected exit criteria or gates
+   - Include sequencing notes where relevant (for example non-prod first, data migration rehearsal before production, cutover hardening after go-live)
    - Required architecture decisions before execution
 10. Open Questions
 11. Component Diagrams

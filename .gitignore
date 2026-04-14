@@ -29,3 +29,7 @@ Gemfile.lock
 # Claude files
 CLAUDE.md
 .claude/
+
+/Reports
+
+.idea/

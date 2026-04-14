@@ -10,13 +10,13 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 
 ## What This Agent Does
 
-The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*.tf`) and produces a migration report with:
+The agent analyzes Terraform from either local cloned repository paths or remote GitHub repositories and produces a migration report with:
 
 - AWS source footprint summary
 - Azure and GCP service mapping
-- Directional regional cost analysis (US, EU, AU)
+- Directional regional cost analysis (US, EU, AU) with AWS baseline, explicit currency labels, 30-day total run-rate, metered billing tiers, and one-time migration versus run-rate comparison
 - Migration challenge and risk register
-- Effort scoring and 30/60/90 day plan
+- Effort scoring and a dynamic implementation timeline based on discovered infrastructure complexity
 - Open questions for architects
 - Component diagrams delivered as a draw.io artifact (AWS source, Azure target, GCP target) and three SVG exports (one per page) saved alongside the draw.io file in a per-run timestamped folder under `Reports/`
 - Optional supplemental draw.io charts (when explicitly requested): cost comparison, effort-risk, and scenario comparison, also exported as SVG in the same per-run folder
@@ -32,11 +32,15 @@ The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*
 
 Use this template when running the agent:
 
-### Local Files
+### Local Cloned Repositories
 
 ```text
-Create a migration decision report for this repo.
-Scope: input/**/src/*.tf, all environments.
+Create a migration decision report by fetching Terraform files from these repositories:
+- /Users/name/code/service-api
+- /Users/name/code/platform-infra
+
+Use the main branch for all repos.
+Look for .tf files in src/, infra/, and terraform/ directories.
 Planning horizon: 24 months.
 Assumptions:
 - Traffic profile: steady with moderate burst.
@@ -79,12 +83,15 @@ The report is expected to include these sections:
 6. Migration Challenge Register
 7. Migration Effort View
 8. Decision Scenarios
-9. Recommended Plan (30/60/90)
+9. Recommended Plan (Dynamic Timeline)
 10. Open Questions
 11. Component Diagrams (embedded SVG diagrams and page mapping)
 
 Notes:
 - The markdown report is saved in a new run folder: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/`.
+- Cost outputs explicitly label currency (default `USD`) wherever cost is shown.
+- Section 5 includes AWS baseline pricing for comparison in the 30-day cost table, metered tier table, and one-time migration versus run-rate table.
+- Section 9 uses a complexity-based timeline such as `30/60`, `30/60/90`, or `30/60/90/120` instead of forcing a fixed `30/60/90` structure.
 - The markdown report references diagram files using markdown image embeds only in section 11 (no separate SVG path listing).
 - The markdown report embeds all three SVG files directly in section 11 using markdown image syntax.
 - SVG files are saved as `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{aws-source|azure-target|gcp-target}.svg` inside the run folder under `Reports/`.
@@ -185,13 +192,13 @@ The server sources the `.env` file at startup — no interactive prompt needed.
 
 ### How It Connects to the Agent
 
-The agent file (`.github/agents/multicloud-migration-estimator.agent.md`) includes `"mcp:github"` in its `tools` list:
+The agent file (`.github/agents/multicloud-migration-estimator.agent.md`) includes `"mcp:github"` in its `tools` list and is also allowed to use terminal execution:
 
 ```yaml
-tools: [read, search, edit, web, "mcp:github"]
+tools: [read, search, edit, web, execute, "mcp:github"]
 ```
 
-This grants the agent access to all tools exposed by the GitHub MCP server. To restrict to specific tools, use the format `"mcp:github:tool_name"` (e.g., `"mcp:github:create_issue"`).
+This grants the agent access to all tools exposed by the GitHub MCP server and allows it to run local publish/build commands when terminal execution is available. To restrict MCP access to specific tools, use the format `"mcp:github:tool_name"` (e.g., `"mcp:github:create_issue"`).
 
 ### Available Capabilities
 
@@ -227,12 +234,13 @@ Once connected, the agent can:
 
 ## Atlassian Confluence Integration
 
-The agent can publish generated migration reports to Atlassian Confluence for team sharing and archival.
+The agent can optionally publish generated migration reports to Atlassian Confluence after saving them locally.
 
 ### Prerequisites
 
-- **Atlassian Confluence Cloud** account with access to a space where you have Write permission.
-- **Atlassian API Token** — create one at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
+- `.env` contains valid Atlassian credentials.
+- You have write access to the configured shared Confluence space.
+- The repository publish script is available at `scripts/publish-to-confluence.sh`.
 
 ### Configuration
 
@@ -242,25 +250,23 @@ The agent can publish generated migration reports to Atlassian Confluence for te
    ATLASSIAN_API_EMAIL=your_email@company.com
    ATLASSIAN_API_TOKEN=your_api_token_here
    ATLASSIAN_API_ENDPOINT=https://your-instance.atlassian.net
-   ATLASSIAN_DOMAIN=your-instance.atlassian.net
+   ATLASSIAN_SPACE_KEY=ENG
    ```
 
-2. Verify your workspace has a valid `.env` with all three variables filled in.
-
-3. The agent uses an Atlassian MCP server for Confluence operations:
-   - It connects using `.env` credentials.
-   - It publishes reports to your personal Confluence space (`~anandy`).
-   - It returns a direct link to the created/updated page.
+2. Verify your workspace has a valid `.env` with all four variables filled in.
+3. The `.env` file is gitignored and should never be committed.
 
 ### How Publishing Works
 
-When you ask the agent to publish a report to Confluence:
+When you ask the agent to publish a report to Confluence and terminal execution is available:
 
-1. Agent reads the generated report from `Reports/` folder.
-2. Agent uses `confluence_list_spaces` / `confluence_search` to resolve destination and duplicates.
-3. Agent creates or updates a page with `confluence_create_page` / `confluence_update_page`.
-4. Agent verifies with `confluence_get_page`.
-5. Agent returns a direct link to the published page.
+1. The agent generates and saves the report locally under `Reports/`.
+2. The agent runs `./scripts/publish-to-confluence.sh` from the workspace root.
+3. The script auto-detects the latest report, resolves the configured Confluence space from `ATLASSIAN_SPACE_KEY`, and creates or updates the corresponding page.
+4. The script returns the page title, page ID, local report filename, and final URL.
+5. The agent relays those results back to you.
+
+If terminal execution is unavailable, the agent should provide the exact publish command and the expected output format instead of claiming to publish directly.
 
 ### Example Usage
 
@@ -276,52 +282,45 @@ Or explicitly:
 Create a migration decision report for this repo, then publish it to Confluence.
 ```
 
-### Published Reports
+### Expected Script Output
 
-Your published migration reports are accessible at:
-
-🔗 [Personal Confluence Space](https://hyland.atlassian.net/wiki/spaces/~anandy/overview)
-
-(Note: You must have access to this space; adjust the space key if targeting a different space.)
+```text
+SUCCESS
+Title: Migration Report - 2026-04-14 12:30 UTC
+Page ID: 4031226486
+Local file: multi-cloud-migration-report-20260414-123000-utc.md
+URL: https://hyland.atlassian.net/wiki/spaces/ENG/pages/4031226486/...
+```
 
 ### Available Capabilities
 
-| Capability                 | Status | Notes                                                                   |
-| -------------------------- | ------ | ----------------------------------------------------------------------- |
-| **Create page**            | ✓      | Published to personal Confluence space with date-stamped title          |
-| **Update page**            | ✓      | Agent detects title collisions and updates existing pages               |
-| **Space discovery**        | ✓      | Uses MCP tools to resolve destination space and IDs                     |
-| **Cross-space publishing** | ◐      | Currently targets personal space; team space requires permission change |
+| Capability | Status | Notes |
+|---|---|---|
+| **Create page** | ✓ | Script creates a new page when no title match exists |
+| **Update page** | ✓ | Script updates an existing page safely when the title already exists |
+| **Shared-space publishing** | ✓ | Uses `ATLASSIAN_SPACE_KEY` to target a team-visible space |
+| **Direct agent execution** | ✓ | Agent runs the script when terminal execution is available |
 
 ### Error Handling
 
 | Error                | Cause                          | Fix                                                                |
 | -------------------- | ------------------------------ | ------------------------------------------------------------------ |
-| **401 Unauthorized** | Invalid credentials in `.env`  | Verify email matches your Atlassian account and API token is valid |
-| **403 Forbidden**    | No Write permission in space   | Check your personal Confluence space settings                      |
-| **400 Bad Request**  | Invalid markdown or page title | Check report content for special characters in title               |
-| **409 Conflict**     | Page with same title exists    | Agent will offer to update existing page instead                   |
+| **401 Unauthorized** | Invalid credentials in `.env` | Verify email, token, and endpoint values in `.env` |
+| **403 Forbidden** | No write permission in target space | Check the shared space configured by `ATLASSIAN_SPACE_KEY` |
+| **Space not found** | Invalid or inaccessible space key | Verify `ATLASSIAN_SPACE_KEY` refers to an existing writable space |
+| **Permission denied** | Confluence write access missing | Confirm your Atlassian account can create/update pages in the target space |
 
 ### Troubleshooting Authentication
 
-1. **Verify API Token**:
-   - Go to [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
-   - Ensure the token has been created and is not expired.
-   - Copy the full token (it's only shown once).
-
-2. **Test MCP startup locally**:
+1. Verify the API token at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
+2. Check `.env` formatting and ensure `ATLASSIAN_API_EMAIL`, `ATLASSIAN_API_TOKEN`, `ATLASSIAN_API_ENDPOINT`, and `ATLASSIAN_SPACE_KEY` are present.
+3. Run the publish script manually if needed:
 
    ```bash
-      set -a && . ./.env && set +a
-      ATLASSIAN_DOMAIN=${ATLASSIAN_API_ENDPOINT#https://}
-      npx -y @xuandev/atlassian-mcp --domain "$ATLASSIAN_DOMAIN" --email "$ATLASSIAN_API_EMAIL" --token "$ATLASSIAN_API_TOKEN" --help
+   ./scripts/publish-to-confluence.sh
    ```
 
-   If help output appears successfully, MCP startup wiring is valid.
-
-3. **Check `.env` formatting**:
-   - Ensure no extra spaces or trailing newlines.
-   - Verify email matches your Atlassian account exactly.
+4. If the script fails, validate that the target shared space exists and that you have write permission.
 
 ### Opting Out
 

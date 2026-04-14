@@ -77,6 +77,9 @@ Notes:
 - The markdown report references the generated draw.io artifact path and all three SVG file paths for diagrams.
 - The markdown report embeds all three SVG files directly in section 11 using markdown image syntax.
 - SVG files are saved as `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{aws-source|azure-target|gcp-target}.svg` in `Reports/`.
+- Draw.io/SVG diagrams must be detailed (Mermaid-equivalent logical architecture), not just high-level capability boxes.
+- AWS diagram should explicitly show: clients, DNS/ingress, EKS boundary, REST, router, engines, KEDA, network policies, Kubernetes secrets, SQS/SNS, KMS, Secrets Manager, Datadog, and VPC/subnets (or mark missing items as `Not found in IaC`).
+- Azure and GCP diagrams should use equivalent granularity and explicit service-to-service flows.
 - Mermaid blocks are not embedded in the markdown report.
 
 ## How To Update The Agent

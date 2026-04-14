@@ -5,7 +5,7 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 ## Files
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
-- `Reports/`: Generated migration decision report artifacts (markdown and draw.io files with timestamps).
+- `Reports/`: Generated migration decision report artifacts — markdown report, draw.io diagram file, and three SVG diagram exports (one per architecture view), all timestamped.
 
 ## What This Agent Does
 The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*.tf`) and produces a migration report with:
@@ -15,7 +15,7 @@ The agent analyzes files under `input/**` (prioritizing IaC from `input/**/src/*
 - Migration challenge and risk register
 - Effort scoring and 30/60/90 day plan
 - Open questions for architects
-- Component diagrams delivered as a draw.io artifact (AWS source, Azure target, GCP target)
+- Component diagrams delivered as a draw.io artifact (AWS source, Azure target, GCP target) and three SVG exports (one per page) saved alongside the draw.io file in `Reports/`
 
 ## How To Use
 1. Open Copilot Chat in VS Code.
@@ -71,10 +71,11 @@ The report is expected to include these sections:
 8. Decision Scenarios
 9. Recommended Plan (30/60/90)
 10. Open Questions
-11. Component Diagrams (draw.io reference and page mapping)
+11. Component Diagrams (draw.io reference, SVG file paths, and page mapping)
 
 Notes:
-- The markdown report references the generated draw.io artifact path for diagrams.
+- The markdown report references the generated draw.io artifact path and all three SVG file paths for diagrams.
+- SVG files are saved as `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{aws-source|azure-target|gcp-target}.svg` in `Reports/`.
 - Mermaid blocks are not embedded in the markdown report.
 
 ## How To Update The Agent

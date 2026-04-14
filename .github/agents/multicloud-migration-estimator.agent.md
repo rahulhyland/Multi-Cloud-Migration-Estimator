@@ -79,13 +79,18 @@ Also identify whether workload behavior appears steady or bursty when not explic
    - Storage
 
 4. Map each AWS service to Azure and GCP equivalents.
+   - For each discovered AWS resource, extract the specific service family, instance type, tier, or SKU provisioned in the IaC (for example `t2.micro`, `db.r5.large`, `STANDARD` storage class).
+   - Map that specific tier/family to the closest equivalent SKU or tier on Azure and GCP (for example AWS `t2.micro` → Azure `B1s` → GCP `e2-micro`).
+   - Record the IaC-discovered tier alongside the service name in the mapping matrix so all cost comparisons are grounded in the actual provisioned configuration, not a generic service-level match.
+   - If a specific tier cannot be determined from IaC, label it as "Tier not specified in IaC" and fall back to the service-level equivalent.
 
 5. Build directional regional cost view for US, EU, and AU with two required segments:
    - 30-day total run-rate cost by capability and cloud/region. Include the current AWS cost as a baseline column (AWS US / AWS EU / AWS AU where applicable) so readers can directly compare against Azure and GCP. Add a cost-delta row or column showing Azure vs. AWS % and GCP vs. AWS % variance.
    - Metered billing tier breakdown by service using official pricing units and bands (for example first 1M requests and over 1M requests where applicable). Include AWS tier pricing as a baseline column for each service so the per-unit cost delta vs. Azure and GCP is immediately visible.
    - One-time migration cost versus 30-day run-rate comparison table with AWS baseline included so total transition economics can be compared side-by-side.
    - If a service does not use request-based pricing, use the official meter and tier model for that service (for example GB-month, vCPU-hour, DTU-hour, data transfer GB).
-   - Derive AWS baseline costs from the same IaC-discovered resources and the same usage assumptions applied to Azure and GCP; label clearly as directional estimates.
+   - Derive AWS baseline costs from the IaC-discovered resources using the specific provisioned tier/family (from step 4) and the same usage assumptions applied to Azure and GCP; label clearly as directional estimates.
+   - When a specific tier/family was identified in IaC, use that tier's official per-unit price for AWS baseline and its nearest equivalent tier's price for Azure and GCP. Do not use generic or average pricing when a specific SKU is known.
    - Explicitly label currency in all cost outputs (default USD), including table headers and any inline totals/deltas.
 
 6. Identify blockers and migration challenges:
@@ -152,7 +157,9 @@ Return one markdown report with these sections in order:
 3. Source AWS Footprint
    - Table: Resource group | Key AWS services found | Notes
 4. Service Mapping Matrix
-   - Table: AWS service | Azure equivalent | GCP equivalent | Porting notes
+   - Table: AWS service | IaC-provisioned tier/family | Azure equivalent (matched tier) | GCP equivalent (matched tier) | Porting notes
+   - The "IaC-provisioned tier/family" column must reflect the exact instance type, SKU, or tier extracted from the Terraform/Helm files (for example `t2.micro`, `db.r5.large`, `m5.xlarge`). Use "Not specified in IaC" if the tier cannot be determined.
+   - The Azure and GCP equivalent columns must match against that specific tier, not just the service category.
 5. Regional Cost Analysis (Directional)
    - 30-Day Total Cost Table: Capability | AWS US (baseline, USD) | AWS EU (USD) | AWS AU (USD) | Azure US (USD) | Azure EU (USD) | Azure AU (USD) | GCP US (USD) | GCP EU (USD) | GCP AU (USD) | Confidence
    - Include a cost-delta row at the bottom of the 30-Day table: delta % vs. AWS for each cloud/region column

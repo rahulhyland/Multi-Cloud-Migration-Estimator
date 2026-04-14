@@ -112,8 +112,8 @@ Also identify whether workload behavior appears steady or bursty when not explic
    - Target GCP infrastructure
    
    Use draw.io diagrams as the primary artifact.
-   Also generate an editable draw.io artifact with one page each for the AWS source, Azure target, and GCP target component diagrams.
-   Save the draw.io artifact as valid `.drawio` XML in a newly created timestamped subfolder under `Reports/`.
+   Also generate editable draw.io artifacts with one file per SVG output for the AWS source, Azure target, and GCP target component diagrams.
+   Save each draw.io artifact as valid `.drawio` XML in a newly created timestamped subfolder under `Reports/`.
 
     After creating the `.drawio` file, also generate one SVG file per diagram page by creating each SVG using the `create_file` tool:
     - Generate standards-compliant SVG that renders directly in browsers and markdown previews.
@@ -135,12 +135,12 @@ Also identify whether workload behavior appears steady or bursty when not explic
     - Azure and GCP target pages must use equivalent granularity (not necessarily identical services), including cluster boundary, ingress/edge services, messaging components, identity/security components, storage/backup, observability, and core service-to-service flows.
     - If a component is not found in IaC, represent it as "Not found in IaC" instead of omitting silently.
 
-9. Always generate three chart types and supplemental draw.io chart pages in the same `.drawio` artifact and export them as SVG:
+9. Always generate three chart types and supplemental draw.io chart artifacts (one file per chart) and export them as SVG:
     - Cost comparison chart (Azure vs GCP by region/capability) — **always generated**
     - Effort-risk chart (capability effort vs migration risk) — **always generated**
     - Scenario comparison chart (cost-first, speed-first, risk-first) — **always generated**
     - Keep chart labels and legends high-contrast for dark/light mode readability.
-    - Use filename format: `multi-cloud-migration-diagrams-{chart-slug}.svg`
+      - Use filename format: `multi-cloud-migration-diagrams-{chart-slug}.svg`
        - `{chart-slug}` values: `cost-comparison`, `effort-risk`, `scenario-comparison`
     - Embed these chart SVGs in their corresponding report sections (cost chart in section 5, effort-risk chart in section 7, scenario chart in section 8).
 
@@ -195,7 +195,7 @@ Return one markdown report with these sections in order:
    - Do not embed Mermaid blocks in the markdown report
 
 
-Generate a PDF version of the report as a secondary artifact in the same folder, using filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.pdf`. Ensure the PDF formatting is clean and readable, with tables properly rendered and diagrams included. Confirm PDF creation and provide the exact file path in the response to the user.
+Generate a PDF version of the report as a secondary artifact in the same folder, using filename format: `multi-cloud-migration-report-utc.pdf`. Ensure the PDF formatting is clean and readable, with tables properly rendered and diagrams included. Confirm PDF creation and provide the exact file path in the response to the user.
 
 1. Use the previously generated Markdown file as the source for PDF generation to ensure consistency between the two formats.
 2. Ensure that all images (diagrams) are properly embedded in the PDF and maintain readability.
@@ -211,13 +211,13 @@ Generate a PDF version of the report as a secondary artifact in the same folder,
 - **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact inside the new folder (for example: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/multi-cloud-migration-report.md`).
 
 #### Draw.io + SVG Generation Rule (Mandatory)
-- For every generated report, create a matching `.drawio` artifact in the same output folder.
-- The `.drawio` artifact must include architecture pages (AWS Source, Azure Target, GCP Target) and chart pages (cost comparison, effort-risk, scenario comparison).
-- Export one SVG per required page and save all SVG files in the same output folder as the report.
+- For every generated report, create matching `.drawio` artifacts in the same output folder, with one `.drawio` file per required SVG.
+- Create exactly six `.drawio` files: `multi-cloud-migration-diagrams-aws-source.drawio`, `multi-cloud-migration-diagrams-azure-target.drawio`, `multi-cloud-migration-diagrams-gcp-target.drawio`, `multi-cloud-migration-diagrams-cost-comparison.drawio`, `multi-cloud-migration-diagrams-effort-risk.drawio`, and `multi-cloud-migration-diagrams-scenario-comparison.drawio`.
+- Export exactly one SVG per draw.io file and save all SVG files in the same output folder as the report.
 - The markdown report must embed these generated SVG files using relative markdown image links in their designated sections.
 
-- Generate a matching draw.io diagram artifact in the same new folder using filename format: `multi-cloud-migration-diagrams.drawio`.
-- Generate seven SVG exports from the draw.io pages — three per architecture view and one each for cost comparison, effort-risk, and scenario comparison charts — using filename format: `multi-cloud-migration-diagrams-aws-source.svg`, `multi-cloud-migration-diagrams-azure-target.svg`, `multi-cloud-migration-diagrams-gcp-target.svg`, `multi-cloud-migration-diagrams-cost-comparison.svg`, `multi-cloud-migration-diagrams-effort-risk.svg`, and `multi-cloud-migration-diagrams-scenario-comparison.svg`. Save all SVG files in the same new folder.
+- Generate matching draw.io diagram artifacts in the same new folder using filename format: `multi-cloud-migration-diagrams-{slug}.drawio`.
+- Generate six SVG exports from those draw.io files — one per architecture view and one each for cost comparison, effort-risk, and scenario comparison charts — using filename format: `multi-cloud-migration-diagrams-aws-source.svg`, `multi-cloud-migration-diagrams-azure-target.svg`, `multi-cloud-migration-diagrams-gcp-target.svg`, `multi-cloud-migration-diagrams-cost-comparison.svg`, `multi-cloud-migration-diagrams-effort-risk.svg`, and `multi-cloud-migration-diagrams-scenario-comparison.svg`. Save all SVG files in the same new folder.
 - **Always generate cost comparison, effort-risk, and scenario comparison chart SVGs** (all mandatory, not conditional).
 - Embed SVG files in their corresponding sections throughout the markdown report using markdown image links with relative filenames (the report and SVG files are in the same folder):
   - **Section 5.5 (Regional Cost Analysis Chart):** Always embed the cost comparison chart SVG and **ONLY in this section**. Do not duplicate cost chart in Section 11.
@@ -300,7 +300,7 @@ The repository includes a working shell script for publishing to Confluence.
 SUCCESS
 Title: Migration Report - 2026-04-14 12:30 UTC
 Page ID: 4031226486
-Local file: multi-cloud-migration-report-20260414-123000-utc.md
+Local file: multi-cloud-migration-report.md
 URL: https://hyland.atlassian.net/wiki/spaces/ENG/pages/4031226486/...
 ```
 

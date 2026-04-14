@@ -6,7 +6,7 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
-- `Reports/`: Generated migration decision report artifacts. Each run creates a timestamped subfolder containing the markdown report, draw.io diagram file, and SVG exports (three architecture SVGs + three chart SVGs, all mandatory).
+- `Reports/`: Generated migration decision report artifacts. Each run creates a timestamped subfolder containing the markdown report, six draw.io files (one per SVG), and SVG exports (three architecture SVGs + three chart SVGs, all mandatory).
 
 ## What This Agent Does
 
@@ -18,8 +18,8 @@ The agent analyzes Terraform from either local cloned repository paths or remote
 - Migration challenge and risk register
 - Effort scoring and a dynamic implementation timeline based on discovered infrastructure complexity
 - Open questions for architects
-- Component diagrams delivered as a draw.io artifact (AWS source, Azure target, GCP target) and three SVG exports (one per page) saved alongside the draw.io file in a per-run timestamped folder under `Reports/`
-- Mandatory supplemental draw.io charts: cost comparison, effort-risk, and scenario comparison, each exported as SVG in the same per-run folder
+- Component diagrams delivered as dedicated draw.io artifacts (AWS source, Azure target, GCP target), with one draw.io file per SVG output, saved in a per-run timestamped folder under `Reports/`
+- Mandatory supplemental draw.io chart artifacts: cost comparison, effort-risk, and scenario comparison, each with a matching SVG in the same per-run folder
 
 ## How To Use
 
@@ -106,7 +106,7 @@ Notes:
 - Draw.io/SVG diagrams must be detailed (Mermaid-equivalent logical architecture), not just high-level capability boxes.
 - SVG outputs must be standards-compliant and browser-renderable (no raw `mxGraphModel` embedded inside `<svg>`).
 - SVG arrows and labels should use explicit high-contrast styling for both light and dark mode (highlighted arrows, visible arrowheads, readable font fill/outline).
-- Chat responses should confirm markdown and draw.io artifact paths only; SVG paths are embedded inline in their corresponding report sections.
+- Chat responses should confirm markdown and draw.io artifact path(s) only; SVG paths are embedded inline in their corresponding report sections.
 - AWS diagram should explicitly show: clients, DNS/ingress, EKS boundary, REST, router, engines, KEDA, network policies, Kubernetes secrets, SQS/SNS, KMS, Secrets Manager, Datadog, and VPC/subnets (or mark missing items as `Not found in IaC`).
 - Azure and GCP diagrams should use equivalent granularity and explicit service-to-service flows.
 - Mermaid blocks are not embedded in the markdown report.
@@ -295,7 +295,7 @@ Create a migration decision report for this repo, then publish it to Confluence.
 SUCCESS
 Title: Migration Report - 2026-04-14 12:30 UTC
 Page ID: 4031226486
-Local file: multi-cloud-migration-report-20260414-123000-utc.md
+Local file: multi-cloud-migration-report.md
 URL: https://hyland.atlassian.net/wiki/spaces/ENG/pages/4031226486/...
 ```
 

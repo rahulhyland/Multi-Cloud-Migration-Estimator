@@ -28,3 +28,7 @@ Gemfile.lock
 
 # macOS Finder metadata
 .DS_Store
+
+# Claude files
+CLAUDE.md
+.claude/

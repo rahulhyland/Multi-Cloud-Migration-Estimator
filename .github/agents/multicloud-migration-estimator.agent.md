@@ -45,7 +45,7 @@ When the user provides one or more GitHub repository URLs instead of (or in addi
 - Planning horizon (months)
 - Assumptions:
   - Traffic profile
-   - Usage volumes by metered service (for example requests, GB transfer, vCPU-hours, GB-months)
+  - Usage volumes by metered service (for example requests, GB transfer, vCPU-hours, GB-months)
   - Availability target and DR targets (RTO/RPO)
   - Compliance and residency constraints
   - Performance requirements
@@ -79,13 +79,18 @@ Also identify whether workload behavior appears steady or bursty when not explic
    - Storage
 
 4. Map each AWS service to Azure and GCP equivalents.
+   - For each discovered AWS resource, extract the specific service family, instance type, tier, or SKU provisioned in the IaC (for example `t2.micro`, `db.r5.large`, `STANDARD` storage class).
+   - Map that specific tier/family to the closest equivalent SKU or tier on Azure and GCP (for example AWS `t2.micro` → Azure `B1s` → GCP `e2-micro`).
+   - Record the IaC-discovered tier alongside the service name in the mapping matrix so all cost comparisons are grounded in the actual provisioned configuration, not a generic service-level match.
+   - If a specific tier cannot be determined from IaC, label it as "Tier not specified in IaC" and fall back to the service-level equivalent.
 
 5. Build directional regional cost view for US, EU, and AU with two required segments:
    - 30-day total run-rate cost by capability and cloud/region. Include the current AWS cost as a baseline column (AWS US / AWS EU / AWS AU where applicable) so readers can directly compare against Azure and GCP. Add a cost-delta row or column showing Azure vs. AWS % and GCP vs. AWS % variance.
    - Metered billing tier breakdown by service using official pricing units and bands (for example first 1M requests and over 1M requests where applicable). Include AWS tier pricing as a baseline column for each service so the per-unit cost delta vs. Azure and GCP is immediately visible.
    - One-time migration cost versus 30-day run-rate comparison table with AWS baseline included so total transition economics can be compared side-by-side.
    - If a service does not use request-based pricing, use the official meter and tier model for that service (for example GB-month, vCPU-hour, DTU-hour, data transfer GB).
-   - Derive AWS baseline costs from the same IaC-discovered resources and the same usage assumptions applied to Azure and GCP; label clearly as directional estimates.
+   - Derive AWS baseline costs from the IaC-discovered resources using the specific provisioned tier/family (from step 4) and the same usage assumptions applied to Azure and GCP; label clearly as directional estimates.
+   - When a specific tier/family was identified in IaC, use that tier's official per-unit price for AWS baseline and its nearest equivalent tier's price for Azure and GCP. Do not use generic or average pricing when a specific SKU is known.
    - Explicitly label currency in all cost outputs (default USD), including table headers and any inline totals/deltas.
    - Generate a draw.io cost comparison chart visualizing regional pricing differences (Azure vs GCP) and save as SVG.
 
@@ -149,7 +154,9 @@ Return one markdown report with these sections in order:
 3. Source AWS Footprint
    - Table: Resource group | Key AWS services found | Notes
 4. Service Mapping Matrix
-   - Table: AWS service | Azure equivalent | GCP equivalent | Porting notes
+   - Table: AWS service | IaC-provisioned tier/family | Azure equivalent (matched tier) | GCP equivalent (matched tier) | Porting notes
+   - The "IaC-provisioned tier/family" column must reflect the exact instance type, SKU, or tier extracted from the Terraform/Helm files (for example `t2.micro`, `db.r5.large`, `m5.xlarge`). Use "Not specified in IaC" if the tier cannot be determined.
+   - The Azure and GCP equivalent columns must match against that specific tier, not just the service category.
 5. Regional Cost Analysis (Directional)
    - 30-Day Total Cost Table: Capability | AWS US (baseline, USD) | AWS EU (USD) | AWS AU (USD) | Azure US (USD) | Azure EU (USD) | Azure AU (USD) | GCP US (USD) | GCP EU (USD) | GCP AU (USD) | Confidence
    - Include a cost-delta row at the bottom of the 30-Day table: delta % vs. AWS for each cloud/region column
@@ -187,6 +194,15 @@ Return one markdown report with these sections in order:
    - **Supplemental visuals:** If additional charts (effort-risk, scenario comparison) were generated, list them here with a note that they are embedded in their respective sections (section 7 and section 8).
    - Do not embed Mermaid blocks in the markdown report
 
+
+Generate a PDF version of the report as a secondary artifact in the same folder, using filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.pdf`. Ensure the PDF formatting is clean and readable, with tables properly rendered and diagrams included. Confirm PDF creation and provide the exact file path in the response to the user.
+
+1. Use the previously generated Markdown file as the source for PDF generation to ensure consistency between the two formats.
+2. Ensure that all images (diagrams) are properly embedded in the PDF and maintain readability.
+3. Use a clear and professional layout for the PDF, with consistent fonts, spacing, and formatting that matches the markdown report.
+4. Confirm that the PDF file is saved in the same newly created timestamped subfolder under `Reports/` alongside the markdown report and draw.io files, using the specified filename format.
+5. After successful PDF generation, provide the exact file path for the PDF in the response to the user, confirming that both the markdown and PDF artifacts are available for review.
+
 ### Report Artifact (Required)
 - **Create a new output folder in `Reports/` for each run before writing artifacts.**
 - Use output folder format: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/` (e.g., `Reports/multi-cloud-migration-20260414-153000-utc/`).
@@ -210,7 +226,7 @@ Return one markdown report with these sections in order:
   - **Section 11 (Component Diagrams):** Always embed the three architecture diagrams (AWS Source, Azure Target, GCP Target) and **ONLY these three**. Do not embed cost chart, effort-risk chart, or scenario chart here.
   - **Critical Constraint:** Each SVG file should be embedded in exactly ONE location per report. No duplicate embeddings across sections. Verify with grep/search before finalizing report.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
-- Confirm file creation and provide the exact file paths for the markdown report and the draw.io artifact in the response to the user.
+- Confirm file creation and provide the exact file paths for the markdown report, the PDF report, and the draw.io artifact in the response to the user.
 - Do not print SVG file paths in the chat response; keep SVG path references inside section 11 of the saved markdown report.
 
 ### Post-Generation Validation (Required Before Finalizing Report)

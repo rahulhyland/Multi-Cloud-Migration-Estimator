@@ -1,0 +1,614 @@
+<mxfile host="app.diagrams.net" modified="2026-04-14T14:36:19.000Z" agent="GitHub Copilot" version="21.0.0" type="device">
+  <diagram id="aws-source-page" name="AWS Source">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Internet / Clients -->
+        <mxCell id="internet-zone" value="Internet / Upstream Clients" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="760" y="30" width="400" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Route53 + ACM -->
+        <mxCell id="route53" value="Amazon Route53&#xa;(DNS — experience.hyland.com / app.hyland.eu)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="140" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="acm" value="AWS ACM (TLS Certificates)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="140" width="240" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- WAF -->
+        <mxCell id="waf" value="AWS WAFv2&#xa;(AWSManagedRulesCommonRuleSet · REGIONAL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="700" y="230" width="320" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- VPC Boundary -->
+        <mxCell id="vpc" value="AWS VPC (us-east-1 / eu-central-1) — Multi-AZ Public + Private Subnets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="330" width="1760" height="960" as="geometry" />
+        </mxCell>
+
+        <!-- Public Subnet -->
+        <mxCell id="public-subnet" value="Public Subnets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5fe;strokeColor=#0288d1;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="370" width="400" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="alb" value="AWS ALB&#xa;'content-ingress'&#xa;(Application Load Balancer, public)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="130" y="400" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="natgw" value="NAT Gateway" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="420" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Private Subnet — EKS -->
+        <mxCell id="private-subnet" value="Private Subnets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#388e3c;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="550" y="370" width="1260" height="870" as="geometry" />
+        </mxCell>
+
+        <!-- EKS Cluster Boundary -->
+        <mxCell id="eks" value="Amazon EKS Cluster&#xa;(terraform-aws-modules/eks v20.36.0 · m5.xlarge nodes · Bottlerocket AMI · ON_DEMAND · min 3 / max 25)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="570" y="400" width="1220" height="600" as="geometry" />
+        </mxCell>
+
+        <!-- NGINX Ingress -->
+        <mxCell id="nginx" value="NGINX Ingress Controller&#xa;(ingress-nginx v4.15.1)&#xa;Private NLB-backed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="450" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Karpenter -->
+        <mxCell id="karpenter" value="Karpenter v1.10.0&#xa;(Node Autoscaler · IRSA)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="560" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- cert-manager -->
+        <mxCell id="certmgr" value="cert-manager v1.20.0&#xa;(DNS01 IRSA · Route53)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="640" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Datadog Agent -->
+        <mxCell id="dd-agent" value="Datadog Agent v3.193.0&#xa;(APM · JVM metrics · SLO)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="720" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Velero -->
+        <mxCell id="velero" value="Velero v12.0.0&#xa;(IRSA · EKS cluster backup)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="800" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- hxpr namespace -->
+        <mxCell id="hxpr-ns" value="hxpr namespace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="830" y="430" width="680" height="480" as="geometry" />
+        </mxCell>
+
+        <!-- REST pods -->
+        <mxCell id="hxpr-pod1" value="HXPR API Pod 1&#xa;hxpr-app-jvm v2.1.280&#xa;0.3–1 vCPU / 1.5–2Gi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="470" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hxpr-pod2" value="HXPR API Pod 2&#xa;hxpr-app-jvm v2.1.280&#xa;0.3–1 vCPU / 1.5–2Gi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="470" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hxpr-pod3" value="HXPR API Pod 3&#xa;hxpr-app-jvm v2.1.280&#xa;0.3–1 vCPU / 1.5–2Gi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="470" width="190" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Router pod -->
+        <mxCell id="router-pod" value="Router Pod&#xa;(Transform routing&#xa;hxts URL map)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="470" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Engine group -->
+        <mxCell id="engine-group" value="Transform Engine Workers&#xa;(tika · imagemagick · libreoffice · misc · docfilters · docmerge · aio)&#xa;[configuration in hxts — Not provisioned in this IaC scope]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="850" y="590" width="840" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Kubernetes Secrets -->
+        <mxCell id="k8s-secrets" value="Kubernetes Secrets&#xa;(DB creds · SQS ARNs · KMS key refs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="690" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- KEDA -->
+        <mxCell id="keda" value="KEDA&#xa;[Not found in IaC]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bbb;fontColor=#666;fontSize=9;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="690" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Network Policies -->
+        <mxCell id="netpol" value="Network Policies&#xa;[Not found in IaC]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bbb;fontColor=#666;fontSize=9;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="690" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- IRSA Service Account -->
+        <mxCell id="irsa" value="IRSA Service Account&#xa;environment-{env_id}-role&#xa;(OIDC federated)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="790" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- SQS -->
+        <mxCell id="sqs" value="Amazon SQS&#xa;21 Standard Queues (KMS CMK)&#xa;trash · retentionExpired · deletion · removeProxy&#xa;setProperties · indexing · bulkImport · cleanupOrphans...&#xa;+ 2 hxts-transform-reply queues" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1040" width="360" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- SNS -->
+        <mxCell id="sns" value="Amazon SNS&#xa;hxpr-repository-async-tasks (KMS CMK)&#xa;hxpr-repository-events (KMS CMK)&#xa;hxts-transform-reply-events (external ARN)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1040" width="340" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- S3 Buckets -->
+        <mxCell id="s3" value="Amazon S3 (Standard · KMS-SSE CMK · Versioning)&#xa;hxpr-{id}-{env}-{region}-hy (content)&#xa;upload-{id}-{env}-{region}-hy (direct upload)&#xa;bulk-ingest bucket · retention bucket (Object Lock)&#xa;velero-hxpr-{env}.{region}-hy (backup → us-west-2 CRR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="870" y="1040" width="380" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- OpenSearch -->
+        <mxCell id="opensearch" value="AWS OpenSearch Service 2.11&#xa;r5.large.search (2 vCPU / 16 GB) × 12 nodes (prod)&#xa;9 data + 3 dedicated masters · 3-AZ · 10 GB EBS&#xa;multi_az_with_standby=true · at-rest + node-to-node enc." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="1040" width="390" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda -->
+        <mxCell id="lambda" value="AWS Lambda (Python 3.10 · VPC-attached · 900s timeout)&#xa;environment_decommission_lambda&#xa;move_malware_to_quarantine_lambda&#xa;+ network_reachability lambdas (Lambda layers: opensearch_py, pymongo, botocore)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="400" width="340" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- MongoDB Atlas -->
+        <mxCell id="atlas" value="MongoDB Atlas (External · AWS PrivateLink)&#xa;M40 cluster (4 vCPU / 8 GB) × 3 nodes + M30 analytics&#xa;v7.0 · REPLICASET · auto-scale M40→M60&#xa;US_EAST_1 (prod) / EU_CENTRAL_1 (prod-eu)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="560" width="340" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- KMS -->
+        <mxCell id="kms" value="AWS KMS (5+ CMKs · rotation enabled)&#xa;EBS · SQS transform events · SQS repo events&#xa;S3 content · usage-events SNS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="700" width="340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- GuardDuty -->
+        <mxCell id="guardduty" value="AWS GuardDuty&#xa;S3 Malware Protection Plan&#xa;→ EventBridge → Lambda quarantine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="820" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Datadog SaaS -->
+        <mxCell id="datadog-saas" value="Datadog SaaS&#xa;(APM · Metrics · Logs · SLO Monitors&#xa;JVM monitors · Network reachability)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="930" width="340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- CloudWatch -->
+        <mxCell id="cw" value="AWS CloudWatch&#xa;EKS control plane logs · WAF logs · Lambda logs&#xa;14-day retention" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1200" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Rancher -->
+        <mxCell id="rancher" value="Rancher&#xa;(rancher.us.tools.hyland.dev)&#xa;OKTA RBAC: admin/read-only/developer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1200" width="260" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows: Internet to WAF to ALB -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="internet-zone" target="route53" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="route53" target="waf" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="waf" target="alb" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="alb" target="nginx" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="nginx" target="hxpr-pod1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="nginx" target="hxpr-pod2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="nginx" target="hxpr-pod3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- HXPR to SQS/SNS -->
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff6600;strokeWidth=2;dashed=1;" edge="1" source="hxpr-pod1" target="sqs" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff6600;strokeWidth=2;dashed=1;" edge="1" source="hxpr-pod1" target="sns" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- HXPR to OpenSearch -->
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#009900;strokeWidth=2;dashed=1;" edge="1" source="hxpr-pod2" target="opensearch" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- HXPR to Atlas -->
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9900cc;strokeWidth=2;dashed=1;" edge="1" source="hxpr-pod1" target="atlas" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- HXPR to S3 -->
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff9900;strokeWidth=2;dashed=1;" edge="1" source="hxpr-pod2" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Karpenter scales EKS nodes -->
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#aa6600;strokeWidth=1;dashed=1;" edge="1" source="karpenter" target="eks" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Datadog Agent → Datadog SaaS -->
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9673a6;strokeWidth=2;dashed=1;" edge="1" source="dd-agent" target="datadog-saas" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Velero to S3 -->
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#aa6600;strokeWidth=1;dashed=1;" edge="1" source="velero" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- cert-manager to Route53 -->
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#b85450;strokeWidth=1;dashed=1;" edge="1" source="certmgr" target="route53" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- GuardDuty to Lambda -->
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#cc0000;strokeWidth=2;" edge="1" source="guardduty" target="lambda" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- SNS fans out to SQS -->
+        <mxCell id="e18" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff6600;strokeWidth=1;dashed=1;" edge="1" source="sns" target="sqs" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="azure-target-page" name="Azure Target">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Internet -->
+        <mxCell id="az-internet" value="Internet / Upstream Clients" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="760" y="30" width="400" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Azure DNS + Cert-manager -->
+        <mxCell id="az-dns" value="Azure DNS&#xa;(experience.hyland.com / app.hyland.eu zones)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="140" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="az-certmgr" value="cert-manager v1.20.0&#xa;(Azure DNS01 solver · Workload Identity)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="140" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Azure App Gateway WAF -->
+        <mxCell id="az-appgw" value="Azure Application Gateway v2 Standard_v2&#xa;+ WAF (OWASP CRS 3.2 · custom exclusions)&#xa;TLS policy: AppGwSslPolicy20220101S (TLS 1.2+)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="660" y="230" width="400" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Azure VNet -->
+        <mxCell id="az-vnet" value="Azure Virtual Network (East US / West Europe) — 3 AZs · Public + Private Subnets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="350" width="1760" height="940" as="geometry" />
+        </mxCell>
+
+        <!-- AKS Cluster -->
+        <mxCell id="az-aks" value="Azure AKS Cluster (Standard tier)&#xa;Standard_D4s_v3 nodes (4 vCPU / 16 GB) · 3–25 node autoscaling · AKS CA + KEDA v2.x" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="570" y="400" width="1220" height="580" as="geometry" />
+        </mxCell>
+
+        <!-- NGINX AKS -->
+        <mxCell id="az-nginx" value="NGINX Ingress v4.15.1&#xa;(Azure ILB-backed — private)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="450" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- AKS CA + KEDA -->
+        <mxCell id="az-ca" value="AKS Cluster Autoscaler&#xa;+ KEDA v2.x&#xa;(Karpenter equiv.)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="540" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- cert-manager in cluster -->
+        <mxCell id="az-cm-cluster" value="cert-manager v1.20.0&#xa;(Azure DNS01)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="630" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Datadog -->
+        <mxCell id="az-dd" value="Datadog Agent v3.193.0&#xa;(APM · JVM · SLO — unchanged)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="710" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Velero -->
+        <mxCell id="az-velero" value="Velero v12.0.0&#xa;(→ Azure Blob GRS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="790" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Key Vault CSI -->
+        <mxCell id="az-kvcsi" value="Azure Key Vault CSI Driver&#xa;(mounts secrets to pods)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="870" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- hxpr namespace -->
+        <mxCell id="az-hxpr-ns" value="hxpr namespace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="830" y="430" width="780" height="480" as="geometry" />
+        </mxCell>
+
+        <mxCell id="az-pod1" value="HXPR API Pod 1&#xa;hxpr-app-jvm v2.1.280&#xa;(Azure SDK env-vars)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="470" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="az-pod2" value="HXPR API Pod 2&#xa;hxpr-app-jvm v2.1.280&#xa;(azure-messaging-servicebus SDK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="470" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="az-pod3" value="HXPR API Pod 3&#xa;hxpr-app-jvm v2.1.280&#xa;(Azure Blob storage SDK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="470" width="210" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="az-router" value="Router Pod&#xa;(transform routing)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="470" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="az-engine" value="Transform Engine Workers&#xa;[config in hxts scope — Not provisioned in this IaC scope]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="580" width="880" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="az-workloadid" value="Azure AD Workload Identity&#xa;(replaces IRSA · 10+ service accounts)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="670" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="az-opensearch-ns" value="OpenSearch namespace (AKS separate node pool)&#xa;OpenSearch 2.11 via Operator&#xa;Standard_E2s_v3 (2 vCPU / 16 GB) × 12 nodes&#xa;Azure Disk (P30 · 128 GB/node)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="850" y="760" width="360" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Azure Service Bus -->
+        <mxCell id="az-sb" value="Azure Service Bus Premium&#xa;21 queues + 3 topics&#xa;(dead-letter · lock duration · SQL filter rules)&#xa;VNet service-endpoint secured · KMS-equiv. encryption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1030" width="380" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Azure Blob -->
+        <mxCell id="az-blob" value="Azure Blob Storage (LRS primary · GRS cross-region)&#xa;content · upload · bulk-ingest · retention (Immutable Blob)&#xa;velero backup (GRS ≤15 min cross-region)&#xa;Azure Key Vault CMK encryption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="530" y="1030" width="380" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Azure Functions -->
+        <mxCell id="az-funcs" value="Azure Functions (Python 3.10 · VNet-integrated)&#xa;env_decommission · malware_quarantine&#xa;Triggered by Defender for Storage event" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="400" width="340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Atlas Azure -->
+        <mxCell id="az-atlas" value="MongoDB Atlas M40 (Azure-backed)&#xa;M40 × 3 nodes + M30 × 1 analytics · v7.0&#xa;Azure Private Link · auto-scale M40→M60&#xa;West Europe (prod-eu) / East US (prod)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="500" width="340" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Key Vault Security -->
+        <mxCell id="az-kv" value="Azure Key Vault (Standard tier)&#xa;5+ CMK equivalents · key rotation enabled&#xa;Workload Identity RBAC access" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="640" width="340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Defender for Storage -->
+        <mxCell id="az-defender" value="Microsoft Defender for Storage&#xa;(built-in malware scan on upload)&#xa;→ Azure Event Grid → Azure Functions quarantine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="760" width="340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Azure Monitor -->
+        <mxCell id="az-monitor" value="Azure Monitor + Log Analytics Workspace&#xa;AKS control plane · WAF · Functions logs&#xa;14-day retention" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="880" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Datadog SaaS (same) -->
+        <mxCell id="az-dd-saas" value="Datadog SaaS&#xa;(APM · Metrics · Logs · SLO Monitors — unchanged)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="990" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Rancher -->
+        <mxCell id="az-rancher" value="Rancher (AKS cluster import)&#xa;OKTA RBAC groups preserved" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1180" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="aze1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="az-internet" target="az-dns" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="az-dns" target="az-appgw" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="az-appgw" target="az-nginx" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="az-nginx" target="az-pod1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="az-nginx" target="az-pod2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="az-nginx" target="az-pod3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff6600;strokeWidth=2;dashed=1;" edge="1" source="az-pod1" target="az-sb" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff9900;strokeWidth=2;dashed=1;" edge="1" source="az-pod2" target="az-blob" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#009900;strokeWidth=2;dashed=1;" edge="1" source="az-pod2" target="az-opensearch-ns" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9900cc;strokeWidth=2;dashed=1;" edge="1" source="az-pod1" target="az-atlas" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9673a6;strokeWidth=2;dashed=1;" edge="1" source="az-dd" target="az-dd-saas" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#aa6600;strokeWidth=1;dashed=1;" edge="1" source="az-velero" target="az-blob" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aze13" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#cc0000;strokeWidth=2;" edge="1" source="az-defender" target="az-funcs" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="gcp-target-page" name="GCP Target">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Internet -->
+        <mxCell id="gcp-internet" value="Internet / Upstream Clients" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="760" y="30" width="400" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Cloud DNS + cert-manager -->
+        <mxCell id="gcp-dns" value="GCP Cloud DNS&#xa;(experience.hyland.com / app.hyland.eu zones)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="140" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gcp-certmgr" value="cert-manager v1.20.0&#xa;(GCP Cloud DNS01 solver · Workload Identity)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="140" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- HTTPS LB + Cloud Armor -->
+        <mxCell id="gcp-lb" value="GCP HTTPS External Load Balancer (Premium tier)&#xa;+ Cloud Armor (CRS managed rules · TLS 1.2+ SSL policy)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="230" width="440" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- GCP VPC -->
+        <mxCell id="gcp-vpc" value="GCP VPC (us-central1 / europe-west1) — 3 Zones · Private subnets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=11;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="340" width="1760" height="960" as="geometry" />
+        </mxCell>
+
+        <!-- GKE Cluster -->
+        <mxCell id="gcp-gke" value="GCP GKE Cluster (Standard mode)&#xa;n2-standard-4 nodes (4 vCPU / 16 GB) · 3–25 node autoscaling · GKE CA + KEDA v2.x" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="570" y="390" width="1220" height="590" as="geometry" />
+        </mxCell>
+
+        <!-- NGINX GKE -->
+        <mxCell id="gcp-nginx" value="NGINX Ingress v4.15.1&#xa;(GCP ILB-backed — private)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="440" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- GKE CA + KEDA -->
+        <mxCell id="gcp-ca" value="GKE Cluster Autoscaler&#xa;+ KEDA v2.x&#xa;(Karpenter equiv.)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="530" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-cm-cluster" value="cert-manager v1.20.0&#xa;(GCP DNS01)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="620" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-dd" value="Datadog Agent v3.193.0&#xa;(APM · JVM · SLO — unchanged)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="700" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-velero" value="Velero v12.0.0&#xa;(→ GCS cross-region bucket)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="780" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-wi-csi" value="GCP Workload Identity&#xa;+ Secret Manager CSI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="590" y="860" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- hxpr namespace GCP -->
+        <mxCell id="gcp-hxpr-ns" value="hxpr namespace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="830" y="420" width="780" height="480" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-pod1" value="HXPR API Pod 1&#xa;hxpr-app-jvm v2.1.280&#xa;(GCP SDK env-vars)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="460" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gcp-pod2" value="HXPR API Pod 2&#xa;hxpr-app-jvm v2.1.280&#xa;(pubsub-java SDK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="460" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gcp-pod3" value="HXPR API Pod 3&#xa;hxpr-app-jvm v2.1.280&#xa;(GCS storage SDK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="460" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gcp-router" value="Router Pod&#xa;(transform routing)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="460" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-engine" value="Transform Engine Workers [Not provisioned in this IaC scope]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="570" width="880" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-wi" value="GCP Workload Identity&#xa;(replaces IRSA · 10+ service accounts)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="850" y="650" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gcp-opensearch-ns" value="OpenSearch namespace (GKE separate node pool)&#xa;OpenSearch 2.11 via Operator&#xa;n1-highmem-2 (2 vCPU / 13 GB) × 12 nodes&#xa;Persistent Disk (SSD · 128 GB/node)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="850" y="750" width="360" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- GCP Pub/Sub -->
+        <mxCell id="gcp-pubsub" value="GCP Cloud Pub/Sub&#xa;21 subscriptions + message attribute filters&#xa;3 topics (async-tasks · repo-events · transform-reply)&#xa;KMS CMEK encryption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1020" width="380" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- GCS -->
+        <mxCell id="gcp-gcs" value="GCP Cloud Storage (Standard · CMEK)&#xa;content · upload · bulk-ingest · retention (Object Retention)&#xa;cross-region velero bucket (≤15 min RPO)&#xa;GCP Key Management Service CMK encryption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="530" y="1020" width="380" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Cloud Functions -->
+        <mxCell id="gcp-funcs" value="GCP Cloud Functions 2nd gen (Python 3.10)&#xa;+ VPC Connector&#xa;env_decommission · malware_quarantine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="110" y="400" width="340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Atlas GCP -->
+        <mxCell id="gcp-atlas" value="MongoDB Atlas M40 (GCP-backed)&#xa;M40 × 3 nodes + M30 × 1 analytics · v7.0&#xa;GCP Private Service Connect · auto-scale M40→M60&#xa;europe-west1 (prod-eu) / us-central1 (prod)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="500" width="340" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- GCP KMS -->
+        <mxCell id="gcp-kms" value="GCP Cloud KMS (Software keys)&#xa;5+ CMEK keys · rotation enabled&#xa;Workload Identity IAM access" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="640" width="340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- GCP Secret Manager -->
+        <mxCell id="gcp-sm" value="GCP Secret Manager&#xa;(replaces AWS Secrets Manager / KV)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="760" width="340" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- GCP SCC + Cloud DLP -->
+        <mxCell id="gcp-scc" value="GCP SCC + Cloud DLP&#xa;→ Cloud Functions quarantine&#xa;(GuardDuty equiv.)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="860" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- GCP Cloud Logging -->
+        <mxCell id="gcp-logging" value="GCP Cloud Logging + Cloud Monitoring&#xa;GKE control plane · WAF (Cloud Armor) · Functions logs&#xa;14-day retention" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="970" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Datadog SaaS -->
+        <mxCell id="gcp-dd-saas" value="Datadog SaaS&#xa;(APM · Metrics · Logs · SLO Monitors — unchanged)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1200" width="340" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Rancher -->
+        <mxCell id="gcp-rancher" value="Rancher (GKE cluster import)&#xa;OKTA RBAC groups preserved" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="490" y="1200" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="gcpe1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="gcp-internet" target="gcp-dns" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="gcp-dns" target="gcp-lb" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="gcp-lb" target="gcp-nginx" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="gcp-nginx" target="gcp-pod1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="gcp-nginx" target="gcp-pod2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0066cc;strokeWidth=2;" edge="1" source="gcp-nginx" target="gcp-pod3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff6600;strokeWidth=2;dashed=1;" edge="1" source="gcp-pod1" target="gcp-pubsub" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ff9900;strokeWidth=2;dashed=1;" edge="1" source="gcp-pod2" target="gcp-gcs" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#009900;strokeWidth=2;dashed=1;" edge="1" source="gcp-pod2" target="gcp-opensearch-ns" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9900cc;strokeWidth=2;dashed=1;" edge="1" source="gcp-pod1" target="gcp-atlas" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9673a6;strokeWidth=2;dashed=1;" edge="1" source="gcp-dd" target="gcp-dd-saas" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#aa6600;strokeWidth=1;dashed=1;" edge="1" source="gcp-velero" target="gcp-gcs" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gcpe13" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#cc0000;strokeWidth=2;" edge="1" source="gcp-scc" target="gcp-funcs" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

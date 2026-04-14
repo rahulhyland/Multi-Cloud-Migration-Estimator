@@ -90,6 +90,8 @@ Also identify whether workload behavior appears steady or bursty when not explic
    Use Mermaid component/flow diagrams in fenced code blocks so they are renderable in markdown.
    For multiline labels, use `<br/>` instead of `\n` to maximize GitHub Mermaid compatibility.
    Avoid parentheses in `subgraph` titles and critical node labels; use quoted plain text labels such as `subgraph AWS["AWS Account per environment"]`.
+   Also generate an editable draw.io artifact with one page each for the AWS source, Azure target, and GCP target component diagrams.
+   Save the draw.io artifact as valid `.drawio` XML in the `Reports/` folder.
 
 ## Output Format
 
@@ -125,8 +127,9 @@ Return one markdown report with these sections in order:
 - **Generate the report as markdown and persist it immediately to the `Reports/` folder.**
 - Use filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md` (e.g., `multi-cloud-migration-report-20260414-153000-utc.md`).
 - **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact to the `Reports/` folder in the current workspace (for example: `Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md`).
+- Generate a matching draw.io diagram artifact in the same folder using filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc.drawio`.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
-- Confirm file creation and provide the exact file path in the response to the user.
+- Confirm file creation and provide the exact file paths for both the markdown report and the draw.io diagram artifact in the response to the user.
 
 ## Guardrails
 - Do not invent discovered resources.

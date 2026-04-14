@@ -150,9 +150,8 @@ Return one markdown report with these sections in order:
    - Required architecture decisions before execution
 10. Open Questions
 11. Component Diagrams
-   - Reference the generated draw.io artifact path
-   - Reference each generated SVG file path (aws-source, azure-target, gcp-target)
-   - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)`
+   - Do not list SVG file paths explicitly. Only embed the diagrams using markdown image syntax.
+   - Embed each generated SVG in the markdown report using standard markdown image syntax, for example: `![AWS Source](Reports/multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)` (without listing the path separately before the image)
    - Include a brief legend or note listing the major component groups rendered on each page so diagram detail is auditable.
    - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
    - When supplemental charts are generated, include a sub-list for chart page mapping and embed each chart SVG below the architecture diagrams.

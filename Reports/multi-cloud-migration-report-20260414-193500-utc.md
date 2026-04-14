@@ -139,15 +139,6 @@ Required architecture decisions before execution:
 - Are there contractual or strategic constraints that mandate Azure or GCP preference?
 
 ## 11. Component Diagrams
-Draw.io artifact path:
-- [Reports/multi-cloud-migration-diagrams-20260414-193500-utc.drawio](multi-cloud-migration-diagrams-20260414-193500-utc.drawio)
-
-SVG file paths:
-- AWS Source: [Reports/multi-cloud-migration-diagrams-20260414-193500-utc-aws-source.svg](multi-cloud-migration-diagrams-20260414-193500-utc-aws-source.svg)
-- Azure Target: [Reports/multi-cloud-migration-diagrams-20260414-193500-utc-azure-target.svg](multi-cloud-migration-diagrams-20260414-193500-utc-azure-target.svg)
-- GCP Target: [Reports/multi-cloud-migration-diagrams-20260414-193500-utc-gcp-target.svg](multi-cloud-migration-diagrams-20260414-193500-utc-gcp-target.svg)
-
-Embedded diagrams:
 
 ![AWS Source](multi-cloud-migration-diagrams-20260414-193500-utc-aws-source.svg)
 

@@ -47,6 +47,7 @@ When the user provides one or more GitHub repository URLs instead of (or in addi
   - Performance requirements
 
 If assumptions are incomplete, proceed with explicit "Assumed" labels.
+Also identify whether workload behavior appears steady or bursty when not explicitly provided.
 
 ## Workflow
 
@@ -79,6 +80,7 @@ If assumptions are incomplete, proceed with explicit "Assumed" labels.
    - Operational retraining needs
 
 7. Score effort/risk per capability and produce scenario recommendations.
+   Include Low/Medium/High migration difficulty with a short rationale by capability.
 
 8. Generate component diagrams for:
    - Current AWS infrastructure (source architecture)
@@ -93,14 +95,26 @@ If assumptions are incomplete, proceed with explicit "Assumed" labels.
 
 Return one markdown report with these sections in order:
 1. Executive Summary
+   - One-paragraph summary
+   - Recommended path Azure, GCP, or phased multi-cloud
 2. Source Repository Inventory (when using remote repos — list repos analyzed with branch and file count)
 3. Source AWS Footprint
+   - Table: Resource group | Key AWS services found | Notes
 4. Service Mapping Matrix
+   - Table: AWS service | Azure equivalent | GCP equivalent | Porting notes
 5. Regional Cost Analysis (Directional)
+   - Table: Capability | Azure US | Azure EU | Azure AU | GCP US | GCP EU | GCP AU | Confidence
+   - Include assumptions and unit economics used
 6. Migration Challenge Register
+   - Table: Challenge | Impact | Likelihood | Mitigation | Owner role
 7. Migration Effort View
+   - Table: Capability | Effort (S/M/L) | Risk (L/M/H) | Dependencies
 8. Decision Scenarios
+   - Cost-first scenario
+   - Speed-first scenario
+   - Risk-first scenario
 9. Recommended Plan (30/60/90)
+   - Required architecture decisions before execution
 10. Open Questions
 11. Component Diagrams
     - AWS Source Component Diagram
@@ -117,6 +131,7 @@ Return one markdown report with these sections in order:
 ## Guardrails
 - Do not invent discovered resources.
 - Mark unknowns as "Not found in IaC".
+- Use public pricing references where available and keep all costs clearly directional, not contractual quotes.
 - Clearly label all pricing as directional estimates.
 - Separate one-time migration cost from run-rate cost.
 - Include confidence level (High/Medium/Low) for key estimates.

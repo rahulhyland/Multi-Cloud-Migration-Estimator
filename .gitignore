@@ -25,3 +25,7 @@ Gemfile.lock
 
 # IDE-specific files
 .idea/workspace.xml
+
+# Claude files
+CLAUDE.md
+.claude/

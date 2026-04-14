@@ -45,7 +45,7 @@ When the user provides one or more GitHub repository URLs instead of (or in addi
 - Planning horizon (months)
 - Assumptions:
   - Traffic profile
-   - Usage volumes by metered service (for example requests, GB transfer, vCPU-hours, GB-months)
+  - Usage volumes by metered service (for example requests, GB transfer, vCPU-hours, GB-months)
   - Availability target and DR targets (RTO/RPO)
   - Compliance and residency constraints
   - Performance requirements
@@ -192,6 +192,15 @@ Return one markdown report with these sections in order:
    - When supplemental charts are generated, include a sub-list for chart page mapping and embed each chart SVG below the architecture diagrams.
    - Do not embed Mermaid blocks in the markdown report
 
+
+Generate a PDF version of the report as a secondary artifact in the same folder, using filename format: `multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.pdf`. Ensure the PDF formatting is clean and readable, with tables properly rendered and diagrams included. Confirm PDF creation and provide the exact file path in the response to the user.
+
+1. Use the previously generated Markdown file as the source for PDF generation to ensure consistency between the two formats.
+2. Ensure that all images (diagrams) are properly embedded in the PDF and maintain readability.
+3. Use a clear and professional layout for the PDF, with consistent fonts, spacing, and formatting that matches the markdown report.
+4. Confirm that the PDF file is saved in the same newly created timestamped subfolder under `Reports/` alongside the markdown report and draw.io files, using the specified filename format.
+5. After successful PDF generation, provide the exact file path for the PDF in the response to the user, confirming that both the markdown and PDF artifacts are available for review.
+
 ### Report Artifact (Required)
 - **Create a new output folder in `Reports/` for each run before writing artifacts.**
 - Use output folder format: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/` (e.g., `Reports/multi-cloud-migration-20260414-153000-utc/`).
@@ -204,7 +213,7 @@ Return one markdown report with these sections in order:
 - Embed all three SVG files inside section 11 of the markdown report using markdown image links with relative filenames (the report and SVG files are in the same folder).
 - When charts are generated, embed the chart SVGs in sections 5/7/8 and also under section 11.
 - Ensure the saved markdown file contains all 11 report sections and matches the display output exactly.
-- Confirm file creation and provide the exact file paths for the markdown report and the draw.io artifact in the response to the user.
+- Confirm file creation and provide the exact file paths for the markdown report, the PDF report, and the draw.io artifact in the response to the user.
 - Do not print SVG file paths in the chat response; keep SVG path references inside section 11 of the saved markdown report.
 
 ## Guardrails

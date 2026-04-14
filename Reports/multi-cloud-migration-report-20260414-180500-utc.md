@@ -145,17 +145,17 @@ Draw.io artifact path:
 - [Reports/multi-cloud-migration-diagrams-20260414-180500-utc.drawio](multi-cloud-migration-diagrams-20260414-180500-utc.drawio)
 
 SVG file paths:
-- AWS Source: [Reports/multi-cloud-migration-diagrams-20260414-180500-utc-aws-source.svg](multi-cloud-migration-diagrams-20260414-180500-utc-aws-source.svg)
-- Azure Target: [Reports/multi-cloud-migration-diagrams-20260414-180500-utc-azure-target.svg](multi-cloud-migration-diagrams-20260414-180500-utc-azure-target.svg)
-- GCP Target: [Reports/multi-cloud-migration-diagrams-20260414-180500-utc-gcp-target.svg](multi-cloud-migration-diagrams-20260414-180500-utc-gcp-target.svg)
+- AWS Source: [Reports/multi-cloud-migration-diagrams-FIXED-aws-source.svg](multi-cloud-migration-diagrams-FIXED-aws-source.svg)
+- Azure Target: [Reports/multi-cloud-migration-diagrams-FIXED-azure-target.svg](multi-cloud-migration-diagrams-FIXED-azure-target.svg)
+- GCP Target: [Reports/multi-cloud-migration-diagrams-FIXED-gcp-target.svg](multi-cloud-migration-diagrams-FIXED-gcp-target.svg)
 
 Embedded diagrams:
 
-![AWS Source](multi-cloud-migration-diagrams-20260414-180500-utc-aws-source.svg)
+![AWS Source](multi-cloud-migration-diagrams-FIXED-aws-source.svg)
 
-![Azure Target](multi-cloud-migration-diagrams-20260414-180500-utc-azure-target.svg)
+![Azure Target](multi-cloud-migration-diagrams-FIXED-azure-target.svg)
 
-![GCP Target](multi-cloud-migration-diagrams-20260414-180500-utc-gcp-target.svg)
+![GCP Target](multi-cloud-migration-diagrams-FIXED-gcp-target.svg)
 
 Legend of major component groups (audit detail):
 - AWS Source: clients/upstream, DNS/domain, ingress, VPC/subnets, EKS boundary, REST/router/engine group, KEDA, network policies, Kubernetes secrets, SQS, SNS, KMS, Secrets Manager, Datadog, and key request/messaging/scaling/security/observability flows.

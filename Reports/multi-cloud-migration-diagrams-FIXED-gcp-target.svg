@@ -17,19 +17,18 @@
       <polygon points="0 0, 10 3, 0 6" fill="#333333" />
     </marker>
   </defs>
-  <text x="860" y="25" class="text" style="font-size: 14px; font-weight: bold;">AWS Source Architecture</text>
+  <text x="860" y="25" class="text" style="font-size: 14px; font-weight: bold;">GCP Target Architecture</text>
   <rect x="40" y="80" width="160" height="60" class="box" rx="5"/>
-  <text x="120" y="115" class="text">Clients / Upstream</text>
+  <text x="120" y="115" class="text">Clients / Apps</text>
   <rect x="250" y="80" width="160" height="60" class="box-orange" rx="5"/>
-  <text x="330" y="105" class="text">Public DNS</text>
-  <text x="330" y="120" class="text">Route53</text>
+  <text x="330" y="115" class="text">Cloud DNS</text>
   <rect x="460" y="80" width="180" height="60" class="box-orange" rx="5"/>
-  <text x="550" y="105" class="text">Ingress / ALB</text>
-  <text x="550" y="120" class="text">WAF / ACM</text>
+  <text x="550" y="105" class="text">Cloud Armor</text>
+  <text x="550" y="120" class="text">+ LB</text>
   <rect x="680" y="40" width="980" height="570" class="box-gray" rx="5"/>
-  <text x="690" y="55" class="text" style="font-size: 11px;">VPC + Private Subnets</text>
+  <text x="690" y="55" class="text" style="font-size: 11px;">VPC + Subnets</text>
   <rect x="730" y="100" width="540" height="400" class="box-gray" rx="5"/>
-  <text x="740" y="115" class="text" style="font-size: 11px;">EKS Cluster v1.33</text>
+  <text x="740" y="115" class="text" style="font-size: 11px;">GKE Cluster</text>
   <rect x="770" y="160" width="140" height="55" class="box-green" rx="5"/>
   <text x="840" y="188" class="text" style="font-size: 11px;">transform-rest</text>
   <rect x="940" y="160" width="150" height="55" class="box-green" rx="5"/>
@@ -39,26 +38,27 @@
   <text x="930" y="285" class="text" style="font-size: 10px;">tika, imagemagick, libreoffice</text>
   <text x="930" y="298" class="text" style="font-size: 10px;">misc, docfilters, docmerge, aio</text>
   <rect x="1140" y="160" width="120" height="55" class="box-purple" rx="5"/>
-  <text x="1200" y="188" class="text" style="font-size: 11px;">KEDA Scalers</text>
+  <text x="1200" y="188" class="text" style="font-size: 11px;">KEDA / VPA</text>
   <rect x="1140" y="240" width="120" height="55" class="box-red" rx="5"/>
   <text x="1200" y="268" class="text" style="font-size: 10px;">Network Policies</text>
   <rect x="1140" y="320" width="120" height="55" class="box-red" rx="5"/>
-  <text x="1200" y="348" class="text" style="font-size: 11px;">K8s Secrets</text>
+  <text x="1200" y="348" class="text" style="font-size: 10px;">Workload Identity</text>
   <rect x="1320" y="160" width="130" height="55" class="box-red" rx="5"/>
-  <text x="1385" y="188" class="text" style="font-size: 11px;">SQS (~28 Q)</text>
+  <text x="1385" y="188" class="text" style="font-size: 11px;">Pub/Sub Topics</text>
   <rect x="1320" y="240" width="130" height="55" class="box-red" rx="5"/>
-  <text x="1385" y="268" class="text" style="font-size: 11px;">SNS Topics</text>
+  <text x="1385" y="268" class="text" style="font-size: 10px;">Pub/Sub Sub</text>
   <rect x="1480" y="160" width="110" height="55" class="box-yellow" rx="5"/>
-  <text x="1535" y="188" class="text" style="font-size: 11px;">KMS CMK</text>
+  <text x="1535" y="188" class="text" style="font-size: 11px;">Cloud KMS</text>
   <rect x="1480" y="240" width="110" height="55" class="box-yellow" rx="5"/>
-  <text x="1535" y="268" class="text" style="font-size: 11px;">Secrets Mgr</text>
+  <text x="1535" y="268" class="text" style="font-size: 10px;">Secret Mgr</text>
   <rect x="1320" y="320" width="130" height="55" class="box-yellow" rx="5"/>
-  <text x="1385" y="348" class="text" style="font-size: 11px;">Datadog</text>
+  <text x="1385" y="348" class="text" style="font-size: 10px;">Cloud Monitoring</text>
   <rect x="1290" y="440" width="120" height="50" class="box-green" rx="5"/>
-  <text x="1350" y="468" class="text" style="font-size: 11px;">EFS Shared</text>
+  <text x="1350" y="463" class="text" style="font-size: 10px;">Filestore /</text>
+  <text x="1350" y="476" class="text" style="font-size: 10px;">GCS</text>
   <rect x="1450" y="440" width="120" height="50" class="box-green" rx="5"/>
-  <text x="1510" y="463" class="text" style="font-size: 10px;">Velero + S3</text>
-  <text x="1510" y="476" class="text" style="font-size: 10px;">backups</text>
+  <text x="1510" y="463" class="text" style="font-size: 10px;">Cloud Backup</text>
+  <text x="1510" y="476" class="text" style="font-size: 10px;">+ GCS repl</text>
   <path d="M 200 110 L 250 110" class="arrow"/>
   <path d="M 410 110 L 460 110" class="arrow"/>
   <path d="M 640 105 L 700 120 L 840 160" class="arrow"/>
@@ -75,7 +75,7 @@
   <path d="M 840 215 L 1250 348" class="dashed-arrow"/>
   <g transform="translate(40, 520)">
     <text x="0" y="0" class="text" style="font-size: 11px; font-weight: bold; text-anchor: start;">Legend:</text>
-    <text x="0" y="15" class="text" style="font-size: 10px; text-anchor: start;">Blue: Clients | Orange: Ingress | Green: Kubernetes/Storage | Purple: Auto-scaling | Red: Messaging/Security | Yellow: KMS/Datadog</text>
+    <text x="0" y="15" class="text" style="font-size: 10px; text-anchor: start;">Blue: Clients | Orange: Ingress | Green: Kubernetes/Storage | Purple: Auto-scaling | Red: Messaging/Identity | Yellow: KMS/Observability</text>
     <text x="0" y="28" class="text" style="font-size: 10px; text-anchor: start;">Solid arrows: Data flow | Dashed arrows: Control/observability signals</text>
   </g>
 </svg>

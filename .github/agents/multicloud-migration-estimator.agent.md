@@ -91,9 +91,11 @@ Also identify whether workload behavior appears steady or bursty when not explic
    Also generate an editable draw.io artifact with one page each for the AWS source, Azure target, and GCP target component diagrams.
    Save the draw.io artifact as valid `.drawio` XML in the `Reports/` folder.
 
-   After creating the `.drawio` file, also generate one SVG file per diagram page by creating each SVG using the `create_file` tool:
-   - Extract the `<mxGraphModel>` XML for each page from the `.drawio` file.
-   - Wrap it in a valid SVG container using the draw.io SVG embed format: `<svg xmlns="http://www.w3.org/2000/svg"><mxGraphModel>...</mxGraphModel></svg>`.
+    After creating the `.drawio` file, also generate one SVG file per diagram page by creating each SVG using the `create_file` tool:
+    - Generate standards-compliant SVG that renders directly in browsers and markdown previews.
+    - SVGs must use valid SVG elements (for example: `svg`, `defs`, `style`, `g`, `rect`, `text`, `path`) and proper XML/SVG namespaces.
+    - Do not embed raw `<mxGraphModel>` inside `<svg>` because it is not browser-renderable.
+    - Include explicit width/height or viewBox, and ensure all tags are properly closed.
    - Use filename format: `multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-{page-slug}.svg`
      - `{page-slug}` values: `aws-source`, `azure-target`, `gcp-target`
    - Save all SVG files in the `Reports/` folder alongside the `.drawio` file.

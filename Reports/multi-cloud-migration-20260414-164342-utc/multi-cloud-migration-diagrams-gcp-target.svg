@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="980" viewBox="0 0 1500 980" role="img" aria-label="GCP target architecture diagram">
+  <defs>
+    <style>
+      .bg { fill: #0a1320; }
+      .panel { fill: #12243b; stroke: #55d6ff; stroke-width: 2; rx: 10; }
+      .node { fill: #1e3552; stroke: #93e7ff; stroke-width: 1.8; rx: 8; }
+      .sec { fill: #33244a; stroke: #ff9dd9; stroke-width: 1.8; rx: 8; }
+      .msg { fill: #1f3c2f; stroke: #8cffb2; stroke-width: 1.8; rx: 8; }
+      .txt { font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif; font-size: 14px; fill: #f3fbff; paint-order: stroke; stroke: #081427; stroke-width: 1px; }
+      .small { font-size: 12px; }
+      .title { font-size: 20px; font-weight: 700; }
+      .a { stroke: #63ebff; stroke-width: 3; fill: none; marker-end: url(#m1); }
+      .b { stroke: #ff9dd9; stroke-width: 3; fill: none; marker-end: url(#m2); }
+      .c { stroke: #a6ffbf; stroke-width: 3; fill: none; marker-end: url(#m3); }
+    </style>
+    <marker id="m1" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#63ebff"/></marker>
+    <marker id="m2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#ff9dd9"/></marker>
+    <marker id="m3" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#a6ffbf"/></marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1500" height="980"/>
+  <text class="txt title" x="36" y="42">GCP Target Architecture (Equivalent Granularity)</text>
+
+  <rect class="panel" x="30" y="80" width="420" height="200"/>
+  <text class="txt" x="50" y="108">Edge and DNS</text>
+  <rect class="node" x="50" y="125" width="160" height="42"/><text class="txt small" x="65" y="151">Clients / Upstream</text>
+  <rect class="node" x="225" y="125" width="205" height="42"/><text class="txt small" x="248" y="151">Cloud DNS + HTTPS LB</text>
+  <rect class="node" x="50" y="185" width="180" height="42"/><text class="txt small" x="72" y="211">Ingress Gateway</text>
+  <rect class="sec" x="245" y="185" width="185" height="42"/><text class="txt small" x="287" y="211">Cloud Armor</text>
+
+  <rect class="panel" x="470" y="80" width="650" height="510"/>
+  <text class="txt" x="490" y="108">GKE Cluster Boundary</text>
+  <rect class="node" x="500" y="130" width="140" height="40"/><text class="txt small" x="530" y="155">REST API</text>
+  <rect class="node" x="655" y="130" width="140" height="40"/><text class="txt small" x="690" y="155">Router API</text>
+  <rect class="node" x="810" y="130" width="140" height="40"/><text class="txt small" x="850" y="155">HPA/KEDA</text>
+  <rect class="sec" x="965" y="130" width="140" height="40"/><text class="txt small" x="979" y="155">Network Policies</text>
+
+  <rect class="panel" x="500" y="195" width="590" height="170"/>
+  <text class="txt small" x="515" y="218">Service Pods / Engine Group Equivalents</text>
+  <rect class="node" x="515" y="230" width="95" height="36"/><text class="txt small" x="541" y="253">tika</text>
+  <rect class="node" x="620" y="230" width="120" height="36"/><text class="txt small" x="635" y="253">imagemagick</text>
+  <rect class="node" x="750" y="230" width="105" height="36"/><text class="txt small" x="768" y="253">libreoffice</text>
+  <rect class="node" x="865" y="230" width="95" height="36"/><text class="txt small" x="892" y="253">misc</text>
+  <rect class="node" x="970" y="230" width="105" height="36"/><text class="txt small" x="985" y="253">docfilters</text>
+  <rect class="node" x="515" y="278" width="110" height="36"/><text class="txt small" x="536" y="301">docmerge</text>
+  <rect class="node" x="635" y="278" width="95" height="36"/><text class="txt small" x="666" y="301">aio</text>
+  <rect class="sec" x="740" y="278" width="180" height="36"/><text class="txt small" x="758" y="301">Secret Manager CSI</text>
+  <rect class="sec" x="930" y="278" width="145" height="36"/><text class="txt small" x="952" y="301">Binary Authz</text>
+
+  <rect class="panel" x="470" y="610" width="650" height="220"/>
+  <text class="txt" x="490" y="638">Messaging, Storage, Security</text>
+  <rect class="msg" x="500" y="655" width="170" height="40"/><text class="txt small" x="550" y="680">Pub/Sub</text>
+  <rect class="msg" x="685" y="655" width="160" height="40"/><text class="txt small" x="710" y="680">Pub/Sub DLQ</text>
+  <rect class="sec" x="860" y="655" width="130" height="40"/><text class="txt small" x="888" y="680">Cloud KMS</text>
+  <rect class="sec" x="1005" y="655" width="100" height="40"/><text class="txt small" x="1024" y="680">IAM</text>
+  <rect class="node" x="500" y="715" width="170" height="40"/><text class="txt small" x="545" y="740">Filestore</text>
+  <rect class="node" x="685" y="715" width="170" height="40"/><text class="txt small" x="730" y="740">GCS Backup</text>
+  <rect class="node" x="870" y="715" width="235" height="40"/><text class="txt small" x="892" y="740">Private Service Connect + VPC</text>
+
+  <rect class="panel" x="1140" y="80" width="330" height="750"/>
+  <text class="txt" x="1160" y="108">Operations</text>
+  <rect class="node" x="1170" y="130" width="280" height="44"/><text class="txt small" x="1205" y="157">Cloud Monitoring</text>
+  <rect class="node" x="1170" y="190" width="280" height="44"/><text class="txt small" x="1250" y="217">Datadog</text>
+  <rect class="node" x="1170" y="250" width="280" height="44"/><text class="txt small" x="1215" y="277">Cloud Logging</text>
+  <rect class="sec" x="1170" y="310" width="280" height="44"/><text class="txt small" x="1188" y="337">Not found in IaC: SCC Premium</text>
+  <rect class="node" x="1170" y="370" width="280" height="62"/><text class="txt small" x="1204" y="398">VPC / Subnets / Firewall</text><text class="txt small" x="1190" y="418">Regional residency segmentation</text>
+
+  <path class="a" d="M210 146 L225 146"/>
+  <path class="a" d="M140 167 L140 185"/>
+  <path class="a" d="M230 206 L500 150"/>
+  <path class="b" d="M430 206 L245 206"/>
+  <path class="a" d="M640 150 L655 150"/>
+  <path class="a" d="M795 150 L810 150"/>
+  <path class="c" d="M730 170 L730 230"/>
+  <path class="c" d="M570 170 L565 230"/>
+  <path class="c" d="M830 314 L860 655"/>
+  <path class="c" d="M730 314 L500 655"/>
+  <path class="b" d="M835 314 L1005 655"/>
+  <path class="a" d="M1105 735 L1170 392"/>
+  <path class="a" d="M995 755 L1170 272"/>
+</svg>

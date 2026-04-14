@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="980" viewBox="0 0 1560 980" role="img" aria-label="Azure target architecture diagram">
+  <defs>
+    <style>
+      .bg{fill:#0b1322}.panel{fill:#13213a;stroke:#46d1ff;stroke-width:2;rx:10}.node{fill:#1f2f4d;stroke:#8fe2ff;stroke-width:1.8;rx:8}.sec{fill:#2f2245;stroke:#ff9ad8;stroke-width:1.8;rx:8}.msg{fill:#1f3a2d;stroke:#87ffae;stroke-width:1.8;rx:8}.obs{fill:#3d2c1a;stroke:#ffd27a;stroke-width:1.8;rx:8}
+      .T{font-family:'IBM Plex Sans','Segoe UI',sans-serif;fill:#f5fbff;paint-order:stroke;stroke:#071224;stroke-width:1px}
+      .sm{font-size:12px}.ti{font-size:20px;font-weight:700}
+      .a{stroke:#5ee7ff;stroke-width:3;fill:none;marker-end:url(#m1)}.b{stroke:#ff9ad8;stroke-width:3;fill:none;marker-end:url(#m2)}.c{stroke:#9fffb9;stroke-width:3;fill:none;marker-end:url(#m3)}
+    </style>
+    <marker id="m1" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#5ee7ff"/></marker>
+    <marker id="m2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#ff9ad8"/></marker>
+    <marker id="m3" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#9fffb9"/></marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1560" height="980"/>
+  <text class="T ti" x="36" y="42">Azure Target Architecture — HxTS Transform Service</text>
+
+  <rect class="panel" x="30" y="65" width="420" height="215" rx="10"/>
+  <text class="T" x="50" y="93" font-size="14">Edge and DNS</text>
+  <rect class="node" x="50" y="110" width="158" height="40" rx="8"/><text class="T sm" x="68" y="135">Clients / Upstream</text>
+  <rect class="node" x="222" y="110" width="208" height="40" rx="8"/><text class="T sm" x="242" y="135">Azure DNS + Front Door</text>
+  <rect class="node" x="50" y="165" width="178" height="40" rx="8"/><text class="T sm" x="68" y="190">App Gateway v2 Ingress</text>
+  <rect class="sec" x="242" y="165" width="178" height="40" rx="8"/><text class="T sm" x="282" y="190">Azure WAF Policy</text>
+  <rect class="node" x="50" y="218" width="370" height="40" rx="8"/><text class="T sm" x="138" y="243">Private Link Service + NLB</text>
+
+  <rect class="panel" x="470" y="65" width="680" height="520" rx="10"/>
+  <text class="T" x="490" y="93" font-size="14">AKS Cluster Boundary — Standard_D4s_v5 node pool</text>
+  <rect class="node" x="495" y="112" width="138" height="40" rx="8"/><text class="T sm" x="520" y="137">REST API</text>
+  <rect class="node" x="648" y="112" width="138" height="40" rx="8"/><text class="T sm" x="673" y="137">Router API</text>
+  <rect class="node" x="800" y="112" width="138" height="40" rx="8"/><text class="T sm" x="838" y="137">KEDA / HPA</text>
+  <rect class="sec" x="954" y="112" width="168" height="40" rx="8"/><text class="T sm" x="970" y="137">Network Policies</text>
+
+  <rect class="panel" x="495" y="170" width="627" height="165" rx="8"/>
+  <text class="T sm" x="510" y="196">Service Pods — Engine Group Equivalents</text>
+  <rect class="node" x="510" y="208" width="80" height="36" rx="6"/><text class="T sm" x="534" y="231">tika</text>
+  <rect class="node" x="598" y="208" width="118" height="36" rx="6"/><text class="T sm" x="613" y="231">imagemagick</text>
+  <rect class="node" x="726" y="208" width="102" height="36" rx="6"/><text class="T sm" x="742" y="231">libreoffice</text>
+  <rect class="node" x="838" y="208" width="80" height="36" rx="6"/><text class="T sm" x="862" y="231">misc</text>
+  <rect class="node" x="928" y="208" width="110" height="36" rx="6"/><text class="T sm" x="948" y="231">docfilters</text>
+  <rect class="node" x="510" y="254" width="110" height="36" rx="6"/><text class="T sm" x="530" y="277">docmerge</text>
+  <rect class="node" x="630" y="254" width="80" height="36" rx="6"/><text class="T sm" x="654" y="277">aio</text>
+  <rect class="sec" x="720" y="254" width="194" height="36" rx="6"/><text class="T sm" x="748" y="277">Key Vault CSI Secrets</text>
+  <rect class="sec" x="924" y="254" width="114" height="36" rx="6"/><text class="T sm" x="943" y="277">Azure Policy</text>
+
+  <rect class="node" x="495" y="354" width="188" height="40" rx="8"/><text class="T sm" x="518" y="379">Workload Identity (OIDC)</text>
+  <rect class="obs" x="698" y="354" width="170" height="40" rx="8"/><text class="T sm" x="754" y="379">Datadog Agent</text>
+  <rect class="node" x="882" y="354" width="186" height="40" rx="8"/><text class="T sm" x="908" y="379">Azure Disk CSI</text>
+  <rect class="node" x="495" y="408" width="200" height="40" rx="8"/><text class="T sm" x="535" y="433">CoreDNS / kube-proxy</text>
+  <rect class="node" x="706" y="408" width="180" height="40" rx="8"/><text class="T sm" x="756" y="433">Karpenter (preview)</text>
+  <rect class="node" x="900" y="408" width="168" height="40" rx="8"/><text class="T sm" x="928" y="433">cert-manager</text>
+  <rect class="node" x="495" y="460" width="570" height="40" rx="8"/><text class="T sm" x="620" y="485">Velero + Azure Blob backup plugin</text>
+
+  <rect class="panel" x="470" y="605" width="680" height="240" rx="10"/>
+  <text class="T" x="490" y="633" font-size="14">Messaging, Storage and Security</text>
+  <rect class="msg" x="495" y="648" width="210" height="40" rx="8"/><text class="T sm" x="540" y="673">Service Bus Topics/Queues</text>
+  <rect class="msg" x="718" y="648" width="158" height="40" rx="8"/><text class="T sm" x="754" y="673">Event Grid</text>
+  <rect class="sec" x="890" y="648" width="130" height="40" rx="8"/><text class="T sm" x="928" y="673">Key Vault</text>
+  <rect class="sec" x="1034" y="648" width="96" height="40" rx="8"/><text class="T sm" x="1052" y="673">Entra ID</text>
+  <rect class="node" x="495" y="702" width="174" height="40" rx="8"/><text class="T sm" x="520" y="727">Azure Files (NFS 4.1)</text>
+  <rect class="node" x="684" y="702" width="174" height="40" rx="8"/><text class="T sm" x="724" y="727">Blob Backup (RA-GRS)</text>
+  <rect class="node" x="873" y="702" width="253" height="40" rx="8"/><text class="T sm" x="914" y="727">Private Endpoint + VNet Int.</text>
+  <rect class="obs" x="495" y="756" width="148" height="36" rx="8"/><text class="T sm" x="533" y="779">Azure Monitor</text>
+  <rect class="node" x="658" y="756" width="148" height="36" rx="8"/><text class="T sm" x="690" y="779">Log Analytics</text>
+  <rect class="node" x="820" y="756" width="148" height="36" rx="8"/><text class="T sm" x="839" y="779">Defender for Cloud</text>
+
+  <rect class="panel" x="1168" y="65" width="360" height="770" rx="10"/>
+  <text class="T" x="1188" y="93" font-size="14">Operations</text>
+  <rect class="obs" x="1188" y="112" width="318" height="44" rx="8"/><text class="T sm" x="1296" y="139">Datadog</text>
+  <rect class="obs" x="1188" y="170" width="318" height="44" rx="8"/><text class="T sm" x="1274" y="197">Azure Monitor</text>
+  <rect class="obs" x="1188" y="228" width="318" height="44" rx="8"/><text class="T sm" x="1252" y="255">Log Analytics WS</text>
+  <rect class="node" x="1188" y="286" width="318" height="62" rx="8"/><text class="T sm" x="1200" y="313">VNet / Subnets / NSGs</text><text class="T sm" x="1200" y="333">SOC2 / Regional residency</text>
+  <rect class="node" x="1188" y="362" width="318" height="44" rx="8"/><text class="T sm" x="1258" y="389">Azure DNS Zones</text>
+  <rect class="sec" x="1188" y="420" width="318" height="44" rx="8"/><text class="T sm" x="1188" y="447" font-size="11">Not found in IaC: DDoS Network Plan</text>
+  <rect class="node" x="1188" y="478" width="318" height="44" rx="8"/><text class="T sm" x="1240" y="505">Cross-region backup</text>
+
+  <path class="a" d="M208 130 L222 130"/>
+  <path class="a" d="M139 150 L139 165"/>
+  <path class="a" d="M228 185 L495 132"/>
+  <path class="b" d="M420 185 L242 185"/>
+  <path class="a" d="M633 132 L648 132"/>
+  <path class="a" d="M786 132 L800 132"/>
+  <path class="c" d="M717 152 L720 208"/>
+  <path class="c" d="M563 152 L563 208"/>
+  <path class="b" d="M830 290 L890 648"/>
+  <path class="c" d="M563 290 L560 648"/>
+  <path class="a" d="M1148 730 L1188 314"/>
+  <path class="a" d="M1000 722 L1188 252"/>
+</svg>

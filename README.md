@@ -96,13 +96,13 @@ Notes:
   - **Section 11 (Component Diagrams):** Architecture diagrams (AWS Source, Azure Target, GCP Target)
 - Each SVG is embedded exactly once in the markdown report (no duplicate embeddings across sections).
 - Total SVG references in the markdown report must be 6 (3 architecture diagrams + 3 charts).
-- SVG files are saved as `multi-cloud-migration-diagrams-{aws-source|azure-target|gcp-target|cost-comparison|effort-risk|scenario-comparison}.svg` inside the run folder under `Reports/`.
+- SVG files are saved as `diagrams-{aws-source|azure-target|gcp-target|cost-comparison|effort-risk|scenario-comparison}.svg` inside the run folder under `Reports/`.
 - Cost outputs explicitly label currency (default `USD`) wherever cost is shown.
 - Section 5 includes AWS baseline pricing for comparison in the 30-day cost table, metered tier table, and one-time migration versus run-rate table.
 - Section 9 uses a complexity-based timeline such as `30/60`, `30/60/90`, or `30/60/90/120` instead of forcing a fixed `30/60/90` structure.
 - The markdown report references diagram files using markdown image embeds only in section 11 (no separate SVG path listing).
 - The markdown report embeds all three SVG files directly in section 11 using markdown image syntax.
-- SVG files are saved as `multi-cloud-migration-diagrams-{aws-source|azure-target|gcp-target}.svg` inside the run folder under `Reports/`.
+- SVG files are saved as `diagrams-{aws-source|azure-target|gcp-target}.svg` inside the run folder under `Reports/`.
 - Draw.io/SVG diagrams must be detailed (Mermaid-equivalent logical architecture), not just high-level capability boxes.
 - SVG outputs must be standards-compliant and browser-renderable (no raw `mxGraphModel` embedded inside `<svg>`).
 - SVG arrows and labels should use explicit high-contrast styling for both light and dark mode (highlighted arrows, visible arrowheads, readable font fill/outline).
@@ -295,7 +295,7 @@ Create a migration decision report for this repo, then publish it to Confluence.
 SUCCESS
 Title: Migration Report - 2026-04-14 12:30 UTC
 Page ID: 4031226486
-Local file: multi-cloud-migration-report.md
+Local file: report.md
 URL: https://hyland.atlassian.net/wiki/spaces/ENG/pages/4031226486/...
 ```
 

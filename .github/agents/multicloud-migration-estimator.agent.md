@@ -120,7 +120,7 @@ Also identify whether workload behavior appears steady or bursty when not explic
    Also generate editable draw.io artifacts with one file per SVG output for the AWS source, Azure target, and GCP target component diagrams.
    Save each draw.io artifact as valid `.drawio` XML in a newly created timestamped subfolder under `Reports/`.
 
-    After creating the `.drawio` file, also generate one SVG file per diagram page by creating each SVG using the `create_file` tool:
+  After creating the `.drawio` file, also generate one SVG file per diagram page by creating each SVG using the `create_file` tool:
     - Generate standards-compliant SVG that renders directly in browsers and markdown previews.
     - SVGs must use valid SVG elements (for example: `svg`, `defs`, `style`, `g`, `rect`, `text`, `path`) and proper XML/SVG namespaces.
     - Do not embed raw `<mxGraphModel>` inside `<svg>` because it is not browser-renderable.

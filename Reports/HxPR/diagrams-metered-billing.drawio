@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="GitHub Copilot" modified="2026-04-15T10:29:45.000Z" version="24.0.0" type="device">
+  <diagram id="metered-billing" name="Metered Billing Tier Comparison">
+    <mxGraphModel dx="1400" dy="700" grid="0" pageWidth="1400" pageHeight="680">
+      <root><mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title" value="HxPR Metered Billing Tier Comparison — Key Services (USD per unit, AWS US Baseline)" style="text;html=1;align=center;fontSize=15;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="50" y="18" width="1300" height="36" as="geometry"/></mxCell>
+        <!-- S3/Blob/GCS per GB-month -->
+        <mxCell id="b1a" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="80" y="390" width="30" height="92" as="geometry"/></mxCell>
+        <mxCell id="b1b" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="113" y="410" width="30" height="72" as="geometry"/></mxCell>
+        <mxCell id="b1c" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="146" y="402" width="30" height="80" as="geometry"/></mxCell>
+        <mxCell id="l1" value="$0.023/$0.018/$0.020" style="text;html=1;align=center;fontSize=8;" vertex="1" parent="1"><mxGeometry x="65" y="368" width="140" height="22" as="geometry"/></mxCell>
+        <mxCell id="xl1" value="Storage&#xa;($/GB-mo)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="75" y="490" width="120" height="22" as="geometry"/></mxCell>
+        <!-- EKS Node vCPU-hr -->
+        <mxCell id="b2a" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="250" y="290" width="30" height="192" as="geometry"/></mxCell>
+        <mxCell id="b2b" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="283" y="290" width="30" height="192" as="geometry"/></mxCell>
+        <mxCell id="b2c" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="316" y="298" width="30" height="184" as="geometry"/></mxCell>
+        <mxCell id="l2" value="$0.048/$0.048/$0.048" style="text;html=1;align=center;fontSize=8;" vertex="1" parent="1"><mxGeometry x="240" y="268" width="140" height="22" as="geometry"/></mxCell>
+        <mxCell id="xl2" value="Node vCPU-hr&#xa;(m5.xl equiv)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="245" y="490" width="120" height="22" as="geometry"/></mxCell>
+        <!-- OpenSearch instance-hr -->
+        <mxCell id="b3a" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="420" y="151" width="30" height="331" as="geometry"/></mxCell>
+        <mxCell id="b3b" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="453" y="258" width="30" height="224" as="geometry"/></mxCell>
+        <mxCell id="b3c" value="" style="fillColor=#aaaaaa;strokeColor=#888888;" vertex="1" parent="1"><mxGeometry x="486" y="374" width="30" height="108" as="geometry"/></mxCell>
+        <mxCell id="l3" value="$0.167/$0.112/N/A¹" style="text;html=1;align=center;fontSize=8;" vertex="1" parent="1"><mxGeometry x="410" y="128" width="140" height="22" as="geometry"/></mxCell>
+        <mxCell id="xl3" value="OpenSearch&#xa;($/instance-hr)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="415" y="490" width="120" height="22" as="geometry"/></mxCell>
+        <!-- MongoDB Atlas M40 per node-hr -->
+        <mxCell id="b4a" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="590" y="52" width="30" height="430" as="geometry"/></mxCell>
+        <mxCell id="b4b" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="623" y="52" width="30" height="430" as="geometry"/></mxCell>
+        <mxCell id="b4c" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="656" y="52" width="30" height="430" as="geometry"/></mxCell>
+        <mxCell id="l4" value="$0.430/$0.430/$0.430" style="text;html=1;align=center;fontSize=8;" vertex="1" parent="1"><mxGeometry x="580" y="28" width="140" height="22" as="geometry"/></mxCell>
+        <mxCell id="xl4" value="MongoDB Atlas M40&#xa;($/node-hr)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="585" y="490" width="120" height="22" as="geometry"/></mxCell>
+        <!-- SQS/Service Bus/Pub-Sub per 1M over 1M -->
+        <mxCell id="b5a" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="760" y="82" width="30" height="400" as="geometry"/></mxCell>
+        <mxCell id="b5b" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="793" y="76" width="30" height="406" as="geometry"/></mxCell>
+        <mxCell id="b5c" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="826" y="442" width="30" height="40" as="geometry"/></mxCell>
+        <mxCell id="l5" value="$0.40/$0.436/$0.040" style="text;html=1;align=center;fontSize=8;" vertex="1" parent="1"><mxGeometry x="750" y="58" width="140" height="22" as="geometry"/></mxCell>
+        <mxCell id="xl5" value="Msg Queue&#xa;($/1M req, over 1M)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="755" y="490" width="130" height="22" as="geometry"/></mxCell>
+        <!-- ALB/App GW per LCU-hr -->
+        <mxCell id="b6a" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="940" y="474" width="30" height="8" as="geometry"/></mxCell>
+        <mxCell id="b6b" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="973" y="477" width="30" height="5" as="geometry"/></mxCell>
+        <mxCell id="b6c" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="1006" y="479" width="30" height="3" as="geometry"/></mxCell>
+        <mxCell id="l6" value="$0.008/$0.007/$0.006" style="text;html=1;align=center;fontSize=8;" vertex="1" parent="1"><mxGeometry x="930" y="450" width="140" height="22" as="geometry"/></mxCell>
+        <mxCell id="xl6" value="Load Balancer&#xa;($/LCU-hr)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="930" y="490" width="130" height="22" as="geometry"/></mxCell>
+        <!-- Data transfer per GB -->
+        <mxCell id="b7a" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="1120" y="394" width="30" height="88" as="geometry"/></mxCell>
+        <mxCell id="b7b" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="1153" y="396" width="30" height="86" as="geometry"/></mxCell>
+        <mxCell id="b7c" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="1186" y="398" width="30" height="84" as="geometry"/></mxCell>
+        <mxCell id="l7" value="$0.090/$0.087/$0.085" style="text;html=1;align=center;fontSize=8;" vertex="1" parent="1"><mxGeometry x="1110" y="370" width="140" height="22" as="geometry"/></mxCell>
+        <mxCell id="xl7" value="Egress&#xa;($/GB out, ≤10TB)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="1110" y="490" width="140" height="22" as="geometry"/></mxCell>
+        <!-- Axes -->
+        <mxCell id="yax" value="" style="endArrow=block;startArrow=none;strokeColor=#333;strokeWidth=2;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="60" y="482"/><mxPoint x="60" y="55"/></Array></mxGeometry></mxCell>
+        <mxCell id="xax" value="" style="endArrow=none;startArrow=none;strokeColor=#333;strokeWidth=2;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="60" y="482"/><mxPoint x="1350" y="482"/></Array></mxGeometry></mxCell>
+        <mxCell id="ylabel" value="USD per unit" style="text;html=1;align=center;fontSize=10;rotation=-90;" vertex="1" parent="1"><mxGeometry x="20" y="280" width="80" height="20" as="geometry"/></mxCell>
+        <!-- Legend -->
+        <mxCell id="leg1" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="950" y="555" width="18" height="18" as="geometry"/></mxCell>
+        <mxCell id="leg1l" value="AWS US (baseline)" style="text;html=1;fontSize=11;" vertex="1" parent="1"><mxGeometry x="972" y="553" width="130" height="22" as="geometry"/></mxCell>
+        <mxCell id="leg2" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="1110" y="555" width="18" height="18" as="geometry"/></mxCell>
+        <mxCell id="leg2l" value="Azure US" style="text;html=1;fontSize=11;" vertex="1" parent="1"><mxGeometry x="1132" y="553" width="80" height="22" as="geometry"/></mxCell>
+        <mxCell id="leg3" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="1220" y="555" width="18" height="18" as="geometry"/></mxCell>
+        <mxCell id="leg3l" value="GCP US" style="text;html=1;fontSize=11;" vertex="1" parent="1"><mxGeometry x="1242" y="553" width="80" height="22" as="geometry"/></mxCell>
+        <mxCell id="leg4" value="" style="fillColor=#aaaaaa;strokeColor=#888888;" vertex="1" parent="1"><mxGeometry x="1320" y="555" width="18" height="18" as="geometry"/></mxCell>
+        <mxCell id="leg4l" value="N/A" style="text;html=1;fontSize=11;" vertex="1" parent="1"><mxGeometry x="1342" y="553" width="40" height="22" as="geometry"/></mxCell>
+        <mxCell id="note" value="¹ GCP OpenSearch = self-managed on GKE; no managed service · Directional USD estimates" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="60" y="635" width="600" height="20" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

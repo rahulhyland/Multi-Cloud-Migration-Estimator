@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1100" width="1500" height="1100" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00bfff" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34a853" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ea4335" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-yellow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fbbc04" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-pink" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff4081" opacity="0.9"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000030"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1500" height="1100" fill="#0d1726" rx="10"/>
+  <text x="750" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#ddf0ff">HxPR — GCP Target Architecture</text>
+  <text x="750" y="58" text-anchor="middle" font-size="12" fill="#7fb8d8">GCP migration target · us-east1 (primary) · europe-west3 (prod-eu) · australia-southeast1 (prod-au)</text>
+
+  <!-- Internet + Cloud DNS-->
+  <rect x="20" y="148" width="120" height="52" rx="8" fill="#263859" stroke="#4a82c0" stroke-width="1.5"/>
+  <text x="80" y="170" text-anchor="middle" font-size="11" fill="#ddf0ff" font-weight="bold">Clients</text>
+  <text x="80" y="185" text-anchor="middle" font-size="9" fill="#99c0e0">API Consumers</text>
+  <text x="80" y="198" text-anchor="middle" font-size="9" fill="#99c0e0">(Internet)</text>
+
+  <rect x="160" y="148" width="105" height="52" rx="8" fill="#0d2a1a" stroke="#34a853" stroke-width="1.5"/>
+  <text x="212" y="170" text-anchor="middle" font-size="11" fill="#4caf50" font-weight="bold">Cloud DNS</text>
+  <text x="212" y="185" text-anchor="middle" font-size="9" fill="#34a853">hyland.com →</text>
+  <text x="212" y="198" text-anchor="middle" font-size="9" fill="#34a853">GLB frontend IP</text>
+
+  <!-- ===================== VPC BOUNDARY ===================== -->
+  <rect x="20" y="80" width="1460" height="990" rx="12" fill="none" stroke="#34a853" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="30" y="100" font-size="13" fill="#34a853" font-weight="bold">GCP VPC Network</text>
+  <text x="30" y="116" font-size="10" fill="#4caf50">us-east1 (primary) · europe-west3 (prod-eu) · australia-southeast1 (prod-au)</text>
+
+  <!-- ===================== EDGE LAYER ===================== -->
+  <rect x="285" y="120" width="535" height="145" rx="8" fill="#0d2020" stroke="#34a853" stroke-width="1.5"/>
+  <text x="300" y="143" font-size="11" fill="#4caf50" font-weight="bold">Edge Layer (Global)</text>
+
+  <!-- Cloud HTTP(S) LB -->
+  <rect x="300" y="155" width="195" height="90" rx="6" fill="#0d2a1a" stroke="#34a853" stroke-width="2" filter="url(#shadow)"/>
+  <text x="397" y="175" text-anchor="middle" font-size="11" fill="#4caf50" font-weight="bold">Cloud HTTP(S) LB</text>
+  <text x="397" y="190" text-anchor="middle" font-size="9" fill="#34a853">Global · Anycast IP</text>
+  <text x="397" y="204" text-anchor="middle" font-size="9" fill="#34a853">SSL Termination · TLS 1.2+</text>
+  <text x="397" y="218" text-anchor="middle" font-size="9" fill="#34a853">Session affinity: cookie</text>
+
+  <!-- Cloud Armor -->
+  <rect x="507" y="155" width="150" height="90" rx="6" fill="#2a0a0a" stroke="#ea4335" stroke-width="1.5"/>
+  <text x="582" y="175" text-anchor="middle" font-size="11" fill="#ef5350" font-weight="bold">Cloud Armor</text>
+  <text x="582" y="190" text-anchor="middle" font-size="9" fill="#e53935">WAF · OWASP rules</text>
+  <text x="582" y="204" text-anchor="middle" font-size="9" fill="#e53935">SQLi + XSS rules</text>
+  <text x="582" y="218" text-anchor="middle" font-size="9" fill="#e53935">Rate limiting</text>
+
+  <!-- ===================== PRIVATE SUBNET ===================== -->
+  <rect x="282" y="285" width="910" height="765" rx="8" fill="#162035" stroke="#365880" stroke-width="1.5"/>
+  <text x="297" y="305" font-size="11" fill="#365880" font-weight="bold">Private Subnets (3 Zones)</text>
+
+  <!-- Internal TCP/UDP LB -->
+  <rect x="297" y="315" width="155" height="55" rx="6" fill="#1a3050" stroke="#4a8fc0" stroke-width="1.5"/>
+  <text x="374" y="335" text-anchor="middle" font-size="10" fill="#66aadd" font-weight="bold">Internal TCP/UDP LB</text>
+  <text x="374" y="350" text-anchor="middle" font-size="9" fill="#5599cc">Backend NEG routing</text>
+  <text x="374" y="363" text-anchor="middle" font-size="8" fill="#5599cc">GKE ingress forwarding</text>
+
+  <!-- ===================== GKE CLUSTER ===================== -->
+  <rect x="292" y="388" width="890" height="540" rx="10" fill="#0f1e30" stroke="#fbbc04" stroke-width="2.5"/>
+  <text x="307" y="408" font-size="13" fill="#fbbc04" font-weight="bold">Google Kubernetes Engine (GKE Standard)</text>
+  <text x="307" y="424" font-size="10" fill="#f9a825">n2-standard-4 · 3–25 nodes · Release channel: Regular · Workload Identity Federation · Autopilot node groups</text>
+
+  <!-- NGINX Ingress -->
+  <rect x="307" y="436" width="155" height="60" rx="6" fill="#1a3050" stroke="#4a8fc0" stroke-width="1.5"/>
+  <text x="384" y="456" text-anchor="middle" font-size="11" fill="#66aadd" font-weight="bold">NGINX Ingress</text>
+  <text x="384" y="470" text-anchor="middle" font-size="9" fill="#5599cc">v4.15.1 (unchanged)</text>
+  <text x="384" y="483" text-anchor="middle" font-size="9" fill="#5599cc">Private · cookie affinity</text>
+
+  <!-- HxPR Namespace -->
+  <rect x="478" y="436" width="690" height="240" rx="8" fill="#162535" stroke="#f0c040" stroke-width="1.5"/>
+  <text x="493" y="455" font-size="11" fill="#f0c040" font-weight="bold">HxPR Namespace — GCP SDK: GCS + Pub/Sub</text>
+
+  <!-- REST Pods -->
+  <rect x="493" y="466" width="150" height="90" rx="6" fill="#1a3520" stroke="#66bb6a" stroke-width="1.5"/>
+  <text x="568" y="484" text-anchor="middle" font-size="10" fill="#66bb6a" font-weight="bold">REST Pods × 3</text>
+  <text x="568" y="498" text-anchor="middle" font-size="9" fill="#55aa55">HxPR JVM v2.1.280</text>
+  <text x="568" y="512" text-anchor="middle" font-size="8" fill="#55aa55">0.3 CPU / 1.5GB req</text>
+  <text x="568" y="525" text-anchor="middle" font-size="8" fill="#55aa55">1 CPU / 2GB limit</text>
+  <text x="568" y="537" text-anchor="middle" font-size="8" fill="#55aa55">4GB proxy body</text>
+
+  <!-- Worker Engines -->
+  <rect x="654" y="466" width="170" height="90" rx="6" fill="#1a3520" stroke="#66bb6a" stroke-width="1.5"/>
+  <text x="739" y="484" text-anchor="middle" font-size="10" fill="#66bb6a" font-weight="bold">Worker Engines (KEDA)</text>
+  <text x="739" y="498" text-anchor="middle" font-size="8" fill="#82c882">tika · imagemagick</text>
+  <text x="739" y="511" text-anchor="middle" font-size="8" fill="#82c882">libreoffice · docfilters</text>
+  <text x="739" y="524" text-anchor="middle" font-size="8" fill="#82c882">docmerge · aio</text>
+  <text x="739" y="537" text-anchor="middle" font-size="8" fill="#82c882">Cloud Pub/Sub scaler</text>
+
+  <!-- KEDA -->
+  <rect x="836" y="466" width="115" height="60" rx="6" fill="#2a2a1a" stroke="#ffd740" stroke-width="1.5"/>
+  <text x="893" y="485" text-anchor="middle" font-size="10" fill="#ffd740" font-weight="bold">KEDA</text>
+  <text x="893" y="499" text-anchor="middle" font-size="9" fill="#c8a000">Pub/Sub scaler</text>
+  <text x="893" y="513" text-anchor="middle" font-size="8" fill="#c8a000">subscription depth</text>
+
+  <!-- Datadog Sidecar -->
+  <rect x="963" y="466" width="115" height="60" rx="6" fill="#2a1535" stroke="#e040fb" stroke-width="1.5"/>
+  <text x="1020" y="485" text-anchor="middle" font-size="10" fill="#e040fb" font-weight="bold">Datadog Agent</text>
+  <text x="1020" y="499" text-anchor="middle" font-size="9" fill="#b020d0">v3.193.0 (unchanged)</text>
+  <text x="1020" y="513" text-anchor="middle" font-size="8" fill="#b020d0">APM + DogStatsD</text>
+
+  <!-- Workload Identity (GCP) -->
+  <rect x="493" y="566" width="150" height="55" rx="6" fill="#0d2a10" stroke="#34a853" stroke-width="1.5"/>
+  <text x="568" y="584" text-anchor="middle" font-size="10" fill="#4caf50" font-weight="bold">Workload Identity</text>
+  <text x="568" y="598" text-anchor="middle" font-size="9" fill="#34a853">GKE SA → GCP SA</text>
+  <text x="568" y="611" text-anchor="middle" font-size="8" fill="#34a853">Replaces AWS IRSA</text>
+
+  <!-- Network Policies -->
+  <rect x="654" y="566" width="145" height="55" rx="6" fill="#20152a" stroke="#ce93d8" stroke-width="1.5"/>
+  <text x="726" y="584" text-anchor="middle" font-size="10" fill="#ce93d8" font-weight="bold">Network Policies</text>
+  <text x="726" y="598" text-anchor="middle" font-size="9" fill="#aa76bb">VPC-native networking</text>
+  <text x="726" y="611" text-anchor="middle" font-size="8" fill="#aa76bb">Alias IP ranges</text>
+
+  <!-- cert-manager -->
+  <rect x="812" y="566" width="145" height="55" rx="6" fill="#1a2a3a" stroke="#42a5f5" stroke-width="1.5"/>
+  <text x="884" y="584" text-anchor="middle" font-size="10" fill="#42a5f5" font-weight="bold">cert-manager</text>
+  <text x="884" y="598" text-anchor="middle" font-size="9" fill="#1e88e5">Let's Encrypt</text>
+  <text x="884" y="611" text-anchor="middle" font-size="8" fill="#1e88e5">(unchanged from AWS)</text>
+
+  <!-- System add-ons in GKE -->
+  <rect x="307" y="695" width="155" height="50" rx="6" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5"/>
+  <text x="384" y="714" text-anchor="middle" font-size="10" fill="#4caf50" font-weight="bold">Velero v12.0.0</text>
+  <text x="384" y="729" text-anchor="middle" font-size="9" fill="#388e3c">GCS backend (velero bucket)</text>
+
+  <rect x="307" y="758" width="155" height="50" rx="6" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5"/>
+  <text x="384" y="777" text-anchor="middle" font-size="10" fill="#66bb6a" font-weight="bold">Cluster Autoscaler</text>
+  <text x="384" y="792" text-anchor="middle" font-size="9" fill="#66bb6a">Node pool: n2-standard-4</text>
+
+  <!-- OpenSearch on GKE node pool -->
+  <rect x="780" y="695" width="220" height="95" rx="8" fill="#1a1520" stroke="#7c4dff" stroke-width="2"/>
+  <text x="890" y="715" text-anchor="middle" font-size="11" fill="#9c63ff" font-weight="bold">OpenSearch 2.x (self-managed)</text>
+  <text x="890" y="731" text-anchor="middle" font-size="9" fill="#7c4dff">GKE node pool: n2-standard-4 × 12</text>
+  <text x="890" y="745" text-anchor="middle" font-size="9" fill="#7c4dff">OpenSearch Operator</text>
+  <text x="890" y="759" text-anchor="middle" font-size="9" fill="#7c4dff">Same API surface as AWS OpenSearch</text>
+  <text x="890" y="773" text-anchor="middle" font-size="8" fill="#7c4dff">Persistent volumes: GCE Persistent Disk</text>
+
+  <!-- Cloud Functions -->
+  <rect x="307" y="820" width="155" height="60" rx="6" fill="#1a1a0a" stroke="#fbbc04" stroke-width="1.5"/>
+  <text x="384" y="840" text-anchor="middle" font-size="10" fill="#fbbc04" font-weight="bold">Cloud Functions</text>
+  <text x="384" y="854" text-anchor="middle" font-size="9" fill="#f9a825">Gen2 · Python 3.10</text>
+  <text x="384" y="868" text-anchor="middle" font-size="9" fill="#f9a825">env-decommission</text>
+  <text x="384" y="880" text-anchor="middle" font-size="8" fill="#f9a825">malware-quarantine</text>
+
+  <!-- ===================== EXTERNAL SERVICES ===================== -->
+  <!-- Google Cloud Storage -->
+  <rect x="1210" y="80" width="268" height="255" rx="8" fill="#0d2a1a" stroke="#34a853" stroke-width="2"/>
+  <text x="1344" y="102" text-anchor="middle" font-size="12" fill="#4caf50" font-weight="bold">Google Cloud Storage</text>
+  <rect x="1220" y="116" width="115" height="58" rx="5" fill="#0d2010" stroke="#34a853" stroke-width="1"/>
+  <text x="1277" y="135" text-anchor="middle" font-size="9" fill="#66bb6a" font-weight="bold">Content Bucket</text>
+  <text x="1277" y="149" text-anchor="middle" font-size="8" fill="#4caf50">hxpr-{env}-gcs</text>
+  <text x="1277" y="163" text-anchor="middle" font-size="8" fill="#4caf50">CMEK · Multi-regional</text>
+  <rect x="1345" y="116" width="115" height="58" rx="5" fill="#0d2010" stroke="#34a853" stroke-width="1"/>
+  <text x="1402" y="135" text-anchor="middle" font-size="9" fill="#66bb6a" font-weight="bold">Upload Bucket</text>
+  <text x="1402" y="149" text-anchor="middle" font-size="8" fill="#4caf50">3-day lifecycle</text>
+  <text x="1402" y="163" text-anchor="middle" font-size="8" fill="#4caf50">CMEK · Versioning</text>
+  <rect x="1220" y="185" width="115" height="60" rx="5" fill="#0d2010" stroke="#34a853" stroke-width="1"/>
+  <text x="1277" y="203" text-anchor="middle" font-size="9" fill="#66bb6a" font-weight="bold">Retention Bucket</text>
+  <text x="1277" y="217" text-anchor="middle" font-size="8" fill="#4caf50">Bucket Lock (WORM eq)</text>
+  <text x="1277" y="230" text-anchor="middle" font-size="8" fill="#4caf50">CMEK · Versioning</text>
+  <rect x="1345" y="185" width="115" height="60" rx="5" fill="#0d2010" stroke="#34a853" stroke-width="1"/>
+  <text x="1402" y="203" text-anchor="middle" font-size="9" fill="#66bb6a" font-weight="bold">Velero Bucket</text>
+  <text x="1402" y="217" text-anchor="middle" font-size="8" fill="#4caf50">Cross-region repl</text>
+  <text x="1402" y="230" text-anchor="middle" font-size="8" fill="#4caf50">us-east1 → us-west1</text>
+  <text x="1344" y="263" text-anchor="middle" font-size="8" fill="#34a853" font-style="italic">All buckets: CMEK · Uniform bucket-level access</text>
+  <text x="1344" y="277" text-anchor="middle" font-size="8" fill="#34a853" font-style="italic">VPC Service Controls perimeter</text>
+
+  <!-- MongoDB Atlas -->
+  <rect x="1210" y="358" width="268" height="110" rx="8" fill="#0d2a1a" stroke="#00684A" stroke-width="2"/>
+  <text x="1344" y="380" text-anchor="middle" font-size="12" fill="#4caf50" font-weight="bold">MongoDB Atlas (GCP)</text>
+  <text x="1344" y="396" text-anchor="middle" font-size="10" fill="#66bb6a">M40 primary × 3 + M30 analytics</text>
+  <text x="1344" y="411" text-anchor="middle" font-size="10" fill="#66bb6a">MongoDB 7.0 LTS · Auto-scale M40→M60</text>
+  <text x="1344" y="426" text-anchor="middle" font-size="9" fill="#4caf50">Private Service Connect (replaces PrivateLink)</text>
+  <text x="1344" y="441" text-anchor="middle" font-size="9" fill="#4caf50">us-east1 / europe-west3 · Backup enabled</text>
+  <text x="1344" y="456" text-anchor="middle" font-size="8" fill="#809080" font-style="italic">Cloud-agnostic: near 1:1 migration</text>
+
+  <!-- Google Cloud Pub/Sub -->
+  <rect x="1210" y="492" width="268" height="260" rx="8" fill="#1a100a" stroke="#fbbc04" stroke-width="2"/>
+  <text x="1344" y="514" text-anchor="middle" font-size="12" fill="#fbbc04" font-weight="bold">Google Cloud Pub/Sub</text>
+  <text x="1344" y="529" text-anchor="middle" font-size="9" fill="#f9a825">Push + Pull subscriptions</text>
+  <rect x="1220" y="540" width="245" height="45" rx="5" fill="#1a100a" stroke="#fbbc04" stroke-width="1"/>
+  <text x="1342" y="560" text-anchor="middle" font-size="9" fill="#fbbc04" font-weight="bold">hxpr-repository-async-tasks topic</text>
+  <text x="1342" y="574" text-anchor="middle" font-size="8" fill="#f9a825">18 subscriptions (fan-out SNS replacement)</text>
+  <rect x="1220" y="596" width="245" height="40" rx="5" fill="#1a100a" stroke="#fbbc04" stroke-width="1"/>
+  <text x="1342" y="614" text-anchor="middle" font-size="9" fill="#fbbc04" font-weight="bold">hxpr-repository-events topic</text>
+  <text x="1342" y="628" text-anchor="middle" font-size="8" fill="#f9a825">Cross-project via project IAM binding</text>
+  <rect x="1220" y="647" width="245" height="40" rx="5" fill="#1a100a" stroke="#fbbc04" stroke-width="1"/>
+  <text x="1342" y="665" text-anchor="middle" font-size="9" fill="#fbbc04" font-weight="bold">2 × HXTS Reply Subscriptions</text>
+  <text x="1342" y="679" text-anchor="middle" font-size="8" fill="#f9a825">hxts-{env}-reply + reply-batch</text>
+  <text x="1342" y="705" text-anchor="middle" font-size="8" fill="#f9a825">All topics: CMEK via Cloud KMS</text>
+  <text x="1342" y="720" text-anchor="middle" font-size="8" fill="#f9a825">Dead-letter topics for failed deliveries</text>
+  <text x="1342" y="735" text-anchor="middle" font-size="8" fill="#f9a825">Message ordering + deduplication</text>
+
+  <!-- Security / Identity -->
+  <rect x="1210" y="775" width="268" height="210" rx="8" fill="#2a0a0a" stroke="#ea4335" stroke-width="2"/>
+  <text x="1344" y="797" text-anchor="middle" font-size="12" fill="#ef5350" font-weight="bold">Identity / Security</text>
+  <text x="1220" y="818" font-size="9" fill="#ef9a9a">Cloud KMS: key rings (replaces KMS CMKs)</text>
+  <text x="1220" y="834" font-size="9" fill="#ef9a9a"> CMEK for GCS, Pub/Sub, Disk volumes</text>
+  <text x="1220" y="852" font-size="9" fill="#ef9a9a">Secret Manager: replaces SSM Param Store</text>
+  <text x="1220" y="868" font-size="9" fill="#ef9a9a"> MongoDB conn string · API keys · env config</text>
+  <text x="1220" y="886" font-size="9" fill="#ef9a9a">Workload Identity Federation (WIF)</text>
+  <text x="1220" y="902" font-size="9" fill="#ef9a9a"> GKE SA → GCP SA → IAM roles</text>
+  <text x="1220" y="920" font-size="9" fill="#ef9a9a">Cloud Logging + Cloud Monitoring</text>
+  <text x="1220" y="936" font-size="9" fill="#ef9a9a"> audit logs · APM · SLO dashboards</text>
+  <text x="1220" y="954" font-size="9" fill="#ef9a9a">VPC Service Controls</text>
+  <text x="1220" y="970" font-size="9" fill="#ef9a9a"> Storage + Pub/Sub perimeter boundaries</text>
+
+  <!-- Private Service Connect -->
+  <rect x="1145" y="400" width="60" height="35" rx="5" fill="#0d2010" stroke="#34a853" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="1175" y="416" text-anchor="middle" font-size="8" fill="#4caf50">Private Svc</text>
+  <text x="1175" y="428" text-anchor="middle" font-size="8" fill="#4caf50">Connect</text>
+
+  <!-- Datadog SaaS -->
+  <rect x="307" y="895" width="180" height="65" rx="8" fill="#2a0a30" stroke="#e040fb" stroke-width="1.5"/>
+  <text x="397" y="915" text-anchor="middle" font-size="11" fill="#e040fb" font-weight="bold">Datadog SaaS</text>
+  <text x="397" y="930" text-anchor="middle" font-size="9" fill="#b020d0">APM · Dashboards · SLOs</text>
+  <text x="397" y="944" text-anchor="middle" font-size="9" fill="#b020d0">JVM monitors (unchanged)</text>
+  <text x="397" y="957" text-anchor="middle" font-size="8" fill="#b020d0">(cloud-agnostic SaaS)</text>
+
+  <!-- ===================== ARROWS ===================== -->
+  <line x1="140" y1="174" x2="160" y2="174" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="265" y1="174" x2="300" y2="196" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="495" y1="200" x2="507" y2="200" stroke="#ea4335" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+  <polyline points="500,245 500,340 451,340" fill="none" stroke="#34a853" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <line x1="451" y1="340" x2="384" y2="436" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="462" y1="466" x2="493" y2="492" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <line x1="643" y1="510" x2="654" y2="510" stroke="#4caf50" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead-green)"/>
+  <!-- GKE → OpenSearch -->
+  <polyline points="1000,735 1060,735 1060,490 1180,490 1210,425" fill="none" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <!-- GKE → MongoDB (via PSC) -->
+  <polyline points="1000,510 1100,510 1145,418 1210,418" fill="none" stroke="#34a853" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <!-- GKE → GCS -->
+  <polyline points="1000,460 1150,460 1150,200 1210,200" fill="none" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <!-- GKE → Pub/Sub -->
+  <polyline points="1000,650 1100,650 1100,630 1210,630" fill="none" stroke="#fbbc04" stroke-width="2" marker-end="url(#arrowhead-yellow)"/>
+
+  <!-- Legend -->
+  <rect x="20" y="1040" width="1460" height="50" rx="6" fill="#0a1520" stroke="#2d5a8a" stroke-width="1"/>
+  <line x1="35" y1="1063" x2="70" y2="1063" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="78" y="1067" font-size="10" fill="#99d0f0">Request flow</text>
+  <line x1="175" y1="1063" x2="210" y2="1063" stroke="#ea4335" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+  <text x="218" y="1067" font-size="10" fill="#99d0f0">WAF/Security path</text>
+  <line x1="340" y1="1063" x2="375" y2="1063" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <text x="383" y="1067" font-size="10" fill="#99d0f0">Data access (GCS/MongoDB)</text>
+  <line x1="540" y1="1063" x2="575" y2="1063" stroke="#fbbc04" stroke-width="2" marker-end="url(#arrowhead-yellow)"/>
+  <text x="583" y="1067" font-size="10" fill="#99d0f0">Messaging (Pub/Sub)</text>
+  <text x="715" y="1067" font-size="10" fill="#77a0c0" font-style="italic">All services encrypted at-rest (CMEK) · TLS in-transit · Workload Identity Federation replaces IRSA</text>
+</svg>

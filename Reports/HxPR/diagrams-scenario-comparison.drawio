@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="GitHub Copilot" modified="2026-04-15T10:29:45.000Z" version="24.0.0" type="device">
+  <diagram id="scenario-comparison" name="Scenario Comparison">
+    <mxGraphModel dx="1200" dy="700" grid="0" pageWidth="1200" pageHeight="700">
+      <root><mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title" value="HxPR Migration Decision Scenarios — Cost-First vs Speed-First vs Risk-First" style="text;html=1;align=center;fontSize=15;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="50" y="18" width="1100" height="36" as="geometry"/></mxCell>
+        <!-- Scenario A: Cost-First (GCP) -->
+        <mxCell id="sa_box" value="" style="fillColor=#E6F4EA;strokeColor=#34a853;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="80" y="80" width="300" height="440" as="geometry"/></mxCell>
+        <mxCell id="sa_hdr" value="Scenario A&#xa;Cost-First (GCP)" style="text;html=1;align=center;fontSize=14;fontStyle=1;fontColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="80" y="85" width="300" height="44" as="geometry"/></mxCell>
+        <mxCell id="sa_target" value="Target: GCP us-east1" style="text;html=1;align=center;fontSize=11;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="80" y="130" width="300" height="20" as="geometry"/></mxCell>
+        <mxCell id="sa_run" value="Run-Rate: $4,428/mo (-13% vs AWS)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="90" y="158" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sa_ot" value="One-Time: $360,000" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="90" y="180" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sa_tl" value="Timeline: 150 days (5 phases)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="90" y="202" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sa_pros" value="Pros:" style="text;html=1;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="90" y="232" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sa_pro1" value="✓ Lowest on-demand compute cost" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="90" y="250" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sa_pro2" value="✓ Pub/Sub $0.04/1M vs SQS $0.40/1M" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="90" y="268" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sa_pro3" value="✓ GCS cheaper per GB-month" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="90" y="286" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sa_cons" value="Cons:" style="text;html=1;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="90" y="315" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sa_con1" value="✗ No managed OpenSearch; self-managed ops" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="90" y="333" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sa_con2" value="✗ Weaker SOC2 GuardDuty baseline" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="90" y="351" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sa_con3" value="✗ 150-day timeline (longest)" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="90" y="369" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sa_con4" value="✗ Requires committed-use for economics" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="90" y="387" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sa_rec" value="Best for: cost-optimization programs with&#xa;GCP committed-use negotiations in flight" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="90" y="415" width="280" height="36" as="geometry"/></mxCell>
+        <!-- Scenario B: Speed-First (Azure 90-day) -->
+        <mxCell id="sb_box" value="" style="fillColor=#FFF9E6;strokeColor=#d79b00;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="430" y="80" width="300" height="440" as="geometry"/></mxCell>
+        <mxCell id="sb_hdr" value="Scenario B&#xa;Speed-First (Azure 90-day)" style="text;html=1;align=center;fontSize=14;fontStyle=1;fontColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="430" y="85" width="300" height="44" as="geometry"/></mxCell>
+        <mxCell id="sb_target" value="Target: Azure East US" style="text;html=1;align=center;fontSize=11;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="430" y="130" width="300" height="20" as="geometry"/></mxCell>
+        <mxCell id="sb_run" value="Run-Rate: $4,678/mo (-8% vs AWS)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="440" y="158" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sb_ot" value="One-Time: $350,000 + 2 FTE × 6 wks (~+$60K)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="440" y="180" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sb_tl" value="Timeline: 90 days (3 compressed phases)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="440" y="202" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sb_pros" value="Pros:" style="text;html=1;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="440" y="232" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sb_pro1" value="✓ Fastest AWS exit (90 days)" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="440" y="250" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sb_pro2" value="✓ Azure Service Bus is direct SQS/SNS match" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="440" y="268" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sb_pro3" value="✓ Satisfies hard compliance deadlines" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="440" y="286" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sb_cons" value="Cons:" style="text;html=1;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="440" y="315" width="280" height="20" as="geometry"/></mxCell>
+        <mxCell id="sb_con1" value="✗ Compressed data migration = higher risk" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="440" y="333" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sb_con2" value="✗ +2 FTE for 6 weeks (~$60K addl cost)" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="440" y="351" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sb_con3" value="✗ No data migration rehearsal phase" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="440" y="369" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sb_con4" value="✗ Higher rollback risk at production cutover" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="440" y="387" width="280" height="18" as="geometry"/></mxCell>
+        <mxCell id="sb_rec" value="Best for: hard AWS exit deadline; extra budget&#xa;for accelerating headcount" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="440" y="415" width="280" height="36" as="geometry"/></mxCell>
+        <!-- Scenario C: Risk-First / Recommended -->
+        <mxCell id="sc_box" value="" style="fillColor=#E5F3FB;strokeColor=#0078d4;strokeWidth=3;" vertex="1" parent="1"><mxGeometry x="790" y="80" width="310" height="440" as="geometry"/></mxCell>
+        <mxCell id="sc_hdr" value="★ Scenario C (Recommended)&#xa;Risk-First (Azure 120-day)" style="text;html=1;align=center;fontSize=14;fontStyle=1;fontColor=#0078d4;" vertex="1" parent="1"><mxGeometry x="790" y="85" width="310" height="44" as="geometry"/></mxCell>
+        <mxCell id="sc_target" value="Target: Azure East US + West Europe" style="text;html=1;align=center;fontSize=11;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="790" y="130" width="310" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_run" value="Run-Rate: $4,678/mo (-8% vs AWS)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="800" y="158" width="290" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_ot" value="One-Time: $350,000 (standard headcount)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="800" y="180" width="290" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_tl" value="Timeline: 120 days (4 phased gates)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="1"><mxGeometry x="800" y="202" width="290" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_pros" value="Pros:" style="text;html=1;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="800" y="232" width="290" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_pro1" value="✓ Data migration rehearsal before production" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="800" y="250" width="290" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_pro2" value="✓ Azure Service Bus = direct SNS/SQS match" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="800" y="268" width="290" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_pro3" value="✓ Phase gates prevent premature production risk" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="800" y="286" width="290" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_pro4" value="✓ Microsoft Defender = GuardDuty SOC2 parity" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="800" y="304" width="290" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_pro5" value="✓ IRSA → WIF resolved in non-prod first" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="800" y="322" width="290" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_cons" value="Cons:" style="text;html=1;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="800" y="350" width="290" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_con1" value="✗ Slower than Scenario B by 30 days" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="800" y="368" width="290" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_con2" value="✗ Slightly higher savings than GCP scenario" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="800" y="386" width="290" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_rec" value="Best for: SOC2-sensitive, latency-critical,&#xa;multi-team coordinated production migration" style="text;html=1;align=left;fontSize=10;fontStyle=3;fontColor=#0078d4;" vertex="1" parent="1"><mxGeometry x="800" y="415" width="290" height="36" as="geometry"/></mxCell>
+        <!-- Scoring bar chart at bottom -->
+        <mxCell id="score_title" value="Relative Score Comparison (0–10 scale, higher = better)" style="text;html=1;align=center;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="80" y="548" width="1020" height="22" as="geometry"/></mxCell>
+        <!-- Cost score bars -->
+        <mxCell id="sc_a_cost" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="120" y="570" width="90" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_b_cost" value="" style="fillColor=#d79b00;strokeColor=#b27900;" vertex="1" parent="1"><mxGeometry x="470" y="570" width="70" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_c_cost" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="830" y="570" width="70" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_a_cl" value="Cost: 9/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="215" y="571" width="100" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_b_cl" value="Cost: 7/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="545" y="571" width="100" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_c_cl" value="Cost: 7/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="905" y="571" width="100" height="18" as="geometry"/></mxCell>
+        <!-- Speed -->
+        <mxCell id="sc_a_sp" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="120" y="596" width="40" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_b_sp" value="" style="fillColor=#d79b00;strokeColor=#b27900;" vertex="1" parent="1"><mxGeometry x="470" y="596" width="90" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_c_sp" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="830" y="596" width="80" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_a_sl" value="Speed: 4/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="165" y="597" width="100" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_b_sl" value="Speed: 9/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="565" y="597" width="100" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_c_sl" value="Speed: 8/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="915" y="597" width="100" height="18" as="geometry"/></mxCell>
+        <!-- Risk mitigation -->
+        <mxCell id="sc_a_rm" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="120" y="622" width="60" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_b_rm" value="" style="fillColor=#d79b00;strokeColor=#b27900;" vertex="1" parent="1"><mxGeometry x="470" y="622" width="50" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_c_rm" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="830" y="622" width="100" height="20" as="geometry"/></mxCell>
+        <mxCell id="sc_a_rl" value="Risk Mitigation: 6/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="185" y="623" width="150" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_b_rl" value="Risk Mitigation: 5/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="525" y="623" width="150" height="18" as="geometry"/></mxCell>
+        <mxCell id="sc_c_rl" value="Risk Mitigation: 10/10" style="text;html=1;align=left;fontSize=10;" vertex="1" parent="1"><mxGeometry x="935" y="623" width="150" height="18" as="geometry"/></mxCell>
+        <mxCell id="note" value="★ Scenario C recommended for SOC2-sensitive, latency-critical content repository platforms" style="text;html=1;align=center;fontSize=11;fontStyle=3;fontColor=#0078d4;" vertex="1" parent="1"><mxGeometry x="80" y="658" width="1020" height="22" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

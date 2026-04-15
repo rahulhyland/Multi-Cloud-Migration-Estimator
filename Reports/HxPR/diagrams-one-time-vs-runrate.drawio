@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="GitHub Copilot" modified="2026-04-15T10:29:45.000Z" version="24.0.0" type="device">
+  <diagram id="one-time-vs-runrate" name="One-Time vs Run-Rate">
+    <mxGraphModel dx="1200" dy="600" grid="0" pageWidth="1100" pageHeight="600">
+      <root><mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title" value="One-Time Migration Cost vs 30-Day Run-Rate — AWS Baseline vs Azure vs GCP (USD)" style="text;html=1;align=center;fontSize=15;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="50" y="18" width="1000" height="36" as="geometry"/></mxCell>
+        <!-- One-time costs (scaled: $350K = 350px, $5K = 5px scale approx) -->
+        <!-- Using log scale implied visually: one-time left cluster, run-rate right cluster -->
+        <!-- Left: One-time costs -->
+        <mxCell id="ot_label" value="One-Time Migration Cost (USD)" style="text;html=1;align=center;fontSize=13;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="80" y="65" width="380" height="26" as="geometry"/></mxCell>
+        <!-- AWS one-time = $0 baseline -->
+        <mxCell id="ot_aws" value="$0&#xa;(existing)" style="fillColor=#FF9900;strokeColor=#E07300;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="100" y="380" width="80" height="40" as="geometry"/></mxCell>
+        <mxCell id="ot_aws_l" value="AWS" style="text;html=1;align=center;fontSize=11;" vertex="1" parent="1"><mxGeometry x="100" y="425" width="80" height="20" as="geometry"/></mxCell>
+        <!-- Azure one-time $350K -->
+        <mxCell id="ot_az" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="210" y="100" width="80" height="320" as="geometry"/></mxCell>
+        <mxCell id="ot_az_v" value="$350,000" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="210" y="78" width="80" height="22" as="geometry"/></mxCell>
+        <mxCell id="ot_az_l" value="Azure" style="text;html=1;align=center;fontSize=11;" vertex="1" parent="1"><mxGeometry x="210" y="425" width="80" height="20" as="geometry"/></mxCell>
+        <!-- GCP one-time $360K -->
+        <mxCell id="ot_gcp" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="320" y="90" width="80" height="330" as="geometry"/></mxCell>
+        <mxCell id="ot_gcp_v" value="$360,000" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="320" y="68" width="80" height="22" as="geometry"/></mxCell>
+        <mxCell id="ot_gcp_l" value="GCP" style="text;html=1;align=center;fontSize=11;" vertex="1" parent="1"><mxGeometry x="320" y="425" width="80" height="20" as="geometry"/></mxCell>
+        <!-- Divider -->
+        <mxCell id="divider" value="" style="endArrow=none;strokeColor=#999;dashed=1;strokeWidth=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="470" y="60"/><mxPoint x="470" y="460"/></Array></mxGeometry></mxCell>
+        <!-- Right: 30-day run-rate (scaled: $5K = 250px, so 1px = $20) -->
+        <mxCell id="rr_label" value="30-Day Run-Rate (USD/month)" style="text;html=1;align=center;fontSize=13;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="490" y="65" width="380" height="26" as="geometry"/></mxCell>
+        <!-- AWS RR $5,092 = ~255px -->
+        <mxCell id="rr_aws" value="" style="fillColor=#FF9900;strokeColor=#E07300;" vertex="1" parent="1"><mxGeometry x="510" y="165" width="80" height="255" as="geometry"/></mxCell>
+        <mxCell id="rr_aws_v" value="$5,092/mo" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="510" y="143" width="80" height="22" as="geometry"/></mxCell>
+        <mxCell id="rr_aws_l" value="AWS" style="text;html=1;align=center;fontSize=11;" vertex="1" parent="1"><mxGeometry x="510" y="425" width="80" height="20" as="geometry"/></mxCell>
+        <!-- Azure RR $4,678 = ~234px -->
+        <mxCell id="rr_az" value="" style="fillColor=#0078d4;strokeColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="620" y="186" width="80" height="234" as="geometry"/></mxCell>
+        <mxCell id="rr_az_v" value="$4,678/mo&#xa;(-8%)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="620" y="162" width="80" height="24" as="geometry"/></mxCell>
+        <mxCell id="rr_az_l" value="Azure" style="text;html=1;align=center;fontSize=11;" vertex="1" parent="1"><mxGeometry x="620" y="425" width="80" height="20" as="geometry"/></mxCell>
+        <!-- GCP RR $4,428 = ~221px -->
+        <mxCell id="rr_gcp" value="" style="fillColor=#34a853;strokeColor=#1e7e34;" vertex="1" parent="1"><mxGeometry x="730" y="199" width="80" height="221" as="geometry"/></mxCell>
+        <mxCell id="rr_gcp_v" value="$4,428/mo&#xa;(-13%)" style="text;html=1;align=center;fontSize=10;" vertex="1" parent="1"><mxGeometry x="730" y="175" width="80" height="24" as="geometry"/></mxCell>
+        <mxCell id="rr_gcp_l" value="GCP" style="text;html=1;align=center;fontSize=11;" vertex="1" parent="1"><mxGeometry x="730" y="425" width="80" height="20" as="geometry"/></mxCell>
+        <!-- X axis -->
+        <mxCell id="xax" value="" style="endArrow=none;startArrow=none;strokeColor=#333;strokeWidth=2;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="80" y="420"/><mxPoint x="870" y="420"/></Array></mxGeometry></mxCell>
+        <!-- Break-even annotation -->
+        <mxCell id="beann" value="Azure break-even: ~71 yrs/env · ~7 yrs platform (10 envs, on-demand)&#xa;GCP break-even: ~45 yrs/env · ~4.5 yrs platform (10 envs, on-demand)" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="80" y="455" width="780" height="30" as="geometry"/></mxCell>
+        <mxCell id="note" value="Directional USD estimates · Reserved/committed-use discounts improve economics significantly" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="80" y="540" width="700" height="20" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="960" height="560" fill="#ffffff" rx="8"/>
+  <text x="480" y="34" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">One-Time Migration Cost vs 30-Day Run-Rate (USD)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="11" fill="#555">AWS Baseline · Azure (Risk-First, Recommended) · GCP (Cost-First)</text>
+
+  <!-- Section headers -->
+  <text x="230" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#444">One-Time Cost</text>
+  <line x1="80" y1="96" x2="380" y2="96" stroke="#ddd" stroke-width="1"/>
+  <text x="680" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#444">30-Day Run-Rate</text>
+  <line x1="450" y1="96" x2="870" y2="96" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Vertical divider -->
+  <line x1="415" y1="80" x2="415" y2="470" stroke="#ccc" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Y axis left (one-time, max $400K, scale: $400K = 350px → 875px per $M → $1 = 0.00085px → $1000 = 0.85px) -->
+  <!-- Use: height = value / 1000 (so $350K = 350px) -->
+  <!-- Gridlines left -->
+  <text x="75" y="460" text-anchor="end" font-size="9" fill="#888">$0</text>
+  <text x="75" y="360" text-anchor="end" font-size="9" fill="#888">$100K</text>
+  <text x="75" y="260" text-anchor="end" font-size="9" fill="#888">$200K</text>
+  <text x="75" y="160" text-anchor="end" font-size="9" fill="#888">$300K</text>
+  <text x="75" y="110" text-anchor="end" font-size="9" fill="#888">$350K+</text>
+  <line x1="80" y1="360" x2="410" y2="360" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="80" y1="260" x2="410" y2="260" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="80" y1="160" x2="410" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- AWS: $0 one-time (special label) -->
+  <rect x="105" y="435" width="70" height="25" fill="#FF9900" opacity="0.85"/>
+  <text x="140" y="427" text-anchor="middle" font-size="11" font-weight="bold" fill="#FF9900">$0</text>
+  <text x="140" y="422" text-anchor="middle" font-size="9" fill="#888">(existing)</text>
+  <text x="140" y="490" text-anchor="middle" font-size="11" fill="#333">AWS</text>
+
+  <!-- Azure: $350K → bar h=350, y=110 -->
+  <rect x="215" y="110" width="70" height="350" fill="#0078d4" opacity="0.85"/>
+  <text x="250" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#0078d4">$350,000</text>
+  <text x="250" y="490" text-anchor="middle" font-size="11" fill="#333">Azure</text>
+
+  <!-- GCP: $360K → bar h=360, y=100 -->
+  <rect x="320" y="100" width="70" height="360" fill="#34a853" opacity="0.85"/>
+  <text x="355" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#34a853">$360,000</text>
+  <text x="355" y="490" text-anchor="middle" font-size="11" fill="#333">GCP</text>
+
+  <!-- Right side: 30-day run-rate, scale: $6000 max = 360px → $1 = 0.06px -->
+  <!-- Y axis right -->
+  <text x="456" y="460" text-anchor="start" font-size="9" fill="#888">$0</text>
+  <text x="456" y="400" text-anchor="start" font-size="9" fill="#888">$1K</text>
+  <text x="456" y="340" text-anchor="start" font-size="9" fill="#888">$2K</text>
+  <text x="456" y="280" text-anchor="start" font-size="9" fill="#888">$3K</text>
+  <text x="456" y="220" text-anchor="start" font-size="9" fill="#888">$4K</text>
+  <text x="456" y="160" text-anchor="start" font-size="9" fill="#888">$5K</text>
+  <text x="456" y="100" text-anchor="start" font-size="9" fill="#888">$6K</text>
+  <line x1="470" y1="400" x2="870" y2="400" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="470" y1="340" x2="870" y2="340" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="470" y1="280" x2="870" y2="280" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="470" y1="220" x2="870" y2="220" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="470" y1="160" x2="870" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- AWS RR: $5,092 → h=306, y=154 -->
+  <rect x="510" y="154" width="70" height="306" fill="#FF9900" opacity="0.85"/>
+  <text x="545" y="146" text-anchor="middle" font-size="11" font-weight="bold" fill="#FF9900">$5,092/mo</text>
+  <text x="545" y="490" text-anchor="middle" font-size="11" fill="#333">AWS</text>
+
+  <!-- Azure RR: $4,678 → h=281, y=179 -->
+  <rect x="630" y="179" width="70" height="281" fill="#0078d4" opacity="0.85"/>
+  <text x="665" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#0078d4">$4,678/mo</text>
+  <text x="665" y="488" text-anchor="middle" font-size="11" fill="#333">Azure</text>
+  <text x="665" y="500" text-anchor="middle" font-size="10" fill="#0078d4">(-8%)</text>
+
+  <!-- GCP RR: $4,428 → h=266, y=194 -->
+  <rect x="750" y="194" width="70" height="266" fill="#34a853" opacity="0.85"/>
+  <text x="785" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#34a853">$4,428/mo</text>
+  <text x="785" y="488" text-anchor="middle" font-size="11" fill="#333">GCP</text>
+  <text x="785" y="500" text-anchor="middle" font-size="10" fill="#34a853">(-13%)</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="100" x2="80" y2="465" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="460" x2="410" y2="460" stroke="#333" stroke-width="2"/>
+  <line x1="470" y1="100" x2="470" y2="465" stroke="#333" stroke-width="2"/>
+  <line x1="470" y1="460" x2="870" y2="460" stroke="#333" stroke-width="2"/>
+
+  <!-- Break-even note -->
+  <rect x="80" y="510" width="800" height="36" fill="#f0f8ff" rx="4" stroke="#b8d4f0" stroke-width="1"/>
+  <text x="480" y="524" text-anchor="middle" font-size="10" fill="#004ea2" font-weight="bold">Break-even (on-demand):</text>
+  <text x="480" y="539" text-anchor="middle" font-size="10" fill="#555">Azure: ~71 yrs/env · ~7 yrs platform (10 envs) · GCP: ~45 yrs/env · ~4.5 yrs platform — Reserved usage improves economics 20-40%</text>
+</svg>

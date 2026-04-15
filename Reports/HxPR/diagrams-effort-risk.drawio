@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="GitHub Copilot" modified="2026-04-15T10:29:45.000Z" version="24.0.0" type="device">
+  <diagram id="effort-risk" name="Effort vs Risk Matrix">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="20" pageWidth="1000" pageHeight="800">
+      <root><mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title" value="HxPR Migration Effort vs Risk Matrix" style="text;html=1;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="50" y="18" width="900" height="36" as="geometry"/></mxCell>
+        <!-- Quadrant background zones -->
+        <mxCell id="q1" value="" style="fillColor=#ffeacc;strokeColor=none;opacity=50;" vertex="1" parent="1"><mxGeometry x="80" y="60" width="340" height="340" as="geometry"/></mxCell>
+        <mxCell id="q2" value="" style="fillColor=#ffd7d7;strokeColor=none;opacity=50;" vertex="1" parent="1"><mxGeometry x="420" y="60" width="340" height="340" as="geometry"/></mxCell>
+        <mxCell id="q3" value="" style="fillColor=#d5f0db;strokeColor=none;opacity=50;" vertex="1" parent="1"><mxGeometry x="80" y="400" width="340" height="280" as="geometry"/></mxCell>
+        <mxCell id="q4" value="" style="fillColor=#d4e8ff;strokeColor=none;opacity=50;" vertex="1" parent="1"><mxGeometry x="420" y="400" width="340" height="280" as="geometry"/></mxCell>
+        <!-- Zone labels -->
+        <mxCell id="z1l" value="Watch (plan carefully)" style="text;html=1;align=center;fontSize=10;fontStyle=2;fontColor=#cc8800;" vertex="1" parent="1"><mxGeometry x="80" y="60" width="340" height="20" as="geometry"/></mxCell>
+        <mxCell id="z2l" value="Critical (resolve first)" style="text;html=1;align=center;fontSize=10;fontStyle=2;fontColor=#cc0000;" vertex="1" parent="1"><mxGeometry x="420" y="60" width="340" height="20" as="geometry"/></mxCell>
+        <mxCell id="z3l" value="Quick wins (parallelize)" style="text;html=1;align=center;fontSize=10;fontStyle=2;fontColor=#007722;" vertex="1" parent="1"><mxGeometry x="80" y="400" width="340" height="20" as="geometry"/></mxCell>
+        <mxCell id="z4l" value="Complex but manageable" style="text;html=1;align=center;fontSize=10;fontStyle=2;fontColor=#004ea2;" vertex="1" parent="1"><mxGeometry x="420" y="400" width="340" height="20" as="geometry"/></mxCell>
+        <!-- Axes -->
+        <mxCell id="xax" value="" style="endArrow=block;startArrow=none;strokeColor=#333;strokeWidth=2;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="60" y="690"/><mxPoint x="790" y="690"/></Array></mxGeometry></mxCell>
+        <mxCell id="yax" value="" style="endArrow=block;startArrow=none;strokeColor=#333;strokeWidth=2;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="60" y="710"/><mxPoint x="60" y="55"/></Array></mxGeometry></mxCell>
+        <mxCell id="xlabel" value="Effort → (S=Small, M=Medium, L=Large)" style="text;html=1;align=center;fontSize=11;" vertex="1" parent="1"><mxGeometry x="200" y="712" width="400" height="22" as="geometry"/></mxCell>
+        <mxCell id="ylabel" value="Risk →" style="text;html=1;align=center;fontSize=11;rotation=-90;" vertex="1" parent="1"><mxGeometry x="18" y="350" width="80" height="22" as="geometry"/></mxCell>
+        <!-- X axis ticks -->
+        <mxCell id="xt1" value="S" style="text;html=1;align=center;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="230" y="695" width="30" height="20" as="geometry"/></mxCell>
+        <mxCell id="xt2" value="M" style="text;html=1;align=center;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="403" y="695" width="30" height="20" as="geometry"/></mxCell>
+        <mxCell id="xt3" value="L" style="text;html=1;align=center;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="576" y="695" width="30" height="20" as="geometry"/></mxCell>
+        <!-- Y axis ticks -->
+        <mxCell id="yt1" value="L" style="text;html=1;align=right;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="620" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="yt2" value="M" style="text;html=1;align=right;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="380" width="20" height="20" as="geometry"/></mxCell>
+        <mxCell id="yt3" value="H" style="text;html=1;align=right;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="140" width="20" height="20" as="geometry"/></mxCell>
+        <!-- Grid lines -->
+        <mxCell id="vg1" value="" style="endArrow=none;strokeColor=#ccc;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="250" y="60"/><mxPoint x="250" y="690"/></Array></mxGeometry></mxCell>
+        <mxCell id="vg2" value="" style="endArrow=none;strokeColor=#ccc;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="420" y="60"/><mxPoint x="420" y="690"/></Array></mxGeometry></mxCell>
+        <mxCell id="vg3" value="" style="endArrow=none;strokeColor=#ccc;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="590" y="60"/><mxPoint x="590" y="690"/></Array></mxGeometry></mxCell>
+        <mxCell id="hg1" value="" style="endArrow=none;strokeColor=#ccc;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="60" y="630"/><mxPoint x="790" y="630"/></Array></mxGeometry></mxCell>
+        <mxCell id="hg2" value="" style="endArrow=none;strokeColor=#ccc;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="60" y="400"/><mxPoint x="790" y="400"/></Array></mxGeometry></mxCell>
+        <mxCell id="hg3" value="" style="endArrow=none;strokeColor=#ccc;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="60" y="170"/><mxPoint x="790" y="170"/></Array></mxGeometry></mxCell>
+        <!-- Data points (x: S=250, M=420, L=590; y: L=630, M=400, H=170) -->
+        <!-- MongoDB Atlas: S effort, L risk => (250,630) -->
+        <mxCell id="p_mongo" value="MongoDB Atlas" style="ellipse;fillColor=#00684A;strokeColor=#004C36;fontColor=#fff;fontSize=10;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="216" y="616" width="80" height="28" as="geometry"/></mxCell>
+        <!-- Datadog: S effort, L risk => (250,630) offset -->
+        <mxCell id="p_dd" value="Datadog" style="ellipse;fillColor=#f4d5e8;strokeColor=#b85480;fontSize=10;" vertex="1" parent="1"><mxGeometry x="110" y="616" width="70" height="28" as="geometry"/></mxCell>
+        <!-- Velero: S effort, L risk => (250,630) -->
+        <mxCell id="p_velero" value="Velero" style="ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1"><mxGeometry x="155" y="590" width="60" height="28" as="geometry"/></mxCell>
+        <!-- Lambda/Functions: S effort, L risk -->
+        <mxCell id="p_lambda" value="Serverless" style="ellipse;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1"><mxGeometry x="220" y="590" width="70" height="28" as="geometry"/></mxCell>
+        <!-- Observability: S effort, L risk -->
+        <mxCell id="p_obs" value="Observability" style="ellipse;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1"><mxGeometry x="110" y="560" width="80" height="28" as="geometry"/></mxCell>
+        <!-- Storage S3->Blob: M effort, M risk => (420,400) -->
+        <mxCell id="p_s3" value="Storage (S3→Blob)" style="ellipse;fillColor=#fff4e6;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1"><mxGeometry x="356" y="415" width="120" height="28" as="geometry"/></mxCell>
+        <!-- Networking: M effort, M risk => (420,400) offset -->
+        <mxCell id="p_net" value="Networking (ALB→AppGW)" style="ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1"><mxGeometry x="356" y="453" width="140" height="28" as="geometry"/></mxCell>
+        <!-- Compute EKS->AKS: M effort, M risk => (420,390) -->
+        <mxCell id="p_eks" value="Compute (EKS→AKS)" style="ellipse;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1"><mxGeometry x="420" y="376" width="130" height="28" as="geometry"/></mxCell>
+        <!-- HxPR App: M effort, M risk -->
+        <mxCell id="p_app" value="App (HxPR Helm + SDK)" style="ellipse;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1"><mxGeometry x="420" y="342" width="140" height="28" as="geometry"/></mxCell>
+        <!-- OpenSearch: L effort, H risk => (590,170) -->
+        <mxCell id="p_os" value="OpenSearch" style="ellipse;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="548" y="145" width="90" height="28" as="geometry"/></mxCell>
+        <!-- IRSA/WIF: M effort, H risk => (420,170) -->
+        <mxCell id="p_irsa" value="IRSA→WIF (Identity)" style="ellipse;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="360" y="145" width="120" height="28" as="geometry"/></mxCell>
+        <!-- Messaging SNS/SQS->SB: M effort, M risk => -->
+        <mxCell id="p_msg" value="Messaging (SNS/SQS→SB)" style="ellipse;fillColor=#feecf8;strokeColor=#E7157B;fontSize=10;" vertex="1" parent="1"><mxGeometry x="420" y="495" width="148" height="28" as="geometry"/></mxCell>
+        <!-- Legend area -->
+        <mxCell id="legtitle" value="Risk scale: L=Low  M=Medium  H=High · Effort scale: S=1-2wk  M=3-6wk  L=7-12wk" style="text;html=1;align=left;fontSize=10;fontStyle=2;" vertex="1" parent="1"><mxGeometry x="80" y="738" width="700" height="20" as="geometry"/></mxCell>
+        <mxCell id="highrisk" value="Red items are highest-priority blockers (IRSA → WIF, OpenSearch API)" style="text;html=1;align=left;fontSize=10;fontStyle=2;fontColor=#cc0000;" vertex="1" parent="1"><mxGeometry x="80" y="758" width="700" height="20" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

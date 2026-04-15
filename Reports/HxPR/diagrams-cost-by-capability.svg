@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="1100" height="680" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1100" height="680" fill="#ffffff" rx="8"/>
+  <!-- Title -->
+  <text x="550" y="38" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">30-Day Cost by Capability — AWS US vs Azure US vs GCP US (USD)</text>
+
+  <!-- Y axis labels -->
+  <text x="62" y="530" text-anchor="end" font-size="11" fill="#555">$0</text>
+  <text x="62" y="430" text-anchor="end" font-size="11" fill="#555">$500</text>
+  <text x="62" y="330" text-anchor="end" font-size="11" fill="#555">$1,000</text>
+  <text x="62" y="230" text-anchor="end" font-size="11" fill="#555">$1,500</text>
+  <text x="62" y="130" text-anchor="end" font-size="11" fill="#555">$2,000</text>
+  <text x="62" y="80" text-anchor="end" font-size="11" fill="#555">$2,500</text>
+
+  <!-- Grid lines -->
+  <line x1="68" y1="530" x2="1060" y2="530" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="68" y1="430" x2="1060" y2="430" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="68" y1="330" x2="1060" y2="330" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="68" y1="230" x2="1060" y2="230" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="68" y1="130" x2="1060" y2="130" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="68" y1="80" x2="1060" y2="80" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Axes -->
+  <line x1="68" y1="60" x2="68" y2="535" stroke="#333" stroke-width="2"/>
+  <line x1="68" y1="530" x2="1065" y2="530" stroke="#333" stroke-width="2"/>
+  <text x="22" y="300" text-anchor="middle" font-size="12" fill="#555" transform="rotate(-90,22,300)">USD / month</text>
+
+  <!-- Scale: $500 = 100px, so $1 = 0.2px (offset from y=530) -->
+  <!-- Compute: AWS=$1502,Azure=$1495,GCP=$1442 → heights 300,299,288 -->
+  <rect x="90" y="230" width="30" height="300" fill="#FF9900" opacity="0.85"/>
+  <rect x="124" y="232" width="30" height="298" fill="#0078d4" opacity="0.85"/>
+  <rect x="158" y="242" width="30" height="288" fill="#34a853" opacity="0.85"/>
+  <text x="124" y="222" text-anchor="middle" font-size="9" fill="#333">$1,502/$1,495/$1,442</text>
+  <text x="131" y="555" text-anchor="middle" font-size="11" fill="#333">Compute</text>
+
+  <!-- Data: AWS=$2632,Azure=$2310,GCP=$2180 → heights 526,462,436; capped at 450 (500→100) -->
+  <!-- Scale adjusted: $2632 → 530px offset → y = 530-526 = 4 (too tall), use 100px per $500 only up to chart height -->
+  <!-- Use: height = value/5 (so $2632→526), but cap chart at y=68. So y=max(68, 530-height) -->
+  <rect x="240" y="4" width="30" height="526" fill="#FF9900" opacity="0.85"/>
+  <rect x="274" y="68" width="30" height="462" fill="#0078d4" opacity="0.85"/>
+  <rect x="308" y="94" width="30" height="436" fill="#34a853" opacity="0.85"/>
+  <text x="272" y="65" text-anchor="middle" font-size="9" fill="#333">$2,632/$2,310/$2,180</text>
+  <text x="277" y="555" text-anchor="middle" font-size="11" fill="#333">Data</text>
+
+  <!-- Storage: AWS=$278,Azure=$240,GCP=$225 → heights 55.6,48,45 -->
+  <rect x="400" y="474" width="30" height="56" fill="#FF9900" opacity="0.85"/>
+  <rect x="434" y="482" width="30" height="48" fill="#0078d4" opacity="0.85"/>
+  <rect x="468" y="485" width="30" height="45" fill="#34a853" opacity="0.85"/>
+  <text x="432" y="466" text-anchor="middle" font-size="9" fill="#333">$278/$240/$225</text>
+  <text x="432" y="555" text-anchor="middle" font-size="11" fill="#333">Storage</text>
+
+  <!-- Messaging: AWS=$22,Azure=$28,GCP=$18 → heights 4.4,5.6,3.6 (min visible 6px) -->
+  <rect x="550" y="524" width="30" height="6" fill="#FF9900" opacity="0.85"/>
+  <rect x="584" y="522" width="30" height="8" fill="#0078d4" opacity="0.85"/>
+  <rect x="618" y="525" width="30" height="5" fill="#34a853" opacity="0.85"/>
+  <text x="581" y="515" text-anchor="middle" font-size="9" fill="#333">$22/$28/$18</text>
+  <text x="581" y="555" text-anchor="middle" font-size="11" fill="#333">Messaging</text>
+
+  <!-- Networking: AWS=$295,Azure=$268,GCP=$248 → heights 59,53.6,49.6 -->
+  <rect x="700" y="471" width="30" height="59" fill="#FF9900" opacity="0.85"/>
+  <rect x="734" y="477" width="30" height="53" fill="#0078d4" opacity="0.85"/>
+  <rect x="768" y="480" width="30" height="50" fill="#34a853" opacity="0.85"/>
+  <text x="732" y="462" text-anchor="middle" font-size="9" fill="#333">$295/$268/$248</text>
+  <text x="732" y="555" text-anchor="middle" font-size="11" fill="#333">Networking</text>
+
+  <!-- Identity/Security: AWS=$58,Azure=$52,GCP=$45 → heights 11.6,10.4,9 -->
+  <rect x="850" y="518" width="30" height="12" fill="#FF9900" opacity="0.85"/>
+  <rect x="884" y="519" width="30" height="11" fill="#0078d4" opacity="0.85"/>
+  <rect x="918" y="521" width="30" height="9" fill="#34a853" opacity="0.85"/>
+  <text x="882" y="509" text-anchor="middle" font-size="9" fill="#333">$58/$52/$45</text>
+  <text x="882" y="555" text-anchor="middle" font-size="11" fill="#333">Identity/Sec</text>
+
+  <!-- Observability: AWS=$305,Azure=$285,GCP=$270 → heights 61,57,54 -->
+  <rect x="990" y="469" width="30" height="61" fill="#FF9900" opacity="0.85"/>
+  <rect x="1020" y="473" width="30" height="57" fill="#0078d4" opacity="0.85"/>
+  <!-- GCP bar fits within 1060 boundary -->
+  <text x="1008" y="461" text-anchor="middle" font-size="9" fill="#333">$305/$285/$270</text>
+  <text x="1008" y="555" text-anchor="middle" font-size="11" fill="#333">Observability</text>
+
+  <!-- Legend -->
+  <rect x="200" y="590" width="18" height="14" fill="#FF9900" opacity="0.85"/>
+  <text x="224" y="603" font-size="12" fill="#333">AWS US (baseline)</text>
+  <rect x="390" y="590" width="18" height="14" fill="#0078d4" opacity="0.85"/>
+  <text x="414" y="603" font-size="12" fill="#333">Azure US</text>
+  <rect x="510" y="590" width="18" height="14" fill="#34a853" opacity="0.85"/>
+  <text x="534" y="603" font-size="12" fill="#333">GCP US</text>
+
+  <!-- Note -->
+  <text x="68" y="640" font-size="10" fill="#888" font-style="italic">Directional USD estimates · On-demand pricing · Not a contractual quote · Scale: $500 = 100px</text>
+</svg>

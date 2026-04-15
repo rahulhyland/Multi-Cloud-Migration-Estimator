@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="1100" height="680" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="1100" height="680" fill="#ffffff" rx="8"/>
+  <text x="550" y="35" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">HxPR Migration Decision Scenarios — Comparison</text>
+
+  <!-- Scenario A: Cost-First (GCP) -->
+  <rect x="40" y="60" width="315" height="460" fill="#E6F4EA" rx="8" stroke="#34a853" stroke-width="2.5"/>
+  <text x="197" y="88" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e7e34">Scenario A</text>
+  <text x="197" y="106" text-anchor="middle" font-size="12" fill="#1e7e34">Cost-First (GCP)</text>
+  <line x1="60" y1="114" x2="335" y2="114" stroke="#34a853" stroke-width="1"/>
+  <text x="197" y="130" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Target: GCP us-east1 + europe-west3</text>
+  <text x="197" y="148" text-anchor="middle" font-size="11" fill="#34a853" font-weight="bold">Run-Rate: $4,428/mo (-13% vs AWS)</text>
+  <text x="197" y="166" text-anchor="middle" font-size="11" fill="#333">One-Time: $360,000</text>
+  <text x="197" y="184" text-anchor="middle" font-size="11" fill="#333">Timeline: 150 days (5 phases)</text>
+  <text x="197" y="204" text-anchor="middle" font-size="11" fill="#555" font-weight="bold">Pros:</text>
+  <text x="60" y="222" font-size="10" fill="#007722">✓ Lowest on-demand compute cost</text>
+  <text x="60" y="238" font-size="10" fill="#007722">✓ Pub/Sub = $0.04/1M (vs SQS $0.40/1M)</text>
+  <text x="60" y="254" font-size="10" fill="#007722">✓ GCS cheaper per GB-month</text>
+  <text x="60" y="270" font-size="10" fill="#007722">✓ n2-standard-4 = ~10% cheaper than m5.xlarge</text>
+  <text x="197" y="292" text-anchor="middle" font-size="11" fill="#555" font-weight="bold">Cons:</text>
+  <text x="60" y="310" font-size="10" fill="#cc2200">✗ No managed OpenSearch — self-managed ops burden</text>
+  <text x="60" y="326" font-size="10" fill="#cc2200">✗ Google SCC weaker SOC2 audit chain (vs Defender)</text>
+  <text x="60" y="342" font-size="10" fill="#cc2200">✗ 150-day timeline (longest)</text>
+  <text x="60" y="358" font-size="10" fill="#cc2200">✗ Economics only compelling with committed-use</text>
+  <rect x="55" y="385" width="295" height="48" fill="#d0f0d8" rx="4"/>
+  <text x="60" y="403" font-size="10" fill="#1e7e34" font-weight="bold">Best for:</text>
+  <text x="60" y="418" font-size="10" fill="#1e7e34">Cost-optimization programs with active</text>
+  <text x="60" y="433" font-size="10" fill="#1e7e34">GCP committed-use negotiations</text>
+  <!-- Score bars -->
+  <text x="60" y="460" font-size="10" fill="#555">Cost:  </text><rect x="100" y="452" width="90" height="10" fill="#34a853" opacity="0.8"/><text x="196" y="460" font-size="9" fill="#555">9/10</text>
+  <text x="60" y="477" font-size="10" fill="#555">Speed: </text><rect x="100" y="469" width="40" height="10" fill="#34a853" opacity="0.8"/><text x="146" y="477" font-size="9" fill="#555">4/10</text>
+  <text x="60" y="494" font-size="10" fill="#555">Risk:  </text><rect x="100" y="486" width="60" height="10" fill="#34a853" opacity="0.8"/><text x="166" y="494" font-size="9" fill="#555">6/10</text>
+
+  <!-- Scenario B: Speed-First (Azure 90-day) -->
+  <rect x="390" y="60" width="315" height="460" fill="#FFF9E6" rx="8" stroke="#d79b00" stroke-width="2.5"/>
+  <text x="547" y="88" text-anchor="middle" font-size="15" font-weight="bold" fill="#d79b00">Scenario B</text>
+  <text x="547" y="106" text-anchor="middle" font-size="12" fill="#d79b00">Speed-First (Azure 90-day)</text>
+  <line x1="410" y1="114" x2="685" y2="114" stroke="#d79b00" stroke-width="1"/>
+  <text x="547" y="130" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Target: Azure East US + West Europe</text>
+  <text x="547" y="148" text-anchor="middle" font-size="11" fill="#d79b00" font-weight="bold">Run-Rate: $4,678/mo (-8% vs AWS)</text>
+  <text x="547" y="166" text-anchor="middle" font-size="11" fill="#333">One-Time: ~$410K (incl. +2 FTE × 6 wks)</text>
+  <text x="547" y="184" text-anchor="middle" font-size="11" fill="#333">Timeline: 90 days (3 compressed phases)</text>
+  <text x="410" y="204" text-anchor="middle" font-size="11" fill="#555" font-weight="bold">Pros:</text>
+  <text x="410" y="222" font-size="10" fill="#007722">✓ Fastest AWS exit (90 days)</text>
+  <text x="410" y="238" font-size="10" fill="#007722">✓ Azure Svc Bus = direct SQS/SNS mapping</text>
+  <text x="410" y="254" font-size="10" fill="#007722">✓ Microsoft Defender = GuardDuty SOC2 parity</text>
+  <text x="410" y="270" font-size="10" fill="#007722">✓ Satisfies hard compliance deadlines</text>
+  <text x="547" y="292" text-anchor="middle" font-size="11" fill="#555" font-weight="bold">Cons:</text>
+  <text x="410" y="310" font-size="10" fill="#cc2200">✗ Compressed data migration = higher rollback risk</text>
+  <text x="410" y="326" font-size="10" fill="#cc2200">✗ +$60K headcount cost for acceleration</text>
+  <text x="410" y="342" font-size="10" fill="#cc2200">✗ No data migration rehearsal window</text>
+  <text x="410" y="358" font-size="10" fill="#cc2200">✗ OpenSearch strategy decided under time pressure</text>
+  <rect x="405" y="385" width="295" height="48" fill="#fff0cc" rx="4"/>
+  <text x="410" y="403" font-size="10" fill="#7a5000" font-weight="bold">Best for:</text>
+  <text x="410" y="418" font-size="10" fill="#7a5000">Hard AWS exit deadlines; additional</text>
+  <text x="410" y="433" font-size="10" fill="#7a5000">headcount budget available</text>
+  <!-- Score bars -->
+  <text x="410" y="460" font-size="10" fill="#555">Cost:  </text><rect x="450" y="452" width="70" height="10" fill="#d79b00" opacity="0.8"/><text x="526" y="460" font-size="9" fill="#555">7/10</text>
+  <text x="410" y="477" font-size="10" fill="#555">Speed: </text><rect x="450" y="469" width="90" height="10" fill="#d79b00" opacity="0.8"/><text x="546" y="477" font-size="9" fill="#555">9/10</text>
+  <text x="410" y="494" font-size="10" fill="#555">Risk:  </text><rect x="450" y="486" width="50" height="10" fill="#d79b00" opacity="0.8"/><text x="506" y="494" font-size="9" fill="#555">5/10</text>
+
+  <!-- Scenario C: Risk-First / RECOMMENDED -->
+  <rect x="745" y="60" width="315" height="460" fill="#E5F3FB" rx="8" stroke="#0078d4" stroke-width="3"/>
+  <!-- Star badge -->
+  <text x="900" y="76" text-anchor="middle" font-size="14" fill="#0078d4">★ RECOMMENDED</text>
+  <text x="900" y="95" text-anchor="middle" font-size="15" font-weight="bold" fill="#0078d4">Scenario C</text>
+  <text x="900" y="113" text-anchor="middle" font-size="12" fill="#0078d4">Risk-First (Azure 120-day)</text>
+  <line x1="765" y1="121" x2="1040" y2="121" stroke="#0078d4" stroke-width="1"/>
+  <text x="900" y="138" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Target: Azure East US + West Europe</text>
+  <text x="900" y="156" text-anchor="middle" font-size="11" fill="#0078d4" font-weight="bold">Run-Rate: $4,678/mo (-8% vs AWS)</text>
+  <text x="900" y="174" text-anchor="middle" font-size="11" fill="#333">One-Time: $350,000</text>
+  <text x="900" y="192" text-anchor="middle" font-size="11" fill="#333">Timeline: 120 days (4 phased gates)</text>
+  <text x="765" y="212" text-anchor="middle" font-size="11" fill="#555" font-weight="bold">Pros:</text>
+  <text x="765" y="230" font-size="10" fill="#007722">✓ Data migration rehearsal before production</text>
+  <text x="765" y="246" font-size="10" fill="#007722">✓ Phase gates prevent premature production risk</text>
+  <text x="765" y="262" font-size="10" fill="#007722">✓ IRSA → WIF resolved in non-prod first</text>
+  <text x="765" y="278" font-size="10" fill="#007722">✓ Defender for Storage = GuardDuty SOC2 parity</text>
+  <text x="765" y="294" font-size="10" fill="#007722">✓ Azure Svc Bus direct SNS/SQS topology match</text>
+  <text x="900" y="315" text-anchor="middle" font-size="11" fill="#555" font-weight="bold">Cons:</text>
+  <text x="765" y="333" font-size="10" fill="#cc2200">✗ 30 days longer than Scenario B</text>
+  <text x="765" y="349" font-size="10" fill="#cc2200">✗ ~5% higher run-rate savings than GCP option</text>
+  <rect x="760" y="372" width="295" height="60" fill="#d0e8f8" rx="4"/>
+  <text x="765" y="390" font-size="10" fill="#004ea2" font-weight="bold">Best for:</text>
+  <text x="765" y="406" font-size="10" fill="#004ea2">SOC2-sensitive, latency-critical workloads</text>
+  <text x="765" y="421" font-size="10" fill="#004ea2">with multi-team coordinated migration.</text>
+  <text x="765" y="436" font-size="10" fill="#004ea2">Recommended for HxPR.</text>
+  <!-- Score bars -->
+  <text x="765" y="462" font-size="10" fill="#555">Cost:  </text><rect x="805" y="454" width="70" height="10" fill="#0078d4" opacity="0.85"/><text x="881" y="462" font-size="9" fill="#555">7/10</text>
+  <text x="765" y="479" font-size="10" fill="#555">Speed: </text><rect x="805" y="471" width="80" height="10" fill="#0078d4" opacity="0.85"/><text x="891" y="479" font-size="9" fill="#555">8/10</text>
+  <text x="765" y="496" font-size="10" fill="#555">Risk:  </text><rect x="805" y="488" width="100" height="10" fill="#0078d4" opacity="0.85"/><text x="911" y="496" font-size="9" fill="#555">10/10</text>
+
+  <!-- Footer note -->
+  <rect x="40" y="540" width="1020" height="36" fill="#e8f5fe" rx="4" stroke="#b0d8f5" stroke-width="1"/>
+  <text x="550" y="554" text-anchor="middle" font-size="11" fill="#004ea2" font-weight="bold">★ Scenario C (Azure, 120-day Risk-First) is the recommended path for HxPR</text>
+  <text x="550" y="570" text-anchor="middle" font-size="10" fill="#555">Best balance of cost savings, migration safety, SOC2 continuity, and operational familiarity for a Kubernetes-native content repository</text>
+
+  <text x="40" y="620" font-size="10" fill="#888" font-style="italic">All costs in USD. Directional estimates only. Score ratings are relative, not absolute.</text>
+</svg>

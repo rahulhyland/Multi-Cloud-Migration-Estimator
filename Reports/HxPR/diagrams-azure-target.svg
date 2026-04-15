@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1100" width="1500" height="1100" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00bfff" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0078d4" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00c853" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff8c00" opacity="0.9"/>
+    </marker>
+    <marker id="arrowhead-pink" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff4081" opacity="0.9"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000030"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1500" height="1100" fill="#0d1726" rx="10"/>
+  <text x="750" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#ddf0ff">HxPR — Azure Target Architecture</text>
+  <text x="750" y="58" text-anchor="middle" font-size="12" fill="#7fb8d8">Azure migration target · australiaeast / eastus / northeurope · AKS Standard · Workload Identity</text>
+
+  <!-- Internet + DNS -->
+  <rect x="20" y="148" width="120" height="52" rx="8" fill="#263859" stroke="#4a82c0" stroke-width="1.5"/>
+  <text x="80" y="170" text-anchor="middle" font-size="11" fill="#ddf0ff" font-weight="bold">Clients</text>
+  <text x="80" y="185" text-anchor="middle" font-size="9" fill="#99c0e0">API Consumers</text>
+  <text x="80" y="198" text-anchor="middle" font-size="9" fill="#99c0e0">(Internet)</text>
+
+  <rect x="160" y="148" width="100" height="52" rx="8" fill="#1a2d4a" stroke="#0078d4" stroke-width="1.5"/>
+  <text x="210" y="170" text-anchor="middle" font-size="11" fill="#4ea8ff" font-weight="bold">Azure DNS</text>
+  <text x="210" y="185" text-anchor="middle" font-size="9" fill="#3399ee">hyland.com →</text>
+  <text x="210" y="198" text-anchor="middle" font-size="9" fill="#3399ee">App Gateway IP</text>
+
+  <!-- ===================== VNET BOUNDARY ===================== -->
+  <rect x="20" y="80" width="1460" height="990" rx="12" fill="none" stroke="#0078d4" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="30" y="100" font-size="13" fill="#0078d4" font-weight="bold">Azure Virtual Network (VNet)</text>
+  <text x="30" y="116" font-size="10" fill="#3399ee">eastus (primary) · northeurope (prod-eu) · australiaeast (prod-au)</text>
+
+  <!-- ===================== PUBLIC SUBNET ===================== -->
+  <rect x="282" y="120" width="500" height="140" rx="8" fill="#1a2d45" stroke="#5596c4" stroke-width="1.5"/>
+  <text x="297" y="143" font-size="11" fill="#5596c4" font-weight="bold">Public Subnet (Internet-facing)</text>
+
+  <!-- App Gateway v2 + WAF -->
+  <rect x="297" y="155" width="195" height="85" rx="6" fill="#1a3050" stroke="#0078d4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="394" y="175" text-anchor="middle" font-size="11" fill="#4ea8ff" font-weight="bold">Azure App Gateway v2</text>
+  <text x="394" y="190" text-anchor="middle" font-size="9" fill="#3399ee">Standard_v2 SKU · WAF mode</text>
+  <text x="394" y="204" text-anchor="middle" font-size="9" fill="#3399ee">OWASP CRS 3.2 · TLS 1.2+</text>
+  <text x="394" y="218" text-anchor="middle" font-size="9" fill="#3399ee">SSL termination · idle 900s</text>
+
+  <!-- Azure Front Door / DNS -->
+  <rect x="503" y="155" width="150" height="85" rx="6" fill="#1a3050" stroke="#DD344C" stroke-width="1.5"/>
+  <text x="578" y="175" text-anchor="middle" font-size="10" fill="#ff6699" font-weight="bold">Azure Key Vault</text>
+  <text x="578" y="190" text-anchor="middle" font-size="9" fill="#cc4466">TLS Certificates</text>
+  <text x="578" y="204" text-anchor="middle" font-size="9" fill="#cc4466">Standard SKU</text>
+  <text x="578" y="218" text-anchor="middle" font-size="9" fill="#cc4466">App GW integration</text>
+
+  <!-- ===================== PRIVATE SUBNET ===================== -->
+  <rect x="282" y="280" width="910" height="760" rx="8" fill="#162035" stroke="#365880" stroke-width="1.5"/>
+  <text x="297" y="300" font-size="11" fill="#365880" font-weight="bold">Private Subnets (3 AZs)</text>
+
+  <!-- Internal Load Balancer -->
+  <rect x="297" y="310" width="145" height="55" rx="6" fill="#1a3050" stroke="#4a8fc0" stroke-width="1.5"/>
+  <text x="369" y="330" text-anchor="middle" font-size="10" fill="#66aadd" font-weight="bold">Azure Internal LB</text>
+  <text x="369" y="345" text-anchor="middle" font-size="9" fill="#5599cc">Standard SKU</text>
+  <text x="369" y="358" text-anchor="middle" font-size="8" fill="#5599cc">AKS ingress routing</text>
+
+  <!-- ===================== AKS CLUSTER ===================== -->
+  <rect x="292" y="385" width="890" height="530" rx="10" fill="#0f1e30" stroke="#0078d4" stroke-width="2.5"/>
+  <text x="307" y="405" font-size="13" fill="#0078d4" font-weight="bold">Azure Kubernetes Service (AKS)</text>
+  <text x="307" y="421" font-size="10" fill="#3399ee">Standard_D4s_v3 · 3–25 nodes · Bottlerocket-equivalent (Ubuntu 22.04 HWE) · Azure Managed Disks P10</text>
+
+  <!-- NGINX Ingress -->
+  <rect x="307" y="433" width="155" height="60" rx="6" fill="#1a3050" stroke="#4a8fc0" stroke-width="1.5"/>
+  <text x="384" y="453" text-anchor="middle" font-size="11" fill="#66aadd" font-weight="bold">NGINX Ingress</text>
+  <text x="384" y="467" text-anchor="middle" font-size="9" fill="#5599cc">v4.15.1 (unchanged)</text>
+  <text x="384" y="480" text-anchor="middle" font-size="9" fill="#5599cc">Private · cookie affinity</text>
+
+  <!-- ===================== HxPR NAMESPACE ===================== -->
+  <rect x="478" y="433" width="690" height="230" rx="8" fill="#162535" stroke="#f0c040" stroke-width="1.5"/>
+  <text x="493" y="452" font-size="11" fill="#f0c040" font-weight="bold">HxPR Namespace — Azure SDK: Blob + Service Bus</text>
+
+  <!-- REST Pods -->
+  <rect x="493" y="463" width="150" height="90" rx="6" fill="#1a3520" stroke="#66bb6a" stroke-width="1.5"/>
+  <text x="568" y="481" text-anchor="middle" font-size="10" fill="#66bb6a" font-weight="bold">REST Pods × 3</text>
+  <text x="568" y="495" text-anchor="middle" font-size="9" fill="#55aa55">HxPR JVM v2.1.280</text>
+  <text x="568" y="509" text-anchor="middle" font-size="8" fill="#55aa55">0.3 CPU / 1.5GB req</text>
+  <text x="568" y="522" text-anchor="middle" font-size="8" fill="#55aa55">1 CPU / 2GB limit</text>
+  <text x="568" y="535" text-anchor="middle" font-size="8" fill="#55aa55">4GB proxy body</text>
+
+  <!-- Worker Engines -->
+  <rect x="654" y="463" width="170" height="90" rx="6" fill="#1a3520" stroke="#66bb6a" stroke-width="1.5"/>
+  <text x="739" y="481" text-anchor="middle" font-size="10" fill="#66bb6a" font-weight="bold">Worker Engines (KEDA)</text>
+  <text x="739" y="495" text-anchor="middle" font-size="8" fill="#82c882">tika · imagemagick</text>
+  <text x="739" y="508" text-anchor="middle" font-size="8" fill="#82c882">libreoffice · docfilters</text>
+  <text x="739" y="521" text-anchor="middle" font-size="8" fill="#82c882">docmerge · aio</text>
+  <text x="739" y="534" text-anchor="middle" font-size="8" fill="#82c882">Azure Service Bus scaler</text>
+
+  <!-- KEDA -->
+  <rect x="836" y="463" width="115" height="60" rx="6" fill="#2a2a1a" stroke="#ffd740" stroke-width="1.5"/>
+  <text x="893" y="482" text-anchor="middle" font-size="10" fill="#ffd740" font-weight="bold">KEDA</text>
+  <text x="893" y="496" text-anchor="middle" font-size="9" fill="#c8a000">Service Bus scaler</text>
+  <text x="893" y="510" text-anchor="middle" font-size="8" fill="#c8a000">HPA + queue depth</text>
+
+  <!-- Datadog Sidecar -->
+  <rect x="963" y="463" width="115" height="60" rx="6" fill="#2a1535" stroke="#e040fb" stroke-width="1.5"/>
+  <text x="1020" y="482" text-anchor="middle" font-size="10" fill="#e040fb" font-weight="bold">Datadog Agent</text>
+  <text x="1020" y="496" text-anchor="middle" font-size="9" fill="#b020d0">v3.193.0 (unchanged)</text>
+  <text x="1020" y="510" text-anchor="middle" font-size="8" fill="#b020d0">APM + DogStatsD</text>
+
+  <!-- Workload Identity -->
+  <rect x="493" y="563" width="145" height="55" rx="6" fill="#301520" stroke="#ff4081" stroke-width="1.5"/>
+  <text x="565" y="581" text-anchor="middle" font-size="10" fill="#ff6699" font-weight="bold">Workload Identity</text>
+  <text x="565" y="595" text-anchor="middle" font-size="9" fill="#dd4477">AKS OIDC → Azure AD</text>
+  <text x="565" y="608" text-anchor="middle" font-size="8" fill="#dd4477">Replaces AWS IRSA</text>
+
+  <!-- Network Policies -->
+  <rect x="650" y="563" width="145" height="55" rx="6" fill="#20152a" stroke="#ce93d8" stroke-width="1.5"/>
+  <text x="722" y="581" text-anchor="middle" font-size="10" fill="#ce93d8" font-weight="bold">Network Policies</text>
+  <text x="722" y="595" text-anchor="middle" font-size="9" fill="#aa76bb">Azure CNI overlay</text>
+  <text x="722" y="608" text-anchor="middle" font-size="8" fill="#aa76bb">Pod isolation rules</text>
+
+  <!-- cert-manager -->
+  <rect x="808" y="563" width="145" height="55" rx="6" fill="#1a2a3a" stroke="#42a5f5" stroke-width="1.5"/>
+  <text x="880" y="581" text-anchor="middle" font-size="10" fill="#42a5f5" font-weight="bold">cert-manager</text>
+  <text x="880" y="595" text-anchor="middle" font-size="9" fill="#1e88e5">Let's Encrypt</text>
+  <text x="880" y="608" text-anchor="middle" font-size="8" fill="#1e88e5">(unchanged from AWS)</text>
+
+  <!-- System tools in AKS -->
+  <rect x="307" y="680" width="155" height="50" rx="6" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5"/>
+  <text x="384" y="700" text-anchor="middle" font-size="10" fill="#4caf50" font-weight="bold">Velero v12.0.0</text>
+  <text x="384" y="715" text-anchor="middle" font-size="9" fill="#388e3c">Azure Blob backend</text>
+
+  <rect x="307" y="740" width="155" height="50" rx="6" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5"/>
+  <text x="384" y="760" text-anchor="middle" font-size="10" fill="#66bb6a" font-weight="bold">Cluster Autoscaler</text>
+  <text x="384" y="775" text-anchor="middle" font-size="9" fill="#66bb6a">Node pool: d4s_v3</text>
+
+  <!-- OpenSearch on AKS node pool -->
+  <rect x="780" y="680" width="220" height="100" rx="8" fill="#1a1520" stroke="#7c4dff" stroke-width="2"/>
+  <text x="890" y="700" text-anchor="middle" font-size="11" fill="#9c63ff" font-weight="bold">OpenSearch 2.x (self-managed)</text>
+  <text x="890" y="716" text-anchor="middle" font-size="9" fill="#7c4dff">AKS node pool: D4s_v3 × 12</text>
+  <text x="890" y="730" text-anchor="middle" font-size="9" fill="#7c4dff">OpenSearch Operator</text>
+  <text x="890" y="744" text-anchor="middle" font-size="9" fill="#7c4dff">Same API surface as AWS OpenSearch</text>
+  <text x="890" y="758" text-anchor="middle" font-size="8" fill="#7c4dff">Persistent volumes: Azure Disk P10</text>
+
+  <!-- ===================== EXTERNAL SERVICES ===================== -->
+  <!-- Azure Blob Storage -->
+  <rect x="1210" y="80" width="268" height="250" rx="8" fill="#1a2010" stroke="#0078d4" stroke-width="2"/>
+  <text x="1344" y="102" text-anchor="middle" font-size="12" fill="#4ea8ff" font-weight="bold">Azure Blob Storage</text>
+  <rect x="1220" y="115" width="115" height="58" rx="5" fill="#1f2a30" stroke="#0078d4" stroke-width="1"/>
+  <text x="1277" y="134" text-anchor="middle" font-size="9" fill="#4ea8ff" font-weight="bold">Content Container</text>
+  <text x="1277" y="148" text-anchor="middle" font-size="8" fill="#3399ee">hxpr-{env} · ZRS</text>
+  <text x="1277" y="162" text-anchor="middle" font-size="8" fill="#3399ee">CMK encrypt · HTTPS</text>
+  <rect x="1345" y="115" width="115" height="58" rx="5" fill="#1f2a30" stroke="#0078d4" stroke-width="1"/>
+  <text x="1402" y="134" text-anchor="middle" font-size="9" fill="#4ea8ff" font-weight="bold">Upload Container</text>
+  <text x="1402" y="148" text-anchor="middle" font-size="8" fill="#3399ee">3-day lifecycle</text>
+  <text x="1402" y="162" text-anchor="middle" font-size="8" fill="#3399ee">CMK · Versioned</text>
+  <rect x="1220" y="183" width="115" height="58" rx="5" fill="#1f2a30" stroke="#0078d4" stroke-width="1"/>
+  <text x="1277" y="200" text-anchor="middle" font-size="9" fill="#4ea8ff" font-weight="bold">Retention Container</text>
+  <text x="1277" y="214" text-anchor="middle" font-size="8" fill="#3399ee">Immutability policy</text>
+  <text x="1277" y="228" text-anchor="middle" font-size="8" fill="#3399ee">(WORM equiv)</text>
+  <rect x="1345" y="183" width="115" height="58" rx="5" fill="#1f2a30" stroke="#0078d4" stroke-width="1"/>
+  <text x="1402" y="200" text-anchor="middle" font-size="9" fill="#4ea8ff" font-weight="bold">Velero Container</text>
+  <text x="1402" y="214" text-anchor="middle" font-size="8" fill="#3399ee">Cross-region: EastUS</text>
+  <text x="1402" y="228" text-anchor="middle" font-size="8" fill="#3399ee">→ WestUS2 repl</text>
+  <text x="1344" y="260" text-anchor="middle" font-size="8" fill="#0078d4" font-style="italic">All containers: CMK · HTTPS-only</text>
+  <text x="1344" y="274" text-anchor="middle" font-size="8" fill="#0078d4" font-style="italic">Microsoft Defender for Storage enabled</text>
+
+  <!-- MongoDB Atlas -->
+  <rect x="1210" y="355" width="268" height="110" rx="8" fill="#0d2a1a" stroke="#00684A" stroke-width="2"/>
+  <text x="1344" y="377" text-anchor="middle" font-size="12" fill="#4caf50" font-weight="bold">MongoDB Atlas (Azure)</text>
+  <text x="1344" y="393" text-anchor="middle" font-size="10" fill="#66bb6a">M40 primary × 3 + M30 analytics</text>
+  <text x="1344" y="408" text-anchor="middle" font-size="10" fill="#66bb6a">MongoDB 7.0 LTS · Auto-scale M40→M60</text>
+  <text x="1344" y="423" text-anchor="middle" font-size="9" fill="#4caf50">Private Endpoint (replaces PrivateLink)</text>
+  <text x="1344" y="438" text-anchor="middle" font-size="9" fill="#4caf50">eastus / northeurope · Backup enabled</text>
+  <text x="1344" y="453" text-anchor="middle" font-size="8" fill="#809080" font-style="italic">Cloud-agnostic: near 1:1 migration</text>
+
+  <!-- Azure Service Bus -->
+  <rect x="1210" y="490" width="268" height="250" rx="8" fill="#2a0d1a" stroke="#cc1155" stroke-width="2"/>
+  <text x="1344" y="512" text-anchor="middle" font-size="12" fill="#f06292" font-weight="bold">Azure Service Bus</text>
+  <text x="1344" y="527" text-anchor="middle" font-size="9" fill="#c2185b">Standard tier · 20 entities</text>
+  <rect x="1220" y="538" width="245" height="45" rx="5" fill="#2a0a20" stroke="#cc1155" stroke-width="1"/>
+  <text x="1342" y="558" text-anchor="middle" font-size="9" fill="#f06292" font-weight="bold">hxpr-repository-async-tasks topic</text>
+  <text x="1342" y="572" text-anchor="middle" font-size="8" fill="#c2185b">18 subscriptions (replaces SNS fan-out)</text>
+  <rect x="1220" y="594" width="245" height="40" rx="5" fill="#2a0a20" stroke="#cc1155" stroke-width="1"/>
+  <text x="1342" y="612" text-anchor="middle" font-size="9" fill="#f06292" font-weight="bold">hxpr-repository-events topic</text>
+  <text x="1342" y="626" text-anchor="middle" font-size="8" fill="#c2185b">Cross-account equivalent via Event Grid</text>
+  <rect x="1220" y="645" width="245" height="40" rx="5" fill="#2a0a20" stroke="#cc1155" stroke-width="1"/>
+  <text x="1342" y="663" text-anchor="middle" font-size="9" fill="#f06292" font-weight="bold">2 × HXTS Reply Queues</text>
+  <text x="1342" y="677" text-anchor="middle" font-size="8" fill="#c2185b">hxts-{env}-reply + reply-batch</text>
+  <text x="1342" y="703" text-anchor="middle" font-size="8" fill="#c2185b">KMS → CMK via Key Vault</text>
+  <text x="1342" y="718" text-anchor="middle" font-size="8" fill="#c2185b">All queues/topics: Geo-redundant</text>
+  <text x="1342" y="733" text-anchor="middle" font-size="8" fill="#c2185b">Message sessions + DLQ enabled</text>
+
+  <!-- Security -->
+  <rect x="1210" y="765" width="268" height="195" rx="8" fill="#2a0a0a" stroke="#DD344C" stroke-width="2"/>
+  <text x="1344" y="787" text-anchor="middle" font-size="12" fill="#ef5350" font-weight="bold">Identity / Security</text>
+  <text x="1220" y="808" font-size="9" fill="#ef9a9a">Azure Key Vault Standard: CMKs + Secrets</text>
+  <text x="1220" y="824" font-size="9" fill="#ef9a9a"> (replaces KMS + SSM Param Store)</text>
+  <text x="1220" y="842" font-size="9" fill="#ef9a9a">Workload Identity (Federated Credentials)</text>
+  <text x="1220" y="858" font-size="9" fill="#ef9a9a"> AKS OIDC → Azure AD → Key Vault</text>
+  <text x="1220" y="876" font-size="9" fill="#ef9a9a">Microsoft Defender for Storage</text>
+  <text x="1220" y="892" font-size="9" fill="#ef9a9a"> (malware scanning → Azure Functions)</text>
+  <text x="1220" y="910" font-size="9" fill="#ef9a9a">Azure Monitor + Log Analytics Workspace</text>
+  <text x="1220" y="926" font-size="9" fill="#ef9a9a"> (CloudWatch equivalent · 30d retention)</text>
+  <text x="1220" y="944" font-size="9" fill="#ef9a9a">Azure Functions Python 3.10:</text>
+  <text x="1220" y="960" font-size="9" fill="#ef9a9a"> env-decommission · malware-quarantine</text>
+
+  <!-- Datadog SaaS -->
+  <rect x="307" y="840" width="180" height="65" rx="8" fill="#2a0a30" stroke="#e040fb" stroke-width="1.5"/>
+  <text x="397" y="860" text-anchor="middle" font-size="11" fill="#e040fb" font-weight="bold">Datadog SaaS</text>
+  <text x="397" y="875" text-anchor="middle" font-size="9" fill="#b020d0">APM · Dashboards · SLOs</text>
+  <text x="397" y="889" text-anchor="middle" font-size="9" fill="#b020d0">JVM monitors (unchanged)</text>
+  <text x="397" y="900" text-anchor="middle" font-size="8" fill="#b020d0">(cloud-agnostic SaaS)</text>
+
+  <!-- ===================== ARROWS ===================== -->
+  <line x1="140" y1="174" x2="160" y2="174" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="260" y1="174" x2="297" y2="195" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="492" y1="197" x2="503" y2="197" stroke="#0078d4" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <polyline points="500,240 500,335 441,335" fill="none" stroke="#0078d4" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <line x1="441" y1="335" x2="384" y2="433" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="462" y1="463" x2="493" y2="490" stroke="#00c853" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <line x1="643" y1="507" x2="654" y2="507" stroke="#00c853" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowhead-green)"/>
+  <polyline points="1000,720 1060,720 1060,480 1180,480 1210,420" fill="none" stroke="#00c853" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <polyline points="1000,500 1100,500 1190,500 1210,560" fill="none" stroke="#cc1155" stroke-width="2" marker-end="url(#arrowhead-pink)"/>
+  <polyline points="1000,450 1150,450 1150,200 1210,200" fill="none" stroke="#0078d4" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <polyline points="890,680 890,620 1100,620 1100,700 1210,700" fill="none" stroke="#cc3399" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Private Endpoint label -->
+  <rect x="1145" y="397" width="60" height="35" rx="5" fill="#1a2535" stroke="#0078d4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="1175" y="413" text-anchor="middle" font-size="8" fill="#5a9fd4">Private</text>
+  <text x="1175" y="425" text-anchor="middle" font-size="8" fill="#5a9fd4">Endpoint</text>
+
+  <!-- Legend -->
+  <rect x="20" y="1040" width="1460" height="50" rx="6" fill="#0a1520" stroke="#2d5a8a" stroke-width="1"/>
+  <line x1="35" y1="1063" x2="70" y2="1063" stroke="#00bfff" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="78" y="1067" font-size="10" fill="#99d0f0">Request flow</text>
+  <line x1="170" y1="1063" x2="205" y2="1063" stroke="#0078d4" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+  <text x="213" y="1067" font-size="10" fill="#99d0f0">Azure ingress path</text>
+  <line x1="330" y1="1063" x2="365" y2="1063" stroke="#00c853" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+  <text x="373" y="1067" font-size="10" fill="#99d0f0">Data access (Blob/MongoDB)</text>
+  <line x1="530" y1="1063" x2="565" y2="1063" stroke="#cc1155" stroke-width="2" marker-end="url(#arrowhead-pink)"/>
+  <text x="573" y="1067" font-size="10" fill="#99d0f0">Messaging (Service Bus)</text>
+  <text x="700" y="1067" font-size="10" fill="#77a0c0" font-style="italic">All services encrypted at-rest (CMK via Key Vault) · TLS in-transit · Workload Identity replaces IRSA</text>
+</svg>

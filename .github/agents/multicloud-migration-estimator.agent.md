@@ -230,13 +230,14 @@ All timestamps follow UTC format: `YYYY-MM-DD-HH-MM-SS-utc` (human-readable date
    - Azure and GCP target pages must use equivalent granularity (not necessarily identical services), including cluster boundary, ingress/edge services, messaging components, identity/security components, storage/backup, observability, and core service-to-service flows.
    - If a component is not found in IaC, represent it as "Not found in IaC" instead of omitting silently.
 
-9. Always generate three chart types and supplemental draw.io chart artifacts (one file per chart) and export them as SVG:
+9. Always generate four chart types and supplemental draw.io chart artifacts (one file per chart) and export them as SVG:
     - Cost comparison chart (Azure vs GCP by region/capability) — **always generated**
     - Effort-risk chart (capability effort vs migration risk) — **always generated**
     - Scenario comparison chart (cost-first, speed-first, risk-first) — **always generated**
+    - Gantt chart for recommended phased migration timeline - **always generated**
     - Keep chart labels and legends high-contrast for dark/light mode readability.
       - Use filename format: `diagrams-{chart-slug}.svg`
-       - `{chart-slug}` values: `cost-comparison`, `effort-risk`, `scenario-comparison`
+       - `{chart-slug}` values: `cost-comparison`, `effort-risk`, `scenario-comparison`, `gantt`
     - Embed these chart SVGs in their corresponding report sections (cost chart in section 5, effort-risk chart in section 7, scenario chart in section 8).
 
 ## Output Format
@@ -282,6 +283,7 @@ Return one markdown report with these sections in order:
    - For each phase, include concrete objectives, key activities, and expected exit criteria or gates
    - Include sequencing notes where relevant (for example non-prod first, data migration rehearsal before production, cutover hardening after go-live)
    - Required architecture decisions before execution
+   - **Embed the Gantt chart for the recommended phased migration timeline** in this section using markdown image syntax with relative filename (e.g., `![Recommended Migration Timeline](diagrams-gantt.svg)`)
 10. Open Questions
 11. Component Diagrams
    - Embed the three architecture diagrams in this section using markdown image syntax with relative filenames:
@@ -290,7 +292,7 @@ Return one markdown report with these sections in order:
      - GCP Target: `![GCP Target](diagrams-gcp-target.svg)`
    - Include a brief legend or note listing the major component groups rendered on each page so diagram detail is auditable.
    - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams.
-   - **Supplemental visuals:** If additional charts (effort-risk, scenario comparison) were generated, list them here with a note that they are embedded in their respective sections (section 7 and section 8).
+   - **Supplemental visuals:** If additional charts (effort-risk, scenario comparison, Gantt) were generated, list them here with a note that they are embedded in their respective sections (section 7, section 8, and section 9).
    - Do not embed Mermaid blocks in the markdown report
 
 - Do not list SVG file paths explicitly. Only embed the diagrams using markdown image syntax.
@@ -362,8 +364,9 @@ npm install -g @mermaid-js/mermaid-cli md-to-pdf
   - `cost-comparison.svg` appears exactly 1 time (in Section 5.5 only)
   - `effort-risk.svg` appears exactly 1 time (in Section 7 only)
   - `scenario-comparison.svg` appears exactly 1 time (in Section 8 only)
+  - `gantt.svg` appears exactly 1 time (in Section 9 only)
   - `aws-source.svg`, `azure-target.svg`, `gcp-target.svg` each appear exactly 1 time (in Section 11 only)
-  - **Total SVG references = 9 (all mandatory: 3 architecture diagrams + 6 charts)**
+  - **Total SVG references = 10 (all mandatory: 3 architecture diagrams + 7 charts)**
   - No SVG file is referenced in multiple locations (report sections)
 - If duplicates are found, remove all but the intended single occurrence immediately before confirming to user.
 - Document any validation results that reveal deviations from expected embedding pattern.

@@ -203,6 +203,9 @@ cat > "${PDF_CONFIG}" << JSON
 {
   "stylesheet": ["${SCRIPT_DIR}/scripts/pdf-styles.css"],
   "highlight_style": "github",
+  "launch_options": {
+    "args": ["--force-light-mode", "--blink-settings=forceDarkModeEnabled=false"]
+  },
   "pdf_options": {
     "format": "A4",
     "landscape": true,

@@ -2,6 +2,13 @@
 /* md-to-pdf already ships GitHub markdown CSS; this file adds overrides  */
 /* for wide tables, code-block line-wrap, Mermaid images, and print layout*/
 
+/* ── Force light mode — prevents OS dark-mode from inverting colours ── */
+/* color-scheme: light tells Chromium to render system UI in light mode; */
+/* the @media block below neutralises GitHub's built-in dark-mode rules. */
+:root {
+  color-scheme: light;
+}
+
 /* ── Base typography ─────────────────────────────────────────────────── */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
@@ -9,6 +16,7 @@ body {
   font-size: 10pt;
   line-height: 1.5;
   color: #24292e;
+  background-color: #ffffff;
 }
 
 /* ── Headings ────────────────────────────────────────────────────────── */
@@ -158,4 +166,49 @@ hr {
 /* ── Page-break helpers ──────────────────────────────────────────────── */
 .page-break {
   page-break-after: always;
+}
+
+/* ── Dark-mode neutraliser ───────────────────────────────────────────── */
+/* md-to-pdf bundles GitHub's CSS which includes @prefers-color-scheme:  */
+/* dark rules. This block hard-resets those colours so the PDF is always */
+/* rendered with the light palette regardless of OS settings.            */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+  }
+  body {
+    color: #24292e;
+    background-color: #ffffff;
+  }
+  pre, code {
+    background-color: #f6f8fa;
+    color: #24292e;
+  }
+  pre {
+    border-color: #e1e4e8;
+  }
+  th, td {
+    border-color: #dfe2e5;
+    color: #24292e;
+    background-color: #ffffff;
+  }
+  thead {
+    background-color: #f6f8fa;
+  }
+  tr:nth-child(even) td {
+    background-color: #fafbfc;
+  }
+  h1, h2 {
+    border-bottom-color: #e1e4e8;
+  }
+  blockquote {
+    border-left-color: #dfe2e5;
+    color: #6a737d;
+  }
+  hr {
+    border-top-color: #e1e4e8;
+  }
+  a {
+    color: #0366d6;
+  }
 }

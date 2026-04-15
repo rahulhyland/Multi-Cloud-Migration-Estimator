@@ -34,54 +34,32 @@ if [[ "$SPACE_KEY" == ~* ]]; then
   exit 1
 fi
 
-# Reports: prefer new format Reports/<timestamp>/report.md, fall back to old Reports/*/multi-cloud-migration-report-*.md
-LATEST_REPORT=""
-LATEST_REPORT_NEW=$(ls -dt "$REPORTS_DIR"/multi-cloud-migration-*-utc 2>/dev/null | head -1)
-if [ -n "$LATEST_REPORT_NEW" ] && [ -f "$LATEST_REPORT_NEW/report.md" ]; then
-  LATEST_REPORT="$LATEST_REPORT_NEW/report.md"
-fi
+# Reports are stored in timestamped subfolders: Reports/<timestamp>/multi-cloud-migration-report-*.md
+LATEST_REPORT=$(ls -t "$REPORTS_DIR"/*/multi-cloud-migration-report-*.md 2>/dev/null | head -1)
 if [ -z "$LATEST_REPORT" ]; then
-  LATEST_REPORT=$(ls -t "$REPORTS_DIR"/*/multi-cloud-migration-report-*.md 2>/dev/null | head -1)
-fi
-if [ -z "$LATEST_REPORT" ]; then
-  echo "ERROR: No migration reports found in $REPORTS_DIR"
-  echo "Expected: $REPORTS_DIR/multi-cloud-migration-<timestamp>-utc/report.md"
+  echo "ERROR: No migration reports found in $REPORTS_DIR subdirectories"
+  echo "Expected: $REPORTS_DIR/<timestamp-folder>/multi-cloud-migration-report-*.md"
   exit 1
 fi
 
 REPORT_DIR="$(dirname "$LATEST_REPORT")"
-echo "Found latest report: $(basename "$LATEST_REPORT") in $(basename "$REPORT_DIR")"
+echo "Found latest report: $(basename "$LATEST_REPORT")"
 echo "Report folder:       $(basename "$REPORT_DIR")"
 
-REPORT_TITLE=$(python3 - "$LATEST_REPORT" "$REPORT_DIR" <<'PY'
+REPORT_TITLE=$(python3 - "$LATEST_REPORT" <<'PY'
 import pathlib
 import re
 import sys
 
-report_path = pathlib.Path(sys.argv[1])
-report_dir  = pathlib.Path(sys.argv[2])
-
-# New format: folder is multi-cloud-migration-YYYYMMDD-HHMMSS-utc
-folder_match = re.match(r"multi-cloud-migration-(\d{8})-(\d{6})-utc$", report_dir.name)
-if folder_match:
-    date_part, time_part = folder_match.groups()
-    print(
-        f"Migration Report - {date_part[:4]}-{date_part[4:6]}-{date_part[6:8]} "
-        f"{time_part[:2]}:{time_part[2:4]} UTC"
-    )
-    sys.exit(0)
-
-# Old format: filename is multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md
-name_match = re.match(r"multi-cloud-migration-report-(\d{8})-(\d{6})-utc\.md$", report_path.name)
-if name_match:
-    date_part, time_part = name_match.groups()
-    print(
-        f"Migration Report - {date_part[:4]}-{date_part[4:6]}-{date_part[6:8]} "
-        f"{time_part[:2]}:{time_part[2:4]} UTC"
-    )
-    sys.exit(0)
-
-raise SystemExit(f"Cannot derive title from: {report_path}")
+name = pathlib.Path(sys.argv[1]).name
+match = re.match(r"multi-cloud-migration-report-(\d{8})-(\d{6})-utc\.md$", name)
+if not match:
+    raise SystemExit(f"Unexpected report filename: {name}")
+date_part, time_part = match.groups()
+print(
+    f"Migration Report - {date_part[:4]}-{date_part[4:6]}-{date_part[6:8]} "
+    f"{time_part[:2]}:{time_part[2:4]} UTC"
+)
 PY
 )
 

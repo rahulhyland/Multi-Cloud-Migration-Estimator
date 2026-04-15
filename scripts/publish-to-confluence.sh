@@ -71,7 +71,10 @@ for child in reports_dir.iterdir():
   if not match:
     continue
 
+  # Accept both legacy naming (multi-cloud-migration-report-*.md) and new naming (report.md)
   report_files = sorted(child.glob('multi-cloud-migration-report-*.md'))
+  if not report_files:
+    report_files = sorted(child.glob('report.md'))
   if not report_files:
     continue
   if len(report_files) > 1:
@@ -93,7 +96,7 @@ if latest is None:
     file=sys.stderr,
   )
   print(
-    "Expected: Reports/*-YYYY-MM-DD-HH-MM-SS-utc/multi-cloud-migration-report-*.md",
+    "Expected: Reports/*-YYYY-MM-DD-HH-MM-SS-utc/report.md  (or multi-cloud-migration-report-*.md)",
     file=sys.stderr,
   )
   sys.exit(1)

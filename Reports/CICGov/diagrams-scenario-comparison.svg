@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="900" height="480" style="background:#fff;">
+  <defs></defs>
+  <rect x="0" y="0" width="900" height="480" fill="#fff" stroke="#dee2e6" stroke-width="1"/>
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#212529">Decision Scenario Comparison — cicgov Migration</text>
+  <text x="450" y="44" text-anchor="middle" font-size="10" fill="#6c757d">Score shown per dimension (1=worst, 5=best). Radar-style normalized scoring.</text>
+
+  <!-- Three scenario columns -->
+  <!-- COST-FIRST -->
+  <rect x="20" y="60" width="260" height="360" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+  <rect x="20" y="60" width="260" height="38" rx="8" fill="#ffc107"/>
+  <text x="150" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#212529">💰 Cost-First</text>
+
+  <text x="150" y="120" text-anchor="middle" font-size="11" font-weight="bold" fill="#495057">→ GCP (primary)</text>
+  <text x="30" y="142" font-size="10" fill="#212529">Target cloud: GCP</text>
+  <text x="30" y="160" font-size="10" fill="#212529">Timeline: 120 days (conservative)</text>
+  <text x="30" y="178" font-size="10" fill="#212529">Migration cost: ~$106K</text>
+  <text x="30" y="196" font-size="10" fill="#212529">Monthly run-rate: $350 (US)</text>
+  <text x="30" y="214" font-size="10" fill="#212529">Payback: ~444 months (37 yrs!)</text>
+  <text x="30" y="232" font-size="10" fill="#856404">⚠ Cost savings alone do NOT</text>
+  <text x="30" y="248" font-size="10" fill="#856404">  justify migration for single workload</text>
+  <line x1="30" y1="258" x2="270" y2="258" stroke="#ffc107" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="275" font-size="10" font-weight="bold" fill="#212529">Scores (1–5):</text>
+  <text x="30" y="292" font-size="10" fill="#1b5e20">Run-rate cost savings:  ★★★★★ (5)</text>
+  <text x="30" y="308" font-size="10" fill="#c62828">Migration complexity:   ★★☆☆☆ (2)</text>
+  <text x="30" y="324" font-size="10" fill="#c62828">Speed of delivery:     ★★☆☆☆ (2)</text>
+  <text x="30" y="340" font-size="10" fill="#212529">Compliance readiness:  ★★★☆☆ (3)</text>
+  <text x="30" y="356" font-size="10" fill="#212529">Vendor alignment:      ★★★☆☆ (3)</text>
+  <text x="30" y="386" font-size="10" font-weight="bold" fill="#212529">Best for: orgs with large GCP portfolio</text>
+  <text x="30" y="402" font-size="10" fill="#212529">or existing GCP enterprise agreements</text>
+
+  <!-- SPEED-FIRST -->
+  <rect x="320" y="60" width="260" height="360" rx="8" fill="#dce7f8" stroke="#0078d4" stroke-width="2"/>
+  <rect x="320" y="60" width="260" height="38" rx="8" fill="#0078d4"/>
+  <text x="450" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">⚡ Speed-First</text>
+
+  <text x="450" y="120" text-anchor="middle" font-size="11" font-weight="bold" fill="#495057">→ Azure (recommended)</text>
+  <text x="330" y="142" font-size="10" fill="#212529">Target cloud: Azure</text>
+  <text x="330" y="160" font-size="10" fill="#212529">Timeline: 90 days (3-phase)</text>
+  <text x="330" y="178" font-size="10" fill="#212529">Migration cost: ~$128K</text>
+  <text x="330" y="196" font-size="10" fill="#212529">Monthly run-rate: $484 (US)</text>
+  <text x="330" y="214" font-size="10" fill="#212529">AKS best matches EKS patterns</text>
+  <text x="330" y="232" font-size="10" fill="#0050a0">✓ AKS free control plane (vs $73/mo EKS)</text>
+  <text x="330" y="248" font-size="10" fill="#0050a0">✓ ARM64 support (Dpsv5 series)</text>
+  <line x1="330" y1="258" x2="570" y2="258" stroke="#0078d4" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="330" y="275" font-size="10" font-weight="bold" fill="#212529">Scores (1–5):</text>
+  <text x="330" y="292" font-size="10" fill="#0050a0">Run-rate cost savings:  ★★★☆☆ (3)</text>
+  <text x="330" y="308" font-size="10" fill="#1b5e20">Migration complexity:   ★★★★☆ (4)</text>
+  <text x="330" y="324" font-size="10" fill="#1b5e20">Speed of delivery:     ★★★★★ (5)</text>
+  <text x="330" y="340" font-size="10" fill="#1b5e20">Compliance readiness:  ★★★★☆ (4)</text>
+  <text x="330" y="356" font-size="10" fill="#1b5e20">Vendor alignment:      ★★★★☆ (4)</text>
+  <text x="330" y="386" font-size="10" font-weight="bold" fill="#212529">Best for: organizations with existing</text>
+  <text x="330" y="402" font-size="10" fill="#212529">Azure EA, Entra ID, or M365 integration</text>
+
+  <!-- RISK-FIRST -->
+  <rect x="620" y="60" width="260" height="360" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+  <rect x="620" y="60" width="260" height="38" rx="8" fill="#28a745"/>
+  <text x="750" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">🛡 Risk-First</text>
+
+  <text x="750" y="120" text-anchor="middle" font-size="11" font-weight="bold" fill="#495057">→ Phased with AWS stay</text>
+  <text x="630" y="142" font-size="10" fill="#212529">Target cloud: Phased / multi-cloud</text>
+  <text x="630" y="160" font-size="10" fill="#212529">Timeline: 120+ days across 4 phases</text>
+  <text x="630" y="178" font-size="10" fill="#212529">Migration cost: $50–80K (partial)</text>
+  <text x="630" y="196" font-size="10" fill="#212529">Monthly run-rate: $484–589 (dual-run)</text>
+  <text x="630" y="214" font-size="10" fill="#212529">Migrate workload-by-workload</text>
+  <text x="630" y="232" font-size="10" fill="#1b5e20">✓ Zero downtime | Rollback possible</text>
+  <text x="630" y="248" font-size="10" fill="#1b5e20">✓ Validate each phase before proceeding</text>
+  <line x1="630" y1="258" x2="870" y2="258" stroke="#28a745" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="630" y="275" font-size="10" font-weight="bold" fill="#212529">Scores (1–5):</text>
+  <text x="630" y="292" font-size="10" fill="#856404">Run-rate cost savings:  ★★☆☆☆ (2)</text>
+  <text x="630" y="308" font-size="10" fill="#1b5e20">Migration complexity:   ★★★★★ (5)</text>
+  <text x="630" y="324" font-size="10" fill="#856404">Speed of delivery:     ★★☆☆☆ (2)</text>
+  <text x="630" y="340" font-size="10" fill="#1b5e20">Compliance readiness:  ★★★★★ (5)</text>
+  <text x="630" y="356" font-size="10" fill="#212529">Vendor alignment:      ★★★☆☆ (3)</text>
+  <text x="630" y="386" font-size="10" font-weight="bold" fill="#212529">Best for: regulated workloads (SOC2)</text>
+  <text x="630" y="402" font-size="10" fill="#212529">or when data migration risk is HIGH</text>
+
+  <!-- Overall recommendation -->
+  <rect x="20" y="430" width="860" height="40" rx="5" fill="#212529"/>
+  <text x="450" y="455" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Architecture Recommendation: Speed-First (Azure) OR Risk-First for cicgov given SOC2 compliance requirements, data migration complexity, and cross-account IAM patterns</text>
+</svg>

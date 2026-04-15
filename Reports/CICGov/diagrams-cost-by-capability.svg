@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520" style="background:#fff;">
+  <defs>
+  </defs>
+  <rect x="0" y="0" width="900" height="520" fill="#fff" stroke="#dee2e6" stroke-width="1"/>
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#212529">30-Day Cost by Capability — AWS US vs Azure US vs GCP US (USD)</text>
+  <text x="450" y="48" text-anchor="middle" font-size="11" fill="#6c757d">Directional estimates. All costs in USD. Source: IaC-discovered resource tiers.</text>
+
+  <!-- Y axis -->
+  <line x1="80" y1="70" x2="80" y2="440" stroke="#adb5bd" stroke-width="1.5"/>
+  <!-- X axis -->
+  <line x1="80" y1="440" x2="870" y2="440" stroke="#adb5bd" stroke-width="1.5"/>
+
+  <!-- Y-axis labels -->
+  <text x="74" y="444" text-anchor="end" font-size="10" fill="#495057">$0</text>
+  <text x="74" y="375" text-anchor="end" font-size="10" fill="#495057">$100</text>
+  <text x="74" y="305" text-anchor="end" font-size="10" fill="#495057">$200</text>
+  <text x="74" y="236" text-anchor="end" font-size="10" fill="#495057">$300</text>
+  <text x="74" y="166" text-anchor="end" font-size="10" fill="#495057">$400</text>
+  <text x="74" y="97" text-anchor="end" font-size="10" fill="#495057">$500</text>
+  <!-- Grid lines -->
+  <line x1="80" y1="375" x2="870" y2="375" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="80" y1="305" x2="870" y2="305" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="80" y1="236" x2="870" y2="236" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="80" y1="166" x2="870" y2="166" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="80" y1="97" x2="870" y2="97" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Y axis title -->
+  <text x="20" y="260" text-anchor="middle" font-size="11" fill="#495057" transform="rotate(-90,20,260)">Monthly Cost (USD)</text>
+
+  <!-- Scale: 500 units = 370px → 1 unit = 0.74px; base = 440 -->
+  <!-- Capability groups, bar width=18, gap=4 between bars, 8 between groups -->
+
+  <!-- Compute: AWS=$426, Azure=$320, GCP=$248 -->
+  <!-- bars start at x=100 -->
+  <rect x="100" y="125" width="22" height="315" fill="#ff9900" opacity="0.9"/>
+  <rect x="124" y="203" width="22" height="237" fill="#0078d4" opacity="0.9"/>
+  <rect x="148" y="256" width="22" height="184" fill="#34a853" opacity="0.9"/>
+  <text x="135" y="455" text-anchor="middle" font-size="9" fill="#495057">Compute</text>
+  <text x="111" y="120" text-anchor="middle" font-size="8" fill="#e65100">$426</text>
+  <text x="135" y="198" text-anchor="middle" font-size="8" fill="#0050a0">$320</text>
+  <text x="159" y="251" text-anchor="middle" font-size="8" fill="#1b5e20">$248</text>
+
+  <!-- Networking: AWS=$96, Azure=$73, GCP=$59 -->
+  <rect x="210" y="369" width="22" height="71" fill="#ff9900" opacity="0.9"/>
+  <rect x="234" y="386" width="22" height="54" fill="#0078d4" opacity="0.9"/>
+  <rect x="258" y="396" width="22" height="44" fill="#34a853" opacity="0.9"/>
+  <text x="244" y="455" text-anchor="middle" font-size="9" fill="#495057">Networking</text>
+  <text x="221" y="364" text-anchor="middle" font-size="8" fill="#e65100">$96</text>
+  <text x="245" y="381" text-anchor="middle" font-size="8" fill="#0050a0">$73</text>
+  <text x="269" y="391" text-anchor="middle" font-size="8" fill="#1b5e20">$59</text>
+
+  <!-- Data: AWS=$14, Azure=$25, GCP=$20 -->
+  <rect x="320" y="430" width="22" height="10" fill="#ff9900" opacity="0.9"/>
+  <rect x="344" y="421" width="22" height="19" fill="#0078d4" opacity="0.9"/>
+  <rect x="368" y="425" width="22" height="15" fill="#34a853" opacity="0.9"/>
+  <text x="354" y="455" text-anchor="middle" font-size="9" fill="#495057">Data</text>
+  <text x="331" y="426" text-anchor="middle" font-size="8" fill="#e65100">$14</text>
+  <text x="355" y="416" text-anchor="middle" font-size="8" fill="#0050a0">$25</text>
+  <text x="379" y="420" text-anchor="middle" font-size="8" fill="#1b5e20">$20</text>
+
+  <!-- Messaging: AWS=$3, Azure=$11, GCP=$1 -->
+  <rect x="430" y="438" width="22" height="2" fill="#ff9900" opacity="0.9"/>
+  <rect x="454" y="432" width="22" height="8" fill="#0078d4" opacity="0.9"/>
+  <rect x="478" y="439" width="22" height="1" fill="#34a853" opacity="0.9"/>
+  <text x="464" y="455" text-anchor="middle" font-size="9" fill="#495057">Messaging</text>
+  <text x="441" y="433" text-anchor="middle" font-size="8" fill="#e65100">$3</text>
+  <text x="465" y="427" text-anchor="middle" font-size="8" fill="#0050a0">$11</text>
+  <text x="489" y="434" text-anchor="middle" font-size="8" fill="#1b5e20">$1</text>
+
+  <!-- Identity/Security: AWS=$5, Azure=$3, GCP=$2 -->
+  <rect x="540" y="436" width="22" height="4" fill="#ff9900" opacity="0.9"/>
+  <rect x="564" y="438" width="22" height="2" fill="#0078d4" opacity="0.9"/>
+  <rect x="588" y="439" width="22" height="1" fill="#34a853" opacity="0.9"/>
+  <text x="574" y="455" text-anchor="middle" font-size="9" fill="#495057">IAM/Security</text>
+  <text x="551" y="431" text-anchor="middle" font-size="8" fill="#e65100">$5</text>
+  <text x="575" y="433" text-anchor="middle" font-size="8" fill="#0050a0">$3</text>
+  <text x="599" y="434" text-anchor="middle" font-size="8" fill="#1b5e20">$2</text>
+
+  <!-- Observability: AWS=$32, Azure=$40, GCP=$5 -->
+  <rect x="650" y="416" width="22" height="24" fill="#ff9900" opacity="0.9"/>
+  <rect x="674" y="411" width="22" height="29" fill="#0078d4" opacity="0.9"/>
+  <rect x="698" y="436" width="22" height="4" fill="#34a853" opacity="0.9"/>
+  <text x="684" y="455" text-anchor="middle" font-size="9" fill="#495057">Observability</text>
+  <text x="661" y="411" text-anchor="middle" font-size="8" fill="#e65100">$32</text>
+  <text x="685" y="406" text-anchor="middle" font-size="8" fill="#0050a0">$40</text>
+  <text x="709" y="431" text-anchor="middle" font-size="8" fill="#1b5e20">$5</text>
+
+  <!-- Lambda/Functions: AWS=$13, Azure=$12, GCP=$15 -->
+  <rect x="760" y="430" width="22" height="10" fill="#ff9900" opacity="0.9"/>
+  <rect x="784" y="431" width="22" height="9" fill="#0078d4" opacity="0.9"/>
+  <rect x="808" y="429" width="22" height="11" fill="#34a853" opacity="0.9"/>
+  <text x="794" y="455" text-anchor="middle" font-size="9" fill="#495057">Functions</text>
+  <text x="771" y="425" text-anchor="middle" font-size="8" fill="#e65100">$13</text>
+  <text x="795" y="426" text-anchor="middle" font-size="8" fill="#0050a0">$12</text>
+  <text x="819" y="424" text-anchor="middle" font-size="8" fill="#1b5e20">$15</text>
+
+  <!-- Legend -->
+  <rect x="200" y="478" width="14" height="12" fill="#ff9900"/>
+  <text x="218" y="489" font-size="11" fill="#212529">AWS US ($589/mo)</text>
+  <rect x="380" y="478" width="14" height="12" fill="#0078d4"/>
+  <text x="398" y="489" font-size="11" fill="#212529">Azure US ($484/mo)</text>
+  <rect x="570" y="478" width="14" height="12" fill="#34a853"/>
+  <text x="588" y="489" font-size="11" fill="#212529">GCP US ($350/mo)</text>
+</svg>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500" style="background:#fff;">
+  <defs></defs>
+  <rect x="0" y="0" width="900" height="500" fill="#fff" stroke="#dee2e6" stroke-width="1"/>
+  <text x="450" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#212529">One-Time Migration Cost vs 30-Day Run-Rate — AWS vs Azure vs GCP (USD)</text>
+  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#6c757d">All costs in USD. Migration costs include engineering, testing, training. Run-rate = monthly total for US region.</text>
+
+  <!-- Y Axis -->
+  <line x1="70" y1="65" x2="70" y2="430" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="70" y1="430" x2="870" y2="430" stroke="#adb5bd" stroke-width="1.5"/>
+
+  <!-- Y labels: max $130,000 left scale for migration; right scale $700 run-rate -->
+  <!-- Use dual scale: left axis migration $0-$130K, just label the actual values above bars -->
+
+  <!-- Grid lines -->
+  <line x1="70" y1="360" x2="870" y2="360" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="285" x2="870" y2="285" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="210" x2="870" y2="210" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="135" x2="870" y2="135" stroke="#e9ecef" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- GROUP 1: AWS (baseline) -->
+  <!-- One-time: $0 (already on AWS, sunk cost = $0 for migration) -->
+  <!-- Run-rate: $589 -->
+  <rect x="110" y="420" width="55" height="10" fill="#232f3e" opacity="0.6"/>
+  <text x="137" y="415" text-anchor="middle" font-size="9" fill="#495057">$0</text>
+  <!-- Run-rate bar: scale $589/700 * 365 = 308 px high... use separate scale -->
+  <!-- Run-rate group 1: AWS $589 → bar height 50px (just for visual comparison) -->
+  <rect x="175" y="386" width="55" height="44" fill="#ff9900" opacity="0.9"/>
+  <text x="202" y="380" text-anchor="middle" font-size="9" font-weight="bold" fill="#e65100">$589/mo</text>
+  <text x="165" y="450" text-anchor="middle" font-size="10" font-weight="bold" fill="#212529">AWS</text>
+  <text x="115" y="462" text-anchor="middle" font-size="8" fill="#6c757d">One-time</text>
+  <text x="205" y="462" text-anchor="middle" font-size="8" fill="#6c757d">Run-rate</text>
+
+  <!-- GROUP 2: Azure -->
+  <!-- One-time: $128,000 → show relative scale. Use log-style or just show with tall bar -->
+  <!-- Scale: $128K / $200K * 365 = ~234px; $589/900 * 365... use a ratio approach -->
+  <!-- Let's just show 3 bars per group: one-time, 12-mo total, ongoing -->
+  <!-- Simplify to 3 scenarios bar per cloud -->
+
+  <!-- One-time Azure: $128,000 (tall) -->
+  <rect x="365" y="85" width="55" height="345" fill="#0078d4" opacity="0.6"/>
+  <text x="392" y="79" text-anchor="middle" font-size="9" fill="#0050a0">$128K</text>
+  <!-- Run-rate Azure: $484 (short) -->
+  <rect x="430" y="393" width="55" height="37" fill="#0078d4" opacity="0.9"/>
+  <text x="457" y="387" text-anchor="middle" font-size="9" font-weight="bold" fill="#0050a0">$484/mo</text>
+  <!-- 12-mo total Azure: $128K + 484*12 = $133,808 → bar slightly taller -->
+  <rect x="495" y="82" width="55" height="348" fill="#0078d4" opacity="0.8"/>
+  <text x="522" y="76" text-anchor="middle" font-size="9" fill="#0050a0">$133.8K</text>
+  <text x="430" y="450" text-anchor="middle" font-size="10" font-weight="bold" fill="#212529">Azure</text>
+  <text x="392" y="462" text-anchor="middle" font-size="8" fill="#6c757d">One-time</text>
+  <text x="457" y="462" text-anchor="middle" font-size="8" fill="#6c757d">Run-rate</text>
+  <text x="522" y="462" text-anchor="middle" font-size="8" fill="#6c757d">12-mo total</text>
+
+  <!-- GROUP 3: GCP -->
+  <!-- One-time: $106,000 -->
+  <rect x="618" y="105" width="55" height="325" fill="#34a853" opacity="0.6"/>
+  <text x="645" y="99" text-anchor="middle" font-size="9" fill="#1b5e20">$106K</text>
+  <!-- Run-rate GCP: $350 -->
+  <rect x="683" y="403" width="55" height="27" fill="#34a853" opacity="0.9"/>
+  <text x="710" y="397" text-anchor="middle" font-size="9" font-weight="bold" fill="#1b5e20">$350/mo</text>
+  <!-- 12-mo total GCP: $106K + 350*12 = $110,200 -->
+  <rect x="748" y="107" width="55" height="323" fill="#34a853" opacity="0.8"/>
+  <text x="775" y="101" text-anchor="middle" font-size="9" fill="#1b5e20">$110.2K</text>
+  <text x="688" y="450" text-anchor="middle" font-size="10" font-weight="bold" fill="#212529">GCP</text>
+  <text x="645" y="462" text-anchor="middle" font-size="8" fill="#6c757d">One-time</text>
+  <text x="710" y="462" text-anchor="middle" font-size="8" fill="#6c757d">Run-rate</text>
+  <text x="775" y="462" text-anchor="middle" font-size="8" fill="#6c757d">12-mo total</text>
+
+  <!-- Scale note box -->
+  <rect x="70" y="65" width="40" height="10" fill="none"/>
+  <text x="68" y="435" text-anchor="end" font-size="8" fill="#6c757d">$0</text>
+  <text x="68" y="360" text-anchor="end" font-size="8" fill="#6c757d">~$25K</text>
+  <text x="68" y="285" text-anchor="end" font-size="8" fill="#6c757d">~$50K</text>
+  <text x="68" y="210" text-anchor="end" font-size="8" fill="#6c757d">~$75K</text>
+  <text x="68" y="135" text-anchor="end" font-size="8" fill="#6c757d">~$100K</text>
+
+  <!-- Key insight annotation -->
+  <rect x="70" y="470" width="800" height="25" rx="3" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+  <text x="80" y="486" font-size="9" fill="#856404">⚠ ROI note: At ~$105/mo savings (Azure) or ~$239/mo (GCP), payback on migration cost exceeds 10 years for this single workload. Strategic multi-workload portfolio ROI should drive migration decision.</text>
+</svg>

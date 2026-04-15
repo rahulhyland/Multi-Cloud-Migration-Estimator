@@ -42,8 +42,6 @@ For the best experience with tool execution and permission prompts, use **Autopi
 
 Use this template when running the agent:
 
-Need more than the base template? See [PROMPT_EXAMPLES.md](PROMPT_EXAMPLES.md) for several ready-to-use examples.
-
 Common abbreviations used below:
 
 - RTO: Recovery Time Objective
@@ -89,6 +87,8 @@ Assumptions:
 - Compliance: SOC 2 (System and Organization Controls 2) + regional data residency.
 - Performance: latency sensitive APIs (Application Programming Interfaces).
 ```
+
+Need more than the base template? See [PROMPT_EXAMPLES.md](PROMPT_EXAMPLES.md) for several ready-to-use examples.
 
 ## Expected Output Sections
 

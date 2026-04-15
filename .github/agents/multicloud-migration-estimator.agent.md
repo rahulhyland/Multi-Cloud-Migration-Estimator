@@ -74,7 +74,7 @@ When **one repository** (local path or GitHub URL) is provided:
 
 ```
 Reports/<repo-name>-<YYYYMMDD-HHMMSS-utc>/
-  └─ multi-cloud-migration-report-<repo-name>-<YYYYMMDD-HHMMSS-utc>.md
+  └─ report.md
   └─ diagrams-*.drawio
   └─ diagrams-*.svg
   └─ report.pdf (optional)
@@ -83,7 +83,7 @@ Reports/<repo-name>-<YYYYMMDD-HHMMSS-utc>/
 Example (single local repo):
 ```
 Reports/hxpr-20260415-153022-utc/
-  └─ multi-cloud-migration-report-hxpr-20260415-153022-utc.md
+  └─ report.md
   └─ diagrams-aws-source.drawio
   └─ diagrams-aws-source.svg
   └─ ... (other diagram files)
@@ -92,7 +92,7 @@ Reports/hxpr-20260415-153022-utc/
 Example (single GitHub repo):
 ```
 Reports/terraform-aws-migration-20260415-153022-utc/
-  └─ multi-cloud-migration-report-terraform-aws-migration-20260415-153022-utc.md
+  └─ report.md
   └─ ... (diagram files)
 ```
 
@@ -104,7 +104,7 @@ When **two or more repositories** (local paths and/or GitHub URLs) are provided:
 
 ```
 Reports/<common-term>-<YYYYMMDD-HHMMSS-utc>/
-  └─ multi-cloud-migration-report-<common-term>-<YYYYMMDD-HHMMSS-utc>.md
+  └─ report.md
   └─ diagrams-*.drawio
   └─ diagrams-*.svg
   └─ report.pdf (optional)
@@ -116,26 +116,26 @@ Examples (multiple repos):
 - Repos: `https://github.com/my-org/terraform-aws-infrastructure`, `https://github.com/my-org/terraform-aws-app`
 - Common substring: `terraform-aws`
 - Folder: `Reports/terraform-aws-20260415-153022-utc/`
-- Report file: `multi-cloud-migration-report-terraform-aws-20260415-153022-utc.md`
+- Report file: `report.md`
 
 **Mixed local and GitHub:**
 - Local: `/path/to/hxpr-aws-infrastructure`
 - GitHub: `https://github.com/org/hxpr-gcp-migration`
 - Common substring: `hxpr`
 - Folder: `Reports/hxpr-20260415-153022-utc/`
-- Report file: `multi-cloud-migration-report-hxpr-20260415-153022-utc.md`
+- Report file: `report.md`
 
 ### Internal File Naming
 File names within the timestamped folder include the folder name prefix for traceability:
-- Report markdown: `multi-cloud-migration-report-<folder-name>.md` (where `<folder-name>` matches the parent folder name without `Reports/` prefix)
+- Report markdown: `report.md`
 - Diagrams: `diagrams-{aws-source|azure-target|gcp-target|cost-comparison|effort-risk|scenario-comparison}.{drawio|svg}`
 - Charts: `diagrams-{cost-by-capability|metered-billing|one-time-vs-runrate}.{drawio|svg}`
 - PDF: `report.pdf`
 
 **Examples:**
-- Folder: `hxpr-20260415-153022-utc/` → Report file: `multi-cloud-migration-report-hxpr-20260415-153022-utc.md`
-- Folder: `terraform-aws-20260415-153022-utc/` → Report file: `multi-cloud-migration-report-terraform-aws-20260415-153022-utc.md`
-- Folder: `my-project-20260415-153022-utc/` → Report file: `multi-cloud-migration-report-my-project-20260415-153022-utc.md`
+- Folder: `hxpr-20260415-153022-utc/` → Report file: `report.md`
+- Folder: `terraform-aws-20260415-153022-utc/` → Report file: `report.md`
+- Folder: `my-project-20260415-153022-utc/` → Report file: `report.md`
 
 ### Timestamp Format
 All timestamps follow UTC format: `YYYYMMDD-HHMMSS-utc` (ISO 8601 date + time + timezone indicator)
@@ -414,8 +414,4 @@ URL: https://hyland.atlassian.net/wiki/spaces/ENG/pages/4031226486/...
 
 ### Script Internals
 
-The script (`scripts/publish-to-confluence.sh`):
-
-### Script Internals
-
-### Manual Publishing (Alternative)
+The script (`scripts/publish-to-confluence.sh`) auto-detects the latest report folder under `Reports/`, derives the page title from the timestamped folder name, creates or updates the Confluence page, and uploads the generated SVG diagrams as attachments.

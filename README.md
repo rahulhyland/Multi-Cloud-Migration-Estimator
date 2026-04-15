@@ -15,7 +15,7 @@ The agent analyzes Terraform from either local cloned repository paths or remote
 
 - AWS source footprint summary
 - Azure and GCP service mapping
-- Directional regional cost analysis (US, EU, AU) with AWS baseline, explicit currency labels, 30-day total run-rate, metered billing tiers, and one-time migration versus run-rate comparison
+- Directional regional cost analysis (US, EU, AU) with AWS baseline, explicit currency labels, 30-day run-rate, metered billing tiers, and one-time migration versus run-rate comparison
 - Migration challenge and risk register
 - Effort scoring and a dynamic implementation timeline based on discovered infrastructure complexity
 - Open questions for architects
@@ -154,7 +154,7 @@ Future scaling approach: if we introduce multiple agents, we can extract shared 
 
 ### Add a new target region
 
-- Update `Approach` and `Output Format` cost table columns.
+- Update `Workflow` and `Output Format` cost table columns.
 - Mention the region explicitly in `description` if discoverability matters.
 
 ### Add a new cloud target
@@ -165,8 +165,8 @@ Future scaling approach: if we introduce multiple agents, we can extract shared 
 
 ### Tighten governance/compliance requirements
 
-- Add requirements under `Hard Constraints`.
-- Add explicit checks in `Approach` and `Open Questions`.
+- Add requirements under `Guardrails`.
+- Add explicit checks in `Workflow` and `Open Questions`.
 
 ## Authoring Guidelines
 
@@ -370,3 +370,4 @@ Confluence publishing is **optional**. If you don't configure `.env` with Atlass
 - Agent not selected automatically: improve `description` with clear trigger phrases.
 - Output missing sections: check `Output Format` section and section numbering.
 - Inconsistent costs: ensure assumptions are provided and confidence labels are included.
+- Confluence publish unavailable: confirm `.env` includes valid Atlassian credentials and `scripts/publish-to-confluence.sh` is executable.

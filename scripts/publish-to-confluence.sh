@@ -53,7 +53,7 @@ if [[ "$SPACE_KEY" == ~* ]]; then
   exit 1
 fi
 
-# Reports are stored in timestamped subfolders: Reports/*-YYYYMMDD-HHMMSS-utc/
+# Reports are stored in timestamped subfolders: Reports/*-YYYY-MM-DD-HH-MM-SS-utc/
 # Select the latest report deterministically from folder timestamp tokens.
 LATEST_REPORT=$(python3 - "$REPORTS_DIR" <<'PY'
 import pathlib
@@ -61,7 +61,7 @@ import re
 import sys
 
 reports_dir = pathlib.Path(sys.argv[1])
-folder_re = re.compile(r'^.+-(\d{8})-(\d{6})-utc$')
+folder_re = re.compile(r'^.+-(\d{4}-\d{2}-\d{2})-(\d{2}-\d{2}-\d{2})-utc$')
 latest = None
 
 for child in reports_dir.iterdir():
@@ -93,7 +93,7 @@ if latest is None:
     file=sys.stderr,
   )
   print(
-    "Expected: Reports/*-YYYYMMDD-HHMMSS-utc/multi-cloud-migration-report-*.md",
+    "Expected: Reports/*-YYYY-MM-DD-HH-MM-SS-utc/multi-cloud-migration-report-*.md",
     file=sys.stderr,
   )
   sys.exit(1)

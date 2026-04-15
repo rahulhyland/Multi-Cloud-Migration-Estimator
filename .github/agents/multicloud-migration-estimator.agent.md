@@ -86,7 +86,7 @@ All generated artifacts (markdown report, diagrams, charts, PDF) are organized i
 When **one repository** (local path or GitHub URL) is provided:
 
 ```
-Reports/<repo-name>-<YYYYMMDD-HHMMSS-utc>/
+Reports/<repo-name>-<YYYY-MM-DD-HH-MM-SS-utc>/
   └─ report.md
   └─ diagrams-*.drawio
   └─ diagrams-*.svg
@@ -95,7 +95,7 @@ Reports/<repo-name>-<YYYYMMDD-HHMMSS-utc>/
 
 Example (single local repo):
 ```
-Reports/hxpr-20260415-153022-utc/
+Reports/hxpr-2026-04-15-15-30-22-utc/
   └─ report.md
   └─ diagrams-aws-source.drawio
   └─ diagrams-aws-source.svg
@@ -104,7 +104,7 @@ Reports/hxpr-20260415-153022-utc/
 
 Example (single GitHub repo):
 ```
-Reports/terraform-aws-migration-20260415-153022-utc/
+Reports/terraform-aws-migration-2026-04-15-15-30-22-utc/
   └─ report.md
   └─ ... (diagram files)
 ```
@@ -116,7 +116,7 @@ When **two or more repositories** (local paths and/or GitHub URLs) are provided:
 2. **Create folder using the common term** (normalized, all lowercase, hyphens for spaces):
 
 ```
-Reports/<common-term>-<YYYYMMDD-HHMMSS-utc>/
+Reports/<common-term>-<YYYY-MM-DD-HH-MM-SS-utc>/
   └─ report.md
   └─ diagrams-*.drawio
   └─ diagrams-*.svg
@@ -128,14 +128,14 @@ Examples (multiple repos):
 **GitHub repos:**
 - Repos: `https://github.com/my-org/terraform-aws-infrastructure`, `https://github.com/my-org/terraform-aws-app`
 - Common substring: `terraform-aws`
-- Folder: `Reports/terraform-aws-20260415-153022-utc/`
+- Folder: `Reports/terraform-aws-2026-04-15-15-30-22-utc/`
 - Report file: `report.md`
 
 **Mixed local and GitHub:**
 - Local: `/path/to/hxpr-aws-infrastructure`
 - GitHub: `https://github.com/org/hxpr-gcp-migration`
 - Common substring: `hxpr`
-- Folder: `Reports/hxpr-20260415-153022-utc/`
+- Folder: `Reports/hxpr-2026-04-15-15-30-22-utc/`
 - Report file: `report.md`
 
 ### Internal File Naming
@@ -146,12 +146,12 @@ File names within the timestamped folder include the folder name prefix for trac
 - PDF: `report.pdf`
 
 **Examples:**
-- Folder: `hxpr-20260415-153022-utc/` → Report file: `report.md`
-- Folder: `terraform-aws-20260415-153022-utc/` → Report file: `report.md`
-- Folder: `my-project-20260415-153022-utc/` → Report file: `report.md`
+- Folder: `hxpr-2026-04-15-15-30-22-utc/` → Report file: `report.md`
+- Folder: `terraform-aws-2026-04-15-15-30-22-utc/` → Report file: `report.md`
+- Folder: `my-project-2026-04-15-15-30-22-utc/` → Report file: `report.md`
 
 ### Timestamp Format
-All timestamps follow UTC format: `YYYYMMDD-HHMMSS-utc` (ISO 8601 date + time + timezone indicator)
+All timestamps follow UTC format: `YYYY-MM-DD-HH-MM-SS-utc` (human-readable date and time, UTC)
 
 ## Workflow
 
@@ -294,7 +294,7 @@ Return one markdown report with these sections in order:
    - Do not embed Mermaid blocks in the markdown report
 
 - Do not list SVG file paths explicitly. Only embed the diagrams using markdown image syntax.
-- Embed each generated SVG in the markdown report using standard markdown image syntax, using paths relative to the report file location, for example: `![AWS Source](multi-cloud-migration-diagrams-YYYYMMDD-HHMMSS-utc-aws-source.svg)` (without listing the path separately before the image)
+- Embed each generated SVG in the markdown report using standard markdown image syntax, using paths relative to the report file location, for example: `![AWS Source](multi-cloud-migration-diagrams-YYYY-MM-DD-HH-MM-SS-utc-aws-source.svg)` (without listing the path separately before the image)
 - Include a brief legend or note listing the major component groups rendered on each page so diagram detail is auditable.
 - Include page mapping for AWS Source, Azure Target, and GCP Target diagrams
 - When supplemental charts are generated, include a sub-list for chart page mapping and embed each chart SVG below the architecture diagrams.
@@ -303,10 +303,10 @@ Return one markdown report with these sections in order:
 ### Report Artifact (Required)
 
 - **Create a new output folder in `Reports/` for each run before writing artifacts.**
-- Use output folder format: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/` (e.g., `Reports/multi-cloud-migration-20260414-153000-utc/`).
+- Use output folder format: `Reports/multi-cloud-migration-YYYY-MM-DD-HH-MM-SS-utc/` (e.g., `Reports/multi-cloud-migration-2026-04-14-15-30-00-utc/`).
 - **Generate the report as markdown and persist it immediately in that new folder.**
 - Use report filename format: `report.md`.
-- **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact inside the new folder (for example: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/report.md`).
+- **Do not just display in chat.** Use the `create_file` tool to write the markdown artifact inside the new folder (for example: `Reports/multi-cloud-migration-YYYY-MM-DD-HH-MM-SS-utc/report.md`).
 
 #### Draw.io + SVG Generation Rule (Mandatory)
 - For every generated report, create matching `.drawio` artifacts in the same output folder, with one `.drawio` file per required SVG.

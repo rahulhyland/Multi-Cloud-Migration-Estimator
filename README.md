@@ -118,8 +118,8 @@ The report is expected to include these sections:
 
 Notes:
 - The markdown report is saved in a new run folder under `Reports/` using dynamic naming:
-  - Single repo input: `Reports/<repo-name>-YYYYMMDD-HHMMSS-utc/`
-  - Multi-repo input: `Reports/<common-term>-YYYYMMDD-HHMMSS-utc/` (common term derived from repo names)
+  - Single repo input: `Reports/<repo-name>-YYYY-MM-DD-HH-MM-SS-utc/`
+  - Multi-repo input: `Reports/<common-term>-YYYY-MM-DD-HH-MM-SS-utc/` (common term derived from repo names)
 - Report filename format: `multi-cloud-migration-report-<folder-name>.md`.
 - SVG files are embedded in their corresponding sections throughout the report:
   - **Section 5 (Regional Cost Analysis):**
@@ -161,8 +161,8 @@ npm install -g @mermaid-js/mermaid-cli md-to-pdf
 ```bash
 set -euo pipefail
 
-REPORT_MD="Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md"
-REPORT_PDF="Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.pdf"
+REPORT_MD="Reports/multi-cloud-migration-report-YYYY-MM-DD-HH-MM-SS-utc.md"
+REPORT_PDF="Reports/multi-cloud-migration-report-YYYY-MM-DD-HH-MM-SS-utc.pdf"
 
 # Ensure markdown has a top title and all required major sections before PDF conversion.
 grep -Eq '^#\s+.+$' "$REPORT_MD" || { echo "Missing top-level report title in $REPORT_MD"; exit 1; }

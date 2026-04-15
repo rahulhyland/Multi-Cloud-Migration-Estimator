@@ -6,7 +6,7 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
-- `Reports/`: Generated migration decision report artifacts. Each run creates a timestamped subfolder containing the markdown report, six draw.io files (one per SVG), and SVG exports (three architecture SVGs + three chart SVGs, all mandatory).
+- `Reports/`: Generated migration decision report artifacts. Each run creates a timestamped subfolder containing the markdown report, nine draw.io files, and nine SVG exports (three architecture diagrams + six chart SVGs, all mandatory).
 
 ## What This Agent Does
 
@@ -18,8 +18,9 @@ The agent analyzes Terraform from either local cloned repository paths or remote
 - Migration challenge and risk register
 - Effort scoring and a dynamic implementation timeline based on discovered infrastructure complexity
 - Open questions for architects
+- Claude-first analytical execution policy when available (with fallback transparency when unavailable)
 - Component diagrams delivered as dedicated draw.io artifacts (AWS source, Azure target, GCP target), with one draw.io file per SVG output, saved in a per-run timestamped folder under `Reports/`
-- Mandatory supplemental draw.io chart artifacts: cost comparison, effort-risk, and scenario comparison, each with a matching SVG in the same per-run folder
+- Mandatory supplemental draw.io chart artifacts: cost comparison, cost-by-capability, metered-billing, one-time-vs-runrate, effort-risk, and scenario comparison, each with a matching SVG in the same per-run folder
 
 ## How To Use
 
@@ -27,6 +28,14 @@ The agent analyzes Terraform from either local cloned repository paths or remote
 2. Select the agent named `Multi-Cloud Migration Estimator`.
 3. Provide your scope and assumptions.
 4. Ask for a report.
+
+## Recommended Permissions Mode
+
+For the best experience with tool execution and permission prompts, use **Autopilot (preview)** in Copilot Chat.
+
+- Recommended: set chat permissions mode to **Autopilot (preview)** so the agent can run approved read/search/edit/execute flows with fewer manual interruptions.
+- Benefit: smoother end-to-end runs for report generation, artifact creation, and optional publish steps.
+- Note: this controls tool permission flow, not model selection. Model preference/enforcement (for example Claude-first behavior) remains defined in the agent instructions.
 
 ## Recommended Prompt Input
 
@@ -88,25 +97,33 @@ The report is expected to include these sections:
 11. Component Diagrams (embedded SVG diagrams and page mapping)
 
 Notes:
-- The markdown report is saved in a new run folder: `Reports/multi-cloud-migration-YYYYMMDD-HHMMSS-utc/`.
+- The markdown report is saved in a new run folder under `Reports/` using dynamic naming:
+  - Single repo input: `Reports/<repo-name>-YYYYMMDD-HHMMSS-utc/`
+  - Multi-repo input: `Reports/<common-term>-YYYYMMDD-HHMMSS-utc/` (common term derived from repo names)
+- Report filename format: `multi-cloud-migration-report-<folder-name>.md`.
 - SVG files are embedded in their corresponding sections throughout the report:
-  - **Section 5 (Regional Cost Analysis):** Cost comparison chart SVG
-   - **Section 7 (Migration Effort View):** Effort-risk chart SVG
-   - **Section 8 (Decision Scenarios):** Scenario comparison chart SVG
-  - **Section 11 (Component Diagrams):** Architecture diagrams (AWS Source, Azure Target, GCP Target)
+  - **Section 5 (Regional Cost Analysis):**
+    - `diagrams-cost-by-capability.svg`
+    - `diagrams-metered-billing.svg`
+    - `diagrams-one-time-vs-runrate.svg`
+    - `diagrams-cost-comparison.svg`
+  - **Section 7 (Migration Effort View):** `diagrams-effort-risk.svg`
+  - **Section 8 (Decision Scenarios):** `diagrams-scenario-comparison.svg`
+  - **Section 11 (Component Diagrams):** `diagrams-aws-source.svg`, `diagrams-azure-target.svg`, `diagrams-gcp-target.svg`
 - Each SVG is embedded exactly once in the markdown report (no duplicate embeddings across sections).
-- Total SVG references in the markdown report must be 6 (3 architecture diagrams + 3 charts).
-- SVG files are saved as `diagrams-{aws-source|azure-target|gcp-target|cost-comparison|effort-risk|scenario-comparison}.svg` inside the run folder under `Reports/`.
+- Total SVG references in the markdown report must be 9 (3 architecture diagrams + 6 charts).
+- SVG files are saved as:
+  - `diagrams-{aws-source|azure-target|gcp-target}.svg`
+  - `diagrams-{cost-by-capability|metered-billing|one-time-vs-runrate|cost-comparison|effort-risk|scenario-comparison}.svg`
+- Matching draw.io files are generated one-to-one for all nine SVG outputs.
 - Cost outputs explicitly label currency (default `USD`) wherever cost is shown.
 - Section 5 includes AWS baseline pricing for comparison in the 30-day cost table, metered tier table, and one-time migration versus run-rate table.
 - Section 9 uses a complexity-based timeline such as `30/60`, `30/60/90`, or `30/60/90/120` instead of forcing a fixed `30/60/90` structure.
-- The markdown report references diagram files using markdown image embeds only in section 11 (no separate SVG path listing).
-- The markdown report embeds all three SVG files directly in section 11 using markdown image syntax.
-- SVG files are saved as `diagrams-{aws-source|azure-target|gcp-target}.svg` inside the run folder under `Reports/`.
+- The markdown report references diagram files using markdown image embeds in their designated sections only (no separate SVG path listing in chat output).
 - Draw.io/SVG diagrams must be detailed (Mermaid-equivalent logical architecture), not just high-level capability boxes.
 - SVG outputs must be standards-compliant and browser-renderable (no raw `mxGraphModel` embedded inside `<svg>`).
 - SVG arrows and labels should use explicit high-contrast styling for both light and dark mode (highlighted arrows, visible arrowheads, readable font fill/outline).
-- Chat responses should confirm markdown and draw.io artifact path(s) only; SVG paths are embedded inline in their corresponding report sections.
+- Chat responses should confirm markdown, PDF, and draw.io artifact path(s) only; SVG paths remain embedded inline in report sections.
 - AWS diagram should explicitly show: clients, DNS/ingress, EKS boundary, REST, router, engines, KEDA, network policies, Kubernetes secrets, SQS/SNS, KMS, Secrets Manager, Datadog, and VPC/subnets (or mark missing items as `Not found in IaC`).
 - Azure and GCP diagrams should use equivalent granularity and explicit service-to-service flows.
 - Mermaid blocks are not embedded in the markdown report.

@@ -26,6 +26,9 @@ Gemfile.lock
 # IDE-specific files
 .idea/workspace.xml
 
+# macOS Finder metadata
+.DS_Store
+
 # Claude files
 CLAUDE.md
 .claude/

@@ -209,6 +209,9 @@ All timestamps follow UTC format: `YYYY-MM-DD-HH-MM-SS-utc` (human-readable date
    Use draw.io diagrams as the primary artifact.
    Also generate editable draw.io artifacts with one file per SVG output for the AWS source, Azure target, and GCP target component diagrams.
    Save each draw.io artifact as valid `.drawio` XML in a newly created timestamped subfolder under `Reports/`.
+   Every `.drawio` file must be a valid draw.io `mxfile` document, not a bare `mxGraphModel` fragment.
+   Do not generate placeholder `.drawio` files that only say to refer to the SVG.
+   If a chart is easier to render as SVG than native draw.io shapes, wrap the final SVG inside an image-backed draw.io `mxfile` so the Confluence draw.io macro can open and render it.
 
   After creating the `.drawio` file, also generate one SVG file per diagram page by creating each SVG using the `create_file` tool:
     - Generate standards-compliant SVG that renders directly in browsers and markdown previews.
@@ -235,6 +238,7 @@ All timestamps follow UTC format: `YYYY-MM-DD-HH-MM-SS-utc` (human-readable date
     - Effort-risk chart (capability effort vs migration risk) — **always generated**
     - Scenario comparison chart (cost-first, speed-first, risk-first) — **always generated**
     - Gantt chart for recommended phased migration timeline - **always generated**
+    - Every chart `.drawio` file must contain renderable chart content in draw.io, either as native shapes or as an embedded SVG image inside the `mxfile`. Placeholder text-only chart files are invalid.
     - Keep chart labels and legends high-contrast for dark/light mode readability.
       - Use filename format: `diagrams-{chart-slug}.svg`
        - `{chart-slug}` values: `cost-comparison`, `effort-risk`, `scenario-comparison`, `gantt`
@@ -427,6 +431,9 @@ The repository includes a working shell script for publishing to Confluence.
    - Resolve the shared space from `ATLASSIAN_SPACE_KEY` in Confluence
    - Check for an existing page with the same title
    - Create a new page or update the existing one
+   - Upload or update editable `.drawio` attachments from the report folder
+   - Normalize `.drawio` files into valid `mxfile` documents before upload when needed
+   - Convert report SVG image references into inline draw.io macros at the same section locations in the Confluence page body
    - Return the final page URL and ID
 
 **Expected output:**

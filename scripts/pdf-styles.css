@@ -12,6 +12,12 @@ body {
 }
 
 /* ── Headings ────────────────────────────────────────────────────────── */
+/* page-break-after: avoid keeps a heading glued to following content;    */
+/* Chromium will move the heading to the next page rather than orphan it. */
+h1, h2, h3, h4 {
+  page-break-after: avoid;
+  break-after: avoid;
+}
 h1 {
   font-size: 18pt;
   border-bottom: 2px solid #e1e4e8;
@@ -103,13 +109,19 @@ pre code {
   border: none;
 }
 
-/* ── Mermaid diagram images (inserted by preprocess-mermaid.py) ─────── */
+/* ── Images — scale to fit page without blurring (SVG = vector) ──────── */
+/* max-height: 155mm fits one diagram on a landscape-A4 page (180mm body) */
+/* leaving headroom for the section heading above the diagram.            */
 img {
   max-width: 100%;
+  max-height: 155mm;
+  width: auto;
   height: auto;
+  object-fit: contain;
   display: block;
   margin: 12px auto;
   page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 /* ── Blockquotes (used as placeholder when Mermaid render fails) ─────── */

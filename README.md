@@ -5,6 +5,7 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 ## Files
 
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
+- `PROMPT_EXAMPLES.md`: Ready-to-use prompt examples for local, remote, mixed-source, cost-focused, risk-focused, and publish flows.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
 - `Reports/`: Generated migration decision report artifacts. Each run creates a timestamped subfolder containing the markdown report, nine draw.io files, and nine SVG exports (three architecture diagrams + six chart SVGs, all mandatory).
 
@@ -41,6 +42,15 @@ For the best experience with tool execution and permission prompts, use **Autopi
 
 Use this template when running the agent:
 
+Need more than the base template? See [PROMPT_EXAMPLES.md](PROMPT_EXAMPLES.md) for several ready-to-use examples.
+
+Common abbreviations used below:
+
+- RTO: Recovery Time Objective
+- RPO: Recovery Point Objective
+- SOC 2: System and Organization Controls 2
+- API: Application Programming Interface
+
 ### Local Cloned Repositories
 
 ```text
@@ -54,10 +64,10 @@ Planning horizon: 24 months.
 Assumptions:
 - Traffic profile: steady with moderate burst.
 - Availability target: 99.9%.
-- RTO: 4 hours.
-- RPO: 30 minutes.
-- Compliance: SOC2 + regional data residency.
-- Performance: latency sensitive APIs.
+- RTO (Recovery Time Objective): 4 hours.
+- RPO (Recovery Point Objective): 30 minutes.
+- Compliance: SOC 2 (System and Organization Controls 2) + regional data residency.
+- Performance: latency sensitive APIs (Application Programming Interfaces).
 ```
 
 ### Remote Repositories (Multi-Repo)
@@ -74,10 +84,10 @@ Planning horizon: 24 months.
 Assumptions:
 - Traffic profile: steady with moderate burst.
 - Availability target: 99.9%.
-- RTO: 4 hours.
-- RPO: 30 minutes.
-- Compliance: SOC2 + regional data residency.
-- Performance: latency sensitive APIs.
+- RTO (Recovery Time Objective): 4 hours.
+- RPO (Recovery Point Objective): 30 minutes.
+- Compliance: SOC 2 (System and Organization Controls 2) + regional data residency.
+- Performance: latency sensitive APIs (Application Programming Interfaces).
 ```
 
 ## Expected Output Sections

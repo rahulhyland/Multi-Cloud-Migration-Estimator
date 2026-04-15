@@ -1,0 +1,149 @@
+/* pdf-styles.css — Applied by md-to-pdf via --config-file               */
+/* md-to-pdf already ships GitHub markdown CSS; this file adds overrides  */
+/* for wide tables, code-block line-wrap, Mermaid images, and print layout*/
+
+/* ── Base typography ─────────────────────────────────────────────────── */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  font-size: 10pt;
+  line-height: 1.5;
+  color: #24292e;
+}
+
+/* ── Headings ────────────────────────────────────────────────────────── */
+h1 {
+  font-size: 18pt;
+  border-bottom: 2px solid #e1e4e8;
+  padding-bottom: 4px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+h1:first-of-type {
+  margin-top: 0;
+}
+h2 {
+  font-size: 14pt;
+  border-bottom: 1px solid #e1e4e8;
+  padding-bottom: 3px;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+h3 {
+  font-size: 11pt;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+/* ── Tables — keep entire table on one page, no row/cell splitting ─────── */
+table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 7.5pt;
+  margin-bottom: 16px;
+  /* Push the whole table to the next page rather than splitting it */
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+thead {
+  background-color: #f6f8fa;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+tbody {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+th, td {
+  border: 1px solid #dfe2e5;
+  padding: 5px 8px;
+  vertical-align: top;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+th {
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+}
+tr:nth-child(even) td {
+  background-color: #fafbfc;
+}
+tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* ── Code blocks — wrap long lines instead of overflowing the margin ─── */
+pre {
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 8pt;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  page-break-inside: avoid;
+}
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 8pt;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+pre code {
+  background: none;
+  padding: 0;
+  border: none;
+}
+
+/* ── Mermaid diagram images (inserted by preprocess-mermaid.py) ─────── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  page-break-inside: avoid;
+}
+
+/* ── Blockquotes (used as placeholder when Mermaid render fails) ─────── */
+blockquote {
+  border-left: 4px solid #dfe2e5;
+  color: #6a737d;
+  padding: 4px 12px;
+  margin: 8px 0;
+  font-style: italic;
+  font-size: 9pt;
+}
+
+/* ── Lists ───────────────────────────────────────────────────────────── */
+p {
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+ul, ol {
+  padding-left: 24px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+li {
+  margin-bottom: 2px;
+}
+
+/* ── Horizontal rules ──────────────────────────────────────────────────────── */
+hr {
+  border: none;
+  border-top: 1px solid #e1e4e8;
+  margin: 10px 0;
+}
+
+/* ── Page-break helpers ──────────────────────────────────────────────── */
+.page-break {
+  page-break-after: always;
+}

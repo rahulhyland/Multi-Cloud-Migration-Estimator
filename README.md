@@ -7,6 +7,7 @@ This folder contains a custom Copilot agent used to estimate AWS to Azure and GC
 - `.github/agents/multicloud-migration-estimator.agent.md`: Agent definition with complete workflow, guardrails, and report generation logic.
 - `PROMPT_EXAMPLES.md`: Ready-to-use prompt examples for local, remote, mixed-source, cost-focused, risk-focused, and publish flows.
 - `.vscode/mcp.json`: GitHub MCP server configuration for GitHub API integration.
+- `scripts/generate-pdf.sh`: Bash script to convert markdown reports to PDF with embedded Mermaid diagrams.
 - `Reports/`: Generated migration decision report artifacts. Each run creates a timestamped subfolder containing the markdown report, nine draw.io files, and nine SVG exports (three architecture diagrams + six chart SVGs, all mandatory).
 
 ## What This Agent Does
@@ -58,7 +59,7 @@ Create a migration decision report by fetching Terraform files from these reposi
 
 Use the main branch for all repos.
 Look for .tf files in src/, infra/, and terraform/ directories.
-Planning horizon: 24 months.
+
 Assumptions:
 - Traffic profile: steady with moderate burst.
 - Availability target: 99.9%.
@@ -78,7 +79,7 @@ Create a migration decision report by fetching Terraform files from these reposi
 
 Use the main branch for all repos.
 Look for .tf files in src/, infra/, and terraform/ directories.
-Planning horizon: 24 months.
+
 Assumptions:
 - Traffic profile: steady with moderate burst.
 - Availability target: 99.9%.
@@ -137,6 +138,56 @@ Notes:
 - AWS diagram should explicitly show: clients, DNS/ingress, EKS boundary, REST, router, engines, KEDA, network policies, Kubernetes secrets, SQS/SNS, KMS, Secrets Manager, Datadog, and VPC/subnets (or mark missing items as `Not found in IaC`).
 - Azure and GCP diagrams should use equivalent granularity and explicit service-to-service flows.
 - Mermaid blocks are not embedded in the markdown report.
+
+## Generating PDF Reports
+
+After the agent generates a markdown report, you can convert it to PDF with embedded Mermaid diagrams:
+
+### One-Time Setup
+```bash
+npm install -g @mermaid-js/mermaid-cli md-to-pdf
+```
+
+### Generate PDF (Header and Section Safe)
+```bash
+set -euo pipefail
+
+REPORT_MD="Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.md"
+REPORT_PDF="Reports/multi-cloud-migration-report-YYYYMMDD-HHMMSS-utc.pdf"
+
+# Ensure markdown has a top title and all required major sections before PDF conversion.
+grep -Eq '^#\s+.+$' "$REPORT_MD" || { echo "Missing top-level report title in $REPORT_MD"; exit 1; }
+
+required_sections=(
+  "## 1. Executive Summary"
+  "## 2. Source Repository Inventory"
+  "## 3. Source AWS Footprint"
+  "## 4. Service Mapping Matrix"
+  "## 5. Regional Cost Analysis (Directional)"
+  "## 6. Migration Challenge Register"
+  "## 7. Migration Effort View"
+  "## 8. Decision Scenarios"
+  "## 9. Recommended Plan (30/60/90)"
+  "## 10. Open Questions"
+  "## 11. Component Diagrams"
+)
+
+for section in "${required_sections[@]}"; do
+  grep -Fq "$section" "$REPORT_MD" || { echo "Missing required section: $section"; exit 1; }
+done
+
+bash scripts/generate-pdf.sh "$REPORT_MD" "$REPORT_PDF"
+
+# Sanity check output artifact.
+test -s "$REPORT_PDF" || { echo "PDF generation failed: $REPORT_PDF"; exit 1; }
+echo "PDF generated successfully: $REPORT_PDF"
+```
+
+**Output:**
+- Renders all 3 Mermaid component diagrams to PNG
+- Converts markdown to styled PDF (Chromium-based, no LaTeX required)
+- Embeds diagrams and preserves table/code block formatting
+- File ready for architect/stakeholder distribution (~50 pages)
 
 ## How To Update The Agent
 

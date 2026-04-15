@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="effort-risk" id="effort-risk">
+    <mxGraphModel dx="1422" dy="762" grid="0" gridSize="10" guides="0" tooltips="1" connect="0" arrows="0" fold="0" page="0" pageScale="1" pageWidth="1050" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="2" value="Migration Effort vs Risk — cicgov Capabilities" style="text;html=1;fontSize=15;fontStyle=1;align=center;fontColor=#212529;" vertex="1" parent="1">
+          <mxGeometry x="100" y="12" width="850" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Subtitle -->
+        <mxCell id="3" value="Bubble size = relative IaC resource count. X-axis = Migration Effort (S→L), Y-axis = Migration Risk (Low→High)" style="text;html=1;fontSize=10;align=center;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="100" y="40" width="850" height="18" as="geometry"/>
+        </mxCell>
+
+        <!-- Quadrant: S+Low Risk (green) -->
+        <mxCell id="q1" value="" style="rounded=0;fillColor=#d4edda;strokeColor=none;opacity=35;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="360" width="247" height="160" as="geometry"/>
+        </mxCell>
+        <!-- Quadrant: S+High Risk (yellow) -->
+        <mxCell id="q2" value="" style="rounded=0;fillColor=#fff3cd;strokeColor=none;opacity=45;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="62" width="247" height="298" as="geometry"/>
+        </mxCell>
+        <!-- Quadrant: M+L+Low Risk (yellow) -->
+        <mxCell id="q3" value="" style="rounded=0;fillColor=#fff3cd;strokeColor=none;opacity=30;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="347" y="360" width="503" height="160" as="geometry"/>
+        </mxCell>
+        <!-- Quadrant: M+L+High Risk (red) -->
+        <mxCell id="q4" value="" style="rounded=0;fillColor=#f8d7da;strokeColor=none;opacity=40;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="347" y="62" width="503" height="298" as="geometry"/>
+        </mxCell>
+
+        <!-- Quadrant corner labels -->
+        <mxCell id="ql1" value="Low Effort + Low Risk ✓" style="text;html=1;fontSize=9;align=center;fontColor=#155724;" vertex="1" parent="1">
+          <mxGeometry x="100" y="502" width="247" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="ql2" value="High Effort + High Risk  ⚠  Plan carefully" style="text;html=1;fontSize=9;align=center;fontColor=#721c24;" vertex="1" parent="1">
+          <mxGeometry x="347" y="64" width="503" height="16" as="geometry"/>
+        </mxCell>
+
+        <!-- Y-axis -->
+        <mxCell id="ya" value="" style="endArrow=open;endSize=6;startArrow=none;strokeColor=#adb5bd;strokeWidth=2;exitX=0;exitY=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="520" as="sourcePoint"/>
+            <mxPoint x="100" y="58" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- X-axis -->
+        <mxCell id="xa" value="" style="endArrow=open;endSize=6;startArrow=none;strokeColor=#adb5bd;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="520" as="sourcePoint"/>
+            <mxPoint x="855" y="520" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Axis labels -->
+        <mxCell id="xl" value="Migration Effort →" style="text;html=1;fontSize=11;fontStyle=1;align=center;fontColor=#495057;" vertex="1" parent="1">
+          <mxGeometry x="340" y="538" width="190" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="yl" value="Migration Risk →" style="text;html=1;fontSize=11;fontStyle=1;align=center;fontColor=#495057;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="22" y="280" width="130" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- X band labels -->
+        <mxCell id="xs" value="S (Small)" style="text;html=1;fontSize=10;align=center;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="135" y="522" width="90" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="xm" value="M (Medium)" style="text;html=1;fontSize=10;align=center;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="365" y="522" width="100" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="xlb" value="L (Large)" style="text;html=1;fontSize=10;align=center;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="655" y="522" width="90" height="16" as="geometry"/>
+        </mxCell>
+
+        <!-- Y risk labels -->
+        <mxCell id="yh" value="High" style="text;html=1;fontSize=10;align=right;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="52" y="128" width="40" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="ym" value="Med" style="text;html=1;fontSize=10;align=right;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="52" y="282" width="40" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="ylb" value="Low" style="text;html=1;fontSize=10;align=right;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="52" y="432" width="40" height="16" as="geometry"/>
+        </mxCell>
+
+        <!-- Grid lines -->
+        <mxCell id="gh" value="" style="endArrow=none;startArrow=none;strokeColor=#dee2e6;strokeWidth=1;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="360" as="sourcePoint"/>
+            <mxPoint x="850" y="360" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gv" value="" style="endArrow=none;startArrow=none;strokeColor=#dee2e6;strokeWidth=1;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="62" as="sourcePoint"/>
+            <mxPoint x="347" y="520" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ===== CAPABILITY BUBBLES =====
+             Band centres: S=223, M=472, L=723  (x)
+             Risk centres: High=136, Med=290, Low=440  (y)
+             All bubbles verified non-overlapping — minimum gap 10px between edges.
+        -->
+
+        <!-- 1. Compute (M effort / M risk) — Blue — cx=464, cy=292, r=30 (60x60) -->
+        <mxCell id="c1" value="&lt;b&gt;Compute&lt;/b&gt;&lt;br/&gt;EKS → AKS / GKE&lt;br/&gt;&lt;i&gt;Effort M · Risk M&lt;/i&gt;" style="ellipse;fillColor=#0d6efd;strokeColor=#084298;strokeWidth=2;fontColor=#ffffff;fontSize=9;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=82;" vertex="1" parent="1">
+          <mxGeometry x="434" y="262" width="60" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- 2. Networking (L effort / M risk) — Teal — cx=710, cy=290, r=24 (48x48) -->
+        <mxCell id="c2" value="&lt;b&gt;Networking&lt;/b&gt;&lt;br/&gt;APIGW+NLB → APIM&lt;br/&gt;&lt;i&gt;Effort L · Risk M&lt;/i&gt;" style="ellipse;fillColor=#20c997;strokeColor=#0d6e4e;strokeWidth=2;fontColor=#ffffff;fontSize=8;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=82;" vertex="1" parent="1">
+          <mxGeometry x="686" y="266" width="48" height="48" as="geometry"/>
+        </mxCell>
+
+        <!-- 3. Data (L effort / H risk) — Red — cx=730, cy=136, r=30 (60x60) -->
+        <mxCell id="c3" value="&lt;b&gt;Data&lt;/b&gt;&lt;br/&gt;DynamoDB → Cosmos/FS&lt;br/&gt;&lt;i&gt;Effort L · Risk H&lt;/i&gt;" style="ellipse;fillColor=#dc3545;strokeColor=#842029;strokeWidth=2;fontColor=#ffffff;fontSize=8;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=85;" vertex="1" parent="1">
+          <mxGeometry x="700" y="106" width="60" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- 4. IAM/Security (M effort / H risk) — Orange — cx=488, cy=134, r=26 (52x52)
+             Gap to Data bubble: centre distance = 242px, radius sum = 56px → clear -->
+        <mxCell id="c4" value="&lt;b&gt;IAM / Security&lt;/b&gt;&lt;br/&gt;IRSA+KMS → WI+KV&lt;br/&gt;&lt;i&gt;Effort M · Risk H&lt;/i&gt;" style="ellipse;fillColor=#fd7e14;strokeColor=#c55a11;strokeWidth=2;fontColor=#ffffff;fontSize=8;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=85;" vertex="1" parent="1">
+          <mxGeometry x="462" y="108" width="52" height="52" as="geometry"/>
+        </mxCell>
+
+        <!-- 5. Messaging (S effort / L risk) — Purple — cx=188, cy=408, r=24 (48x48) -->
+        <mxCell id="c5" value="&lt;b&gt;Messaging&lt;/b&gt;&lt;br/&gt;SQS+SNS → SB/PubSub&lt;br/&gt;&lt;i&gt;Effort S · Risk L&lt;/i&gt;" style="ellipse;fillColor=#6f42c1;strokeColor=#432874;strokeWidth=2;fontColor=#ffffff;fontSize=8;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=82;" vertex="1" parent="1">
+          <mxGeometry x="164" y="384" width="48" height="48" as="geometry"/>
+        </mxCell>
+
+        <!-- 6. Observability (S effort / L risk) — Green — cx=268, cy=455, r=20 (40x40)
+             Gap to Messaging: centre-x distance=80px >> r-sum=44px → clear -->
+        <mxCell id="c6" value="&lt;b&gt;Observability&lt;/b&gt;&lt;br/&gt;CW+Firehose → Datadog&lt;br/&gt;&lt;i&gt;Effort S · Risk L&lt;/i&gt;" style="ellipse;fillColor=#198754;strokeColor=#0f5132;strokeWidth=2;fontColor=#ffffff;fontSize=8;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=82;" vertex="1" parent="1">
+          <mxGeometry x="248" y="435" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- 7. Functions/Lambda (S effort / L risk) — Amber — cx=148, cy=472, r=18 (36x36)
+             Gap to Messaging (cx=188,cy=408,r=24): dist=sqrt(1600+4096)=75.5 > r-sum=42 → clear -->
+        <mxCell id="c7" value="&lt;b&gt;Functions&lt;/b&gt;&lt;br/&gt;Lambda → CR / CF&lt;br/&gt;&lt;i&gt;Effort S · Risk L&lt;/i&gt;" style="ellipse;fillColor=#ffc107;strokeColor=#c9a700;strokeWidth=2;fontColor=#212529;fontSize=7;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=90;" vertex="1" parent="1">
+          <mxGeometry x="130" y="454" width="36" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- 8. IaC/Spacelift (M effort / M risk) — Grey — cx=454, cy=220, r=20 (40x40)
+             Gap to Compute (cx=464,cy=292,r=30): dist=sqrt(100+5184)=72.7 > r-sum=50 → clear -->
+        <mxCell id="c8" value="&lt;b&gt;IaC / Spacelift&lt;/b&gt;&lt;br/&gt;10+ stacks rewrite&lt;br/&gt;&lt;i&gt;Effort M · Risk M&lt;/i&gt;" style="ellipse;fillColor=#6c757d;strokeColor=#343a40;strokeWidth=2;fontColor=#ffffff;fontSize=8;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=82;" vertex="1" parent="1">
+          <mxGeometry x="434" y="200" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- 9. Redis (S effort / L risk) — Dark Red — cx=320, cy=438, r=16 (32x32)
+             Gap to Observability (cx=268,cy=455,r=20): dist=sqrt(2704+289)=54.7 > r-sum=36 → clear
+             Gap to Messaging (cx=188,cy=408,r=24): dist=sqrt(17424+900)=135 > r-sum=40 → clear -->
+        <mxCell id="c9" value="&lt;b&gt;Redis&lt;/b&gt;&lt;br/&gt;in-cluster → managed&lt;br/&gt;&lt;i&gt;Effort S · Risk L&lt;/i&gt;" style="ellipse;fillColor=#c62828;strokeColor=#7f0000;strokeWidth=2;fontColor=#ffffff;fontSize=7;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;opacity=82;" vertex="1" parent="1">
+          <mxGeometry x="304" y="422" width="32" height="32" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== LEGEND ===== -->
+        <mxCell id="leg0" value="" style="rounded=1;fillColor=#f8f9fa;strokeColor=#dee2e6;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="580" width="850" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1" value="&lt;b&gt;Legend:&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#212529;" vertex="1" parent="1">
+          <mxGeometry x="110" y="590" width="55" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="" style="ellipse;fillColor=#dc3545;strokeColor=#842029;opacity=85;" vertex="1" parent="1">
+          <mxGeometry x="170" y="592" width="16" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="High Risk" style="text;html=1;fontSize=9;fontColor=#212529;" vertex="1" parent="1">
+          <mxGeometry x="190" y="590" width="60" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4" value="" style="ellipse;fillColor=#fd7e14;strokeColor=#c55a11;opacity=85;" vertex="1" parent="1">
+          <mxGeometry x="254" y="592" width="16" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5" value="Med Risk" style="text;html=1;fontSize=9;fontColor=#212529;" vertex="1" parent="1">
+          <mxGeometry x="274" y="590" width="60" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg6" value="" style="ellipse;fillColor=#198754;strokeColor=#0f5132;opacity=85;" vertex="1" parent="1">
+          <mxGeometry x="338" y="592" width="16" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg7" value="Low Risk" style="text;html=1;fontSize=9;fontColor=#212529;" vertex="1" parent="1">
+          <mxGeometry x="358" y="590" width="60" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg8" value="" style="ellipse;fillColor=#6c757d;strokeColor=#343a40;opacity=85;" vertex="1" parent="1">
+          <mxGeometry x="424" y="595" width="10" height="10" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg9" value="" style="ellipse;fillColor=#6c757d;strokeColor=#343a40;opacity=85;" vertex="1" parent="1">
+          <mxGeometry x="438" y="590" width="20" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg10" value="Bubble size = relative IaC resource count" style="text;html=1;fontSize=9;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="462" y="590" width="230" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg11" value="Effort: S=Small · M=Medium · L=Large  ·  Risk: H=High · M=Medium · L=Low" style="text;html=1;fontSize=9;fontColor=#6c757d;" vertex="1" parent="1">
+          <mxGeometry x="110" y="608" width="830" height="18" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1060" width="1400" height="1060" style="background:#f5f7fa;">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1a73e8"/></marker>
+    <marker id="arr-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#7b1fa2"/></marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2e7d32"/></marker>
+    <marker id="arr-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#e65100"/></marker>
+  </defs>
+
+  <!-- ── Header ── -->
+  <rect x="0" y="0" width="1400" height="38" fill="#232f3e"/>
+  <text x="700" y="24" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:14px;font-weight:bold" fill="#ff9900">cicgov — AWS Source Architecture (us-east-1 primary | ap-southeast-2 prod-au)</text>
+
+  <!-- ── External Callers ── -->
+  <rect x="8" y="44" width="1384" height="95" rx="8" fill="#fff8dc" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="700" y="60" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">External Callers / Upstream Systems</text>
+
+  <rect x="18" y="65" width="175" height="64" rx="5" fill="#fff" stroke="#ffc107" stroke-width="1.5"/>
+  <text x="105" y="82" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#212529">HxPR Service</text>
+  <text x="105" y="95" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">Cross-acct SNS Publisher</text>
+  <text x="105" y="107" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">→ content-governance topic</text>
+  <text x="105" y="119" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">AWS acct: var.hxpr_aws_account</text>
+
+  <rect x="205" y="65" width="175" height="64" rx="5" fill="#fff" stroke="#ffc107" stroke-width="1.5"/>
+  <text x="292" y="82" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#212529">NCP Service</text>
+  <text x="292" y="95" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">Cross-acct SNS Publisher</text>
+  <text x="292" y="107" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">→ content-governance topic</text>
+  <text x="292" y="119" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">AWS acct: var.ncp_account</text>
+
+  <rect x="392" y="65" width="185" height="64" rx="5" fill="#fff" stroke="#ffc107" stroke-width="1.5"/>
+  <text x="484" y="82" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#212529">Studio Service</text>
+  <text x="484" y="95" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">SNS: deployment-component-events</text>
+  <text x="484" y="107" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">→ governance-config SQS</text>
+  <text x="484" y="119" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">Filter: Governance appKey</text>
+
+  <rect x="589" y="65" width="185" height="64" rx="5" fill="#fff" stroke="#ffc107" stroke-width="1.5"/>
+  <text x="681" y="82" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#212529">Credentials Service</text>
+  <text x="681" y="95" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">Cross-acct SQS write</text>
+  <text x="681" y="107" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">via cicgov-credentials-cross-account-role</text>
+  <text x="681" y="119" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">ExternalId validation</text>
+
+  <rect x="786" y="65" width="175" height="64" rx="5" fill="#fff" stroke="#ffc107" stroke-width="1.5"/>
+  <text x="873" y="82" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#212529">API Clients (REST)</text>
+  <text x="873" y="95" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">HTTPS → api.governance.{env}.</text>
+  <text x="873" y="107" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">experience.hyland.com</text>
+  <text x="873" y="119" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6c757d">TLS 1.2 | ACM cert</text>
+
+  <rect x="973" y="65" width="175" height="64" rx="5" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="1060" y="82" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">HxP Identity (IdP)</text>
+  <text x="1060" y="95" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">hxp_idpclient: token-exchange</text>
+  <text x="1060" y="107" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">e2e, config-api clients</text>
+  <text x="1060" y="119" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Scopes: governance-api, hxpr</text>
+
+  <rect x="1160" y="65" width="220" height="64" rx="5" fill="#ede7f6" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="1270" y="82" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#311b92">Datadog (SaaS / External)</text>
+  <text x="1270" y="95" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#4527a0">APM tracing | Metrics StatsD</text>
+  <text x="1270" y="107" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#4527a0">Log ingestion via Firehose</text>
+  <text x="1270" y="119" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#4527a0">DD DaemonSet (hostIP)</text>
+
+  <!-- ── DNS / TLS / API GW row ── -->
+  <rect x="8" y="148" width="220" height="62" rx="5" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="118" y="165" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1b5e20">Amazon Route 53</text>
+  <text x="118" y="179" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">governance.{env}.experience.hyland.com</text>
+  <text x="118" y="192" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">Delegation set | CAA records | A-alias to APIGW</text>
+
+  <rect x="238" y="148" width="185" height="62" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="1.5"/>
+  <text x="330" y="165" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#880e4f">ACM Certificate</text>
+  <text x="330" y="179" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">api.governance.{env}... | TLS 1.2</text>
+  <text x="330" y="192" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">DNS validation | security_policy=TLS_1_2</text>
+
+  <rect x="434" y="142" width="430" height="68" rx="6" fill="#fff8e1" stroke="#ff9800" stroke-width="2"/>
+  <text x="649" y="160" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">AWS API Gateway REST + WAFv2</text>
+  <text x="649" y="175" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Regional endpoint | Stage: live | Base path /cicgov → upstream via VPC Link</text>
+  <text x="649" y="188" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">WAF: AWSManagedRulesCommonRuleSet + SQLiRuleSet | CloudWatch logs (7 days)</text>
+  <text x="649" y="200" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Metrics enabled | Access log: JSON format (requestId, ip, latency, status, etc.)</text>
+
+  <!-- ── VPC Boundary ── -->
+  <rect x="8" y="220" width="875" height="590" rx="10" fill="none" stroke="#1a73e8" stroke-width="2.5" stroke-dasharray="8,4"/>
+  <text x="440" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a73e8" font-family="'Segoe UI',Arial,sans-serif">Shared VPC — Public / Private / Database Subnets (us-east-1 | ap-southeast-2)</text>
+
+  <!-- NLB -->
+  <rect x="300" y="248" width="310" height="58" rx="5" fill="#fff3cd" stroke="#ff9800" stroke-width="1.5"/>
+  <text x="455" y="266" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">NLB (Internal) + API GW VPC Link</text>
+  <text x="455" y="280" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">apigw-vpclink-private-target | Port 80 TCP</text>
+  <text x="455" y="293" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">SG: nlb-apigw-vpclink-target-{env} | Private subnets</text>
+
+  <!-- EKS Cluster boundary -->
+  <rect x="18" y="318" width="620" height="475" rx="8" fill="rgba(50,108,229,0.04)" stroke="#326ce5" stroke-width="2"/>
+  <text x="328" y="336" text-anchor="middle" font-size="11" font-weight="bold" fill="#326ce5" font-family="'Segoe UI',Arial,sans-serif">EKS Cluster — arm64 Graviton (m6g.large nodes) | HPA | IRSA | network-policies</text>
+
+  <!-- Ingress -->
+  <rect x="28" y="344" width="250" height="55" rx="5" fill="#e3f2fd" stroke="#326ce5" stroke-width="1.5"/>
+  <text x="153" y="362" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#0d47a1">Kubernetes Ingress</text>
+  <text x="153" y="377" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1565c0">IngressClass: private-shared | Path: / → cicgov:8080</text>
+  <text x="153" y="390" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1565c0">Host: cicgov-api.internal.{env}.experience.hyland.com</text>
+
+  <!-- cicgov Deployment -->
+  <rect x="28" y="408" width="380" height="150" rx="5" fill="#e8eaf6" stroke="#3949ab" stroke-width="2"/>
+  <text x="218" y="426" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1a237e">cicgov Deployment — Java / Spring Boot</text>
+  <text x="218" y="441" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">Image: cicgov:{tag} | Port: 8080 | arch: arm64/linux | Replicas: 1 (current)</text>
+  <text x="218" y="454" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">CPU req: 0.1 / limit: 1 | Mem req: 1Gi / limit: 2Gi | readOnly rootFS</text>
+  <text x="218" y="467" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">HPA: min=1 max=4 | CPU avgUtil=75% | PDB: disabled</text>
+  <text x="218" y="480" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">Cache: dual (Caffeine + Redis) | TTL 5m/15s | max 500</text>
+  <text x="218" y="493" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">JAVA_USEPARAMETERSTORE=true → AWS SSM | DD_AGENT_HOST via hostIP</text>
+  <text x="218" y="506" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">CICGOV_ASYNC_TASKS_SNS_ARN (env var) | Probes: /actuator/health /cicgov/runningstatus</text>
+  <text x="218" y="519" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">ServiceAccount: cicgov (IRSA) | network: private-shared:allow, internet:egress</text>
+  <text x="218" y="532" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#283593">secretsManager_region: us-east-1 | dynamodb_region: us-east-1</text>
+
+  <!-- Redis in-cluster -->
+  <rect x="422" y="408" width="190" height="65" rx="5" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+  <text x="517" y="426" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#b71c1c">Redis (In-Cluster)</text>
+  <text x="517" y="441" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#c62828">Host: redis | Port: 6379</text>
+  <text x="517" y="454" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#c62828">User: default | TTL: 5m / longCache: 6h</text>
+  <text x="517" y="466" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#c62828">Strategy: dual (caffeine + redis)</text>
+
+  <!-- K8s Secrets -->
+  <rect x="28" y="568" width="280" height="65" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="1.5"/>
+  <text x="168" y="586" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#880e4f">Kubernetes Secrets</text>
+  <text x="168" y="600" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">iam-api-client-secret (CIC_GOV_IDP_CLIENT_SECRET)</text>
+  <text x="168" y="613" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">iam-api-client-id (CIC_GOV_IDP_CLIENT_ID)</text>
+  <text x="168" y="626" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">Injected via secretKeyRef into cicgov containers</text>
+
+  <!-- Network Policies -->
+  <rect x="320" y="568" width="295" height="65" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="467" y="586" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1b5e20">Network Policies</text>
+  <text x="467" y="600" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">ncp.hyland.com/network.private-shared: allow</text>
+  <text x="467" y="613" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">ncp.hyland.com/network.internet-access: egress</text>
+  <text x="467" y="626" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">runAsNonRoot=true | allowPrivilegeEscalation=false</text>
+
+  <!-- Lambda section inside VPC -->
+  <rect x="18" y="645" width="612" height="155" rx="6" fill="#fffde7" stroke="#f9a825" stroke-width="2"/>
+  <text x="325" y="662" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">Lambda Functions (Container-based | Private Subnets | SG: provisioning-lambda-sg)</text>
+
+  <rect x="27" y="672" width="188" height="118" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="121" y="688" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">cicgov-provisioning</text>
+  <text x="121" y="701" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Container Lambda | 256 MB | 300s</text>
+  <text x="121" y="713" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Trigger: SQS provisioning-request</text>
+  <text x="121" y="725" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Spacelift module v2.0.2</text>
+  <text x="121" y="737" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">DD_SERVICE: cicgov-provisioning-lambda</text>
+  <text x="121" y="749" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Role: provisioning_lambda_role</text>
+  <text x="121" y="761" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">egress: all traffic (0.0.0.0/0)</text>
+  <text x="121" y="773" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Timeout: 300s | VPC: shared private</text>
+
+  <rect x="225" y="672" width="190" height="118" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="320" y="688" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">cicgov-decommissioning</text>
+  <text x="320" y="701" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Container Lambda | 256 MB | 300s</text>
+  <text x="320" y="713" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Trigger: SQS decommissioning-req</text>
+  <text x="320" y="725" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Spacelift module v2.1.1</text>
+  <text x="320" y="737" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">DD_SERVICE: cicgov-decommissioning-lambda</text>
+  <text x="320" y="749" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Role: provisioning_lambda_role</text>
+  <text x="320" y="761" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Same SG as provisioning</text>
+  <text x="320" y="773" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">image: provisioning_lambda_image_uri</text>
+
+  <rect x="425" y="672" width="195" height="118" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="522" y="688" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#e65100">cicgov-slo-monitor</text>
+  <text x="522" y="701" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Python 3.12 | 256 MB | 10s</text>
+  <text x="522" y="713" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Trigger: EventBridge rate(10 minutes)</text>
+  <text x="522" y="725" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">URL: /api/slo (prod vs non-prod)</text>
+  <text x="522" y="737" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">EventBridge module v3.17.1</text>
+  <text x="522" y="749" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">CloudWatch log group (own logs)</text>
+  <text x="522" y="761" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">Role: lambda-role (CloudWatch logs)</text>
+  <text x="522" y="773" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#bf360c">IAM policy: terraform_aws_lambda_role</text>
+
+  <!-- RIGHT SIDE: Messaging -->
+  <rect x="893" y="220" width="498" height="595" rx="10" fill="#fafafa" stroke="#9e9e9e" stroke-width="1.5"/>
+  <text x="1142" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#37474f" font-family="'Segoe UI',Arial,sans-serif">Messaging (SNS + SQS — all CMK encrypted)</text>
+
+  <rect x="903" y="250" width="218" height="62" rx="5" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+  <text x="1012" y="268" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#4a148c">SNS: cicgov-async-tasks-{region}</text>
+  <text x="1012" y="282" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6a1b9a">KMS CMK: cicgov_{env}</text>
+  <text x="1012" y="296" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6a1b9a">Fan-out (filter): legal-hold, misc, credential, retention</text>
+
+  <rect x="1135" y="250" width="245" height="62" rx="5" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+  <text x="1257" y="268" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#4a148c">SNS: cicgov-content-governance-{region}</text>
+  <text x="1257" y="282" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6a1b9a">Accepts from: HxPR, NCP, IRSA (cross-account)</text>
+  <text x="1257" y="296" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#6a1b9a">→ Subscribed by: content-events SQS</text>
+
+  <!-- SQS group -->
+  <rect x="903" y="325" width="478" height="330" rx="6" fill="#e8eaf6" stroke="#3949ab" stroke-width="1.5"/>
+  <text x="1142" y="342" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1a237e">SQS Queues — 8 total (all KMS CMK encrypted | visibility_timeout | message_retention configured)</text>
+
+  <rect x="912" y="350" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1022" y="369" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">cicgov-{env}-content-event (← SNS content-governance)</text>
+  <rect x="1150" y="350" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1260" y="369" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">cicgov-{env}-retention-execution (← SNS async-tasks)</text>
+
+  <rect x="912" y="388" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1022" y="407" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">cicgov-{env}-governance-config (← Studio SNS)</text>
+  <rect x="1150" y="388" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1260" y="407" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">cicgov-{env}-governance-credentials (← Credentials SVC)</text>
+
+  <rect x="912" y="426" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1022" y="445" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">cicgov-{env}-legal-hold (← SNS async-tasks, filter: LegalHold)</text>
+  <rect x="1150" y="426" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1260" y="445" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">cicgov-{env}-misc (← SNS async-tasks, filter: Misc)</text>
+
+  <rect x="912" y="464" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1022" y="483" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">cicgov-{env}-credential (← SNS async-tasks, filter: Credential)</text>
+  <rect x="1150" y="464" width="220" height="28" rx="3" fill="#c5cae9" stroke="#3949ab" stroke-width="1"/>
+  <text x="1260" y="483" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#1a237e">decommissioning-request (← provisioning/decommissioning lambda)</text>
+
+  <!-- DynamoDB -->
+  <rect x="912" y="502" width="458" height="62" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="1141" y="520" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1b5e20">DynamoDB: file-plan-records</text>
+  <text x="1141" y="534" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">PAY_PER_REQUEST | PITR enabled | SSE (KMS CMK: alias/dynamo-db) | deletion_protection=true</text>
+  <text x="1141" y="547" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">PK/SK keys + 10 GSIs (environmentDataSourceId, cutOffDate, retainUntil, retentionCategoryId, etc.) | TTL: timeToLive attr</text>
+
+  <!-- KMS CMKs -->
+  <rect x="912" y="576" width="458" height="58" rx="5" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="1141" y="594" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#bf360c">AWS KMS — 3 Customer Managed Keys (CMKs)</text>
+  <text x="1141" y="608" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">CMK #1: alias/hy/sns_sqs/cicgov_{env} (SNS + all SQS) | rotation: enabled</text>
+  <text x="1141" y="621" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">CMK #2: alias/{program}/sqs/other-aws-services | CMK #3: alias/dynamo-db | rotation: enabled</text>
+
+  <!-- IAM + SSM -->
+  <rect x="912" y="644" width="458" height="110" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="1.5"/>
+  <text x="1141" y="662" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#880e4f">IAM / IRSA + SSM Parameter Store (Advanced Tier)</text>
+  <text x="1141" y="677" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">IRSA: cicgov_eks_irsa → all DynamoDB/SQS/SNS/KMS ops</text>
+  <text x="1141" y="691" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">Cross-account role: cicgov-credentials-cross-account-role (ExternalId validation)</text>
+  <text x="1141" y="705" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">SSM: /authentication/tokenExchangeClientId|Secret, e2eClientId|Secret, envConfigApiClientId|Secret</text>
+  <text x="1141" y="719" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">SSM: /cicgov/Hyland_Cicgov_Gateway_Api/Security/Authority | /Logging/Serilog/MinimumLevel</text>
+  <text x="1141" y="733" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">SSM: /cicgov/Hyland_Cicgov_Gateway_Api/NucleusGraphQLApiEndpoint</text>
+  <text x="1141" y="747" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#880e4f">Roles: firehose_delivery, cloudwatch_firehose_subscription, api_gw_cloudwatch, provisioning_lambda</text>
+
+  <!-- Observability + S3 bottom row -->
+  <rect x="8" y="822" width="875" height="155" rx="8" fill="#e0f2f1" stroke="#00695c" stroke-width="1.5"/>
+  <text x="440" y="840" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#004d40">Observability Stack + Supporting Resources</text>
+
+  <rect x="18" y="848" width="250" height="120" rx="4" fill="#b2dfdb" stroke="#00695c" stroke-width="1"/>
+  <text x="143" y="865" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#004d40">CloudWatch + EventBridge</text>
+  <text x="143" y="879" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">Log Group: API-Gateway-Access-Logs (7d)</text>
+  <text x="143" y="892" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">Log Group: aws-waf-logs-apigw (7d)</text>
+  <text x="143" y="905" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">Metrics: APIGW + WAF sampled requests</text>
+  <text x="143" y="918" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">Subscription filter → Firehose (all log events)</text>
+  <text x="143" y="931" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">EventBridge: SLO trigger rule (rate 10 min)</text>
+  <text x="143" y="944" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">IAM: Cloudwatch_Firehose_Subscription role</text>
+  <text x="143" y="957" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">IAM: Firehose_Delivery_Stream role</text>
+
+  <rect x="278" y="848" width="265" height="120" rx="4" fill="#b2dfdb" stroke="#00695c" stroke-width="1"/>
+  <text x="410" y="865" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#004d40">Kinesis Firehose → Datadog</text>
+  <text x="410" y="879" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">Stream: datadog-{region}-log-delivery-stream</text>
+  <text x="410" y="892" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">DD DaemonSet: DD_AGENT_HOST=status.hostIP</text>
+  <text x="410" y="905" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">DD Metrics: StatsD via JAVA_TOOL_OPTIONS</text>
+  <text x="410" y="918" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">DD traces: Java auto-instrumentation</text>
+  <text x="410" y="931" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">DD tags: business_unit, team, env, hxp.*</text>
+  <text x="410" y="944" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">DD_VERSION / DD_ENV / DD_SERVICE via labels</text>
+
+  <rect x="553" y="848" width="200" height="120" rx="4" fill="#b2dfdb" stroke="#00695c" stroke-width="1"/>
+  <text x="653" y="865" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#004d40">S3 + Spacelift</text>
+  <text x="653" y="879" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">S3: cicgov-lb-access-logs-{env}-{region}-hy</text>
+  <text x="653" y="892" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">Versioned | SSE AES256 | deny HTTP</text>
+  <text x="653" y="905" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">ELB + ALB log delivery policies</text>
+  <text x="653" y="918" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">Spacelift: 10+ stacks (sandbox/dev/</text>
+  <text x="653" y="931" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">staging/prod/prod-au)</text>
+  <text x="653" y="944" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#00695c">us-east-1 + ap-southeast-2</text>
+
+  <rect x="763" y="848" width="110" height="120" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="1"/>
+  <text x="818" y="865" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#bf360c">DNS Zone</text>
+  <text x="818" y="879" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">Route53 zone</text>
+  <text x="818" y="892" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">governance.{env}.</text>
+  <text x="818" y="905" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">experience.hyland.com</text>
+  <text x="818" y="918" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">Delegation set</text>
+  <text x="818" y="931" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">KMS: kms_dns key</text>
+  <text x="818" y="944" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#e65100">for DNSSEC</text>
+
+  <!-- Observability right side -->
+  <rect x="893" y="822" width="498" height="155" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="1142" y="840" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1b5e20">API Infrastructure — Provisioning &amp; Subscription Lambdas</text>
+  <rect x="903" y="848" width="225" height="120" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+  <text x="1015" y="865" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1b5e20">API Infra: APIGW Registration</text>
+  <text x="1015" y="879" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">module: apigw-proxy-integration v3.0.0</text>
+  <text x="1015" y="892" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">route: /cicgov → upstream NLB</text>
+  <text x="1015" y="905" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">VPC link: stageVariables.vpc_link</text>
+  <text x="1015" y="918" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">X-Forwarded-Host header injection</text>
+  <text x="1015" y="931" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">Provisioning SQS: provisioning-request</text>
+  <text x="1015" y="944" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">Decommissioning SQS: decommissioning-req</text>
+  <rect x="1140" y="848" width="240" height="120" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+  <text x="1260" y="865" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:10px;font-weight:bold" fill="#1b5e20">Subscription Events Lambda</text>
+  <text x="1260" y="879" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">subscription_events_lambda.tf</text>
+  <text x="1260" y="892" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">SQS trigger: subscription_events_queue</text>
+  <text x="1260" y="905" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">Handles Studio lifecycle events</text>
+  <text x="1260" y="918" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">Container Lambda | VPC: private subnets</text>
+  <text x="1260" y="931" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:9px" fill="#2e7d32">Role: provisioning_lambda_role shared</text>
+
+  <!-- ══ ARROWS ══ -->
+  <!-- API Clients → API GW -->
+  <line x1="873" y1="129" x2="860" y2="148" stroke="#1a73e8" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Route53 → API GW -->
+  <line x1="230" y1="179" x2="434" y2="179" stroke="#388e3c" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <!-- ACM → API GW -->
+  <line x1="423" y1="179" x2="434" y2="175" stroke="#c2185b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <!-- API GW → NLB -->
+  <line x1="649" y1="210" x2="550" y2="248" stroke="#ff9800" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <!-- NLB → Ingress -->
+  <line x1="420" y1="277" x2="250" y2="344" stroke="#1a73e8" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Ingress → cicgov -->
+  <line x1="153" y1="399" x2="153" y2="408" stroke="#326ce5" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- cicgov → SNS async -->
+  <line x1="408" y1="475" x2="1000" y2="265" stroke="#7b1fa2" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-purple)"/>
+  <!-- cicgov → DynamoDB -->
+  <line x1="408" y1="510" x2="900" y2="530" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <!-- SNS async → SQS fan-out -->
+  <line x1="1012" y1="312" x2="1012" y2="350" stroke="#7b1fa2" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <!-- SNS content-gov → SQS content-event -->
+  <line x1="1230" y1="312" x2="1145" y2="350" stroke="#7b1fa2" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <!-- HxPR → SNS content-governance -->
+  <line x1="105" y1="129" x2="1170" y2="265" stroke="#ffc107" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <!-- SLO Lambda → API monitoring -->
+  <line x1="595" y1="715" x2="860" y2="200" stroke="#28a745" stroke-width="1" stroke-dasharray="3,4" marker-end="url(#arr-green)" opacity="0.5"/>
+  <!-- CloudWatch → Firehose → Datadog (external) -->
+  <line x1="270" y1="908" x2="278" y2="908" stroke="#00695c" stroke-width="1.5" marker-end="url(#arr)"/>
+</svg>

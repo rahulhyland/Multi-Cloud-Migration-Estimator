@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 560" width="1050" height="560" style="background:#fff;">
+  <defs></defs>
+  <rect x="0" y="0" width="1050" height="560" fill="#fff" stroke="#dee2e6" stroke-width="1"/>
+  <text x="525" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#212529">Metered Billing Tier Comparison — AWS US vs Azure US vs GCP US (per official pricing unit)</text>
+  <text x="525" y="46" text-anchor="middle" font-size="10" fill="#6c757d">All costs in USD. Units vary by service. Directional estimates based on IaC-discovered resource tiers.</text>
+
+  <!-- Table header -->
+  <rect x="10" y="58" width="1030" height="28" rx="3" fill="#495057"/>
+  <text x="130" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">Service</text>
+  <text x="285" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">Metering Unit</text>
+  <text x="390" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">Tier / Band</text>
+  <text x="490" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff9900">AWS US</text>
+  <text x="565" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff9900">AWS EU</text>
+  <text x="635" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#0078d4">Azure US</text>
+  <text x="710" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#0078d4">Azure EU</text>
+  <text x="785" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#0078d4">Azure AU</text>
+  <text x="855" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#34a853">GCP US</text>
+  <text x="925" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#34a853">GCP EU</text>
+  <text x="1000" y="77" text-anchor="middle" font-size="10" font-weight="bold" fill="#34a853">GCP AU</text>
+
+  <!-- Rows: alternating background -->
+  <!-- Row 1: API Gateway -->
+  <rect x="10" y="86" width="1030" height="30" rx="0" fill="#fff8e1"/>
+  <text x="20" y="106" font-size="9.5" fill="#212529">API GW / APIM / Cloud Endpoints</text>
+  <text x="245" y="106" font-size="9" fill="#495057">Per 1M API calls</text>
+  <text x="345" y="106" font-size="9" fill="#495057">First 333M/month</text>
+  <text x="490" y="106" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$3.50</text>
+  <text x="565" y="106" text-anchor="middle" font-size="9" fill="#e65100">$3.50</text>
+  <text x="635" y="106" text-anchor="middle" font-size="10" fill="#0078d4">$3.50</text>
+  <text x="710" y="106" text-anchor="middle" font-size="9" fill="#0078d4">$3.80</text>
+  <text x="785" y="106" text-anchor="middle" font-size="9" fill="#0078d4">$4.00</text>
+  <text x="855" y="106" text-anchor="middle" font-size="10" font-weight="bold" fill="#34a853">$3.00</text>
+  <text x="925" y="106" text-anchor="middle" font-size="9" fill="#34a853">$3.20</text>
+  <text x="1000" y="106" text-anchor="middle" font-size="9" fill="#34a853">$3.50</text>
+
+  <!-- Row 2: DynamoDB / Cosmos / Firestore (reads) -->
+  <rect x="10" y="116" width="1030" height="30" rx="0" fill="#fff"/>
+  <text x="20" y="136" font-size="9.5" fill="#212529">DynamoDB / Cosmos DB / Firestore (reads)</text>
+  <text x="245" y="136" font-size="9" fill="#495057">Per 1M read ops</text>
+  <text x="345" y="136" font-size="9" fill="#495057">On-demand / Serverless</text>
+  <text x="490" y="136" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.25</text>
+  <text x="565" y="136" text-anchor="middle" font-size="9" fill="#e65100">$0.25</text>
+  <text x="635" y="136" text-anchor="middle" font-size="9" fill="#0078d4">$0.25*</text>
+  <text x="710" y="136" text-anchor="middle" font-size="9" fill="#0078d4">$0.27</text>
+  <text x="785" y="136" text-anchor="middle" font-size="9" fill="#0078d4">$0.29</text>
+  <text x="855" y="136" text-anchor="middle" font-size="9" fill="#34a853">$0.60**</text>
+  <text x="925" y="136" text-anchor="middle" font-size="9" fill="#34a853">$0.65</text>
+  <text x="1000" y="136" text-anchor="middle" font-size="9" fill="#34a853">$0.70</text>
+
+  <!-- Row 3: DynamoDB writes -->
+  <rect x="10" y="146" width="1030" height="30" rx="0" fill="#fff8e1"/>
+  <text x="20" y="166" font-size="9.5" fill="#212529">DynamoDB / Cosmos DB / Firestore (writes)</text>
+  <text x="245" y="166" font-size="9" fill="#495057">Per 1M write ops</text>
+  <text x="345" y="166" font-size="9" fill="#495057">On-demand / Serverless</text>
+  <text x="490" y="166" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$1.25</text>
+  <text x="565" y="166" text-anchor="middle" font-size="9" fill="#e65100">$1.25</text>
+  <text x="635" y="166" text-anchor="middle" font-size="9" fill="#0078d4">$1.25*</text>
+  <text x="710" y="166" text-anchor="middle" font-size="9" fill="#0078d4">$1.35</text>
+  <text x="785" y="166" text-anchor="middle" font-size="9" fill="#0078d4">$1.45</text>
+  <text x="855" y="166" text-anchor="middle" font-size="9" fill="#34a853">$1.80**</text>
+  <text x="925" y="166" text-anchor="middle" font-size="9" fill="#34a853">$1.94</text>
+  <text x="1000" y="166" text-anchor="middle" font-size="9" fill="#34a853">$2.00</text>
+
+  <!-- Row 4: SQS / Service Bus / Pub-Sub -->
+  <rect x="10" y="176" width="1030" height="30" rx="0" fill="#fff"/>
+  <text x="20" y="196" font-size="9.5" fill="#212529">SQS / Service Bus Std / Pub-Sub</text>
+  <text x="245" y="196" font-size="9" fill="#495057">Per 1M messages</text>
+  <text x="345" y="196" font-size="9" fill="#495057">Standard tier</text>
+  <text x="490" y="196" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.40</text>
+  <text x="565" y="196" text-anchor="middle" font-size="9" fill="#e65100">$0.40</text>
+  <text x="635" y="196" text-anchor="middle" font-size="9" fill="#0078d4">$0.80</text>
+  <text x="710" y="196" text-anchor="middle" font-size="9" fill="#0078d4">$0.85</text>
+  <text x="785" y="196" text-anchor="middle" font-size="9" fill="#0078d4">$0.90</text>
+  <text x="855" y="196" text-anchor="middle" font-size="10" font-weight="bold" fill="#34a853">~$0.00</text>
+  <text x="925" y="196" text-anchor="middle" font-size="9" fill="#34a853">~$0.00</text>
+  <text x="1000" y="196" text-anchor="middle" font-size="9" fill="#34a853">~$0.00</text>
+
+  <!-- Row 5: Lambda invocations -->
+  <rect x="10" y="206" width="1030" height="30" rx="0" fill="#fff8e1"/>
+  <text x="20" y="226" font-size="9.5" fill="#212529">Lambda / Azure Functions / Cloud Functions</text>
+  <text x="245" y="226" font-size="9" fill="#495057">Per 1M invocations</text>
+  <text x="345" y="226" font-size="9" fill="#495057">After 1M free/mo</text>
+  <text x="490" y="226" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.20</text>
+  <text x="565" y="226" text-anchor="middle" font-size="9" fill="#e65100">$0.20</text>
+  <text x="635" y="226" text-anchor="middle" font-size="9" fill="#0078d4">$0.20</text>
+  <text x="710" y="226" text-anchor="middle" font-size="9" fill="#0078d4">$0.21</text>
+  <text x="785" y="226" text-anchor="middle" font-size="9" fill="#0078d4">$0.22</text>
+  <text x="855" y="226" text-anchor="middle" font-size="9" fill="#34a853">$0.40</text>
+  <text x="925" y="226" text-anchor="middle" font-size="9" fill="#34a853">$0.43</text>
+  <text x="1000" y="226" text-anchor="middle" font-size="9" fill="#34a853">$0.45</text>
+
+  <!-- Row 6: Lambda GB-seconds -->
+  <rect x="10" y="236" width="1030" height="30" rx="0" fill="#fff"/>
+  <text x="20" y="256" font-size="9.5" fill="#212529">Lambda / Functions compute</text>
+  <text x="245" y="256" font-size="9" fill="#495057">Per GB-second</text>
+  <text x="345" y="256" font-size="9" fill="#495057">After 400K GBs free/mo</text>
+  <text x="490" y="256" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.0000167</text>
+  <text x="565" y="256" text-anchor="middle" font-size="9" fill="#e65100">$0.0000167</text>
+  <text x="635" y="256" text-anchor="middle" font-size="9" fill="#0078d4">$0.0000140</text>
+  <text x="710" y="256" text-anchor="middle" font-size="9" fill="#0078d4">$0.0000150</text>
+  <text x="785" y="256" text-anchor="middle" font-size="9" fill="#0078d4">$0.0000170</text>
+  <text x="855" y="256" text-anchor="middle" font-size="9" fill="#34a853">$0.0000025</text>
+  <text x="925" y="256" text-anchor="middle" font-size="9" fill="#34a853">$0.0000028</text>
+  <text x="1000" y="256" text-anchor="middle" font-size="9" fill="#34a853">$0.0000030</text>
+
+  <!-- Row 7: CloudWatch logs -->
+  <rect x="10" y="266" width="1030" height="30" rx="0" fill="#fff8e1"/>
+  <text x="20" y="286" font-size="9.5" fill="#212529">CloudWatch / Azure Monitor / Cloud Logging</text>
+  <text x="245" y="286" font-size="9" fill="#495057">Per GB ingested</text>
+  <text x="345" y="286" font-size="9" fill="#495057">After free tier (5/50 GB)</text>
+  <text x="490" y="286" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.50</text>
+  <text x="565" y="286" text-anchor="middle" font-size="9" fill="#e65100">$0.55</text>
+  <text x="635" y="286" text-anchor="middle" font-size="9" fill="#0078d4">$0.30</text>
+  <text x="710" y="286" text-anchor="middle" font-size="9" fill="#0078d4">$0.33</text>
+  <text x="785" y="286" text-anchor="middle" font-size="9" fill="#0078d4">$0.35</text>
+  <text x="855" y="286" text-anchor="middle" font-size="10" font-weight="bold" fill="#34a853">$0.00</text>
+  <text x="925" y="286" text-anchor="middle" font-size="9" fill="#34a853">$0.00</text>
+  <text x="1000" y="286" text-anchor="middle" font-size="9" fill="#34a853">$0.00</text>
+
+  <!-- Row 8: KMS -->
+  <rect x="10" y="296" width="1030" height="30" rx="0" fill="#fff"/>
+  <text x="20" y="316" font-size="9.5" fill="#212529">AWS KMS / Azure Key Vault / Cloud KMS</text>
+  <text x="245" y="316" font-size="9" fill="#495057">Per 10K API calls</text>
+  <text x="345" y="316" font-size="9" fill="#495057">Standard operations</text>
+  <text x="490" y="316" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.03</text>
+  <text x="565" y="316" text-anchor="middle" font-size="9" fill="#e65100">$0.03</text>
+  <text x="635" y="316" text-anchor="middle" font-size="9" fill="#0078d4">$0.03</text>
+  <text x="710" y="316" text-anchor="middle" font-size="9" fill="#0078d4">$0.03</text>
+  <text x="785" y="316" text-anchor="middle" font-size="9" fill="#0078d4">$0.03</text>
+  <text x="855" y="316" text-anchor="middle" font-size="9" fill="#34a853">$0.003</text>
+  <text x="925" y="316" text-anchor="middle" font-size="9" fill="#34a853">$0.003</text>
+  <text x="1000" y="316" text-anchor="middle" font-size="9" fill="#34a853">$0.003</text>
+
+  <!-- Row 9: WAF -->
+  <rect x="10" y="326" width="1030" height="30" rx="0" fill="#fff8e1"/>
+  <text x="20" y="346" font-size="9.5" fill="#212529">WAFv2 / App GW WAF / Cloud Armor</text>
+  <text x="245" y="346" font-size="9" fill="#495057">Per 1M requests</text>
+  <text x="345" y="346" font-size="9" fill="#495057">Standard rules</text>
+  <text x="490" y="346" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.60</text>
+  <text x="565" y="346" text-anchor="middle" font-size="9" fill="#e65100">$0.60</text>
+  <text x="635" y="346" text-anchor="middle" font-size="9" fill="#0078d4">$1.00</text>
+  <text x="710" y="346" text-anchor="middle" font-size="9" fill="#0078d4">$1.05</text>
+  <text x="785" y="346" text-anchor="middle" font-size="9" fill="#0078d4">$1.10</text>
+  <text x="855" y="346" text-anchor="middle" font-size="9" fill="#34a853">$1.00</text>
+  <text x="925" y="346" text-anchor="middle" font-size="9" fill="#34a853">$1.05</text>
+  <text x="1000" y="346" text-anchor="middle" font-size="9" fill="#34a853">$1.10</text>
+
+  <!-- Row 10: SSM / App Config / Secret Manager -->
+  <rect x="10" y="356" width="1030" height="30" rx="0" fill="#fff"/>
+  <text x="20" y="376" font-size="9.5" fill="#212529">SSM Adv / App Config / Secret Manager</text>
+  <text x="245" y="376" font-size="9" fill="#495057">Per 1K API calls</text>
+  <text x="345" y="376" font-size="9" fill="#495057">Standard tier</text>
+  <text x="490" y="376" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.05</text>
+  <text x="565" y="376" text-anchor="middle" font-size="9" fill="#e65100">$0.05</text>
+  <text x="635" y="376" text-anchor="middle" font-size="9" fill="#0078d4">$0.08</text>
+  <text x="710" y="376" text-anchor="middle" font-size="9" fill="#0078d4">$0.08</text>
+  <text x="785" y="376" text-anchor="middle" font-size="9" fill="#0078d4">$0.09</text>
+  <text x="855" y="376" text-anchor="middle" font-size="9" fill="#34a853">$0.003</text>
+  <text x="925" y="376" text-anchor="middle" font-size="9" fill="#34a853">$0.003</text>
+  <text x="1000" y="376" text-anchor="middle" font-size="9" fill="#34a853">$0.003</text>
+
+  <!-- Row 11: S3 / Blob / GCS -->
+  <rect x="10" y="386" width="1030" height="30" rx="0" fill="#fff8e1"/>
+  <text x="20" y="406" font-size="9.5" fill="#212529">S3 / Azure Blob / GCS</text>
+  <text x="245" y="406" font-size="9" fill="#495057">Per GB-month stored</text>
+  <text x="345" y="406" font-size="9" fill="#495057">Standard tier</text>
+  <text x="490" y="406" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.023</text>
+  <text x="565" y="406" text-anchor="middle" font-size="9" fill="#e65100">$0.025</text>
+  <text x="635" y="406" text-anchor="middle" font-size="9" fill="#0078d4">$0.018</text>
+  <text x="710" y="406" text-anchor="middle" font-size="9" fill="#0078d4">$0.020</text>
+  <text x="785" y="406" text-anchor="middle" font-size="9" fill="#0078d4">$0.022</text>
+  <text x="855" y="406" text-anchor="middle" font-size="9" fill="#34a853">$0.020</text>
+  <text x="925" y="406" text-anchor="middle" font-size="9" fill="#34a853">$0.022</text>
+  <text x="1000" y="406" text-anchor="middle" font-size="9" fill="#34a853">$0.023</text>
+
+  <!-- Row 12: EKS/AKS/GKE cluster fee -->
+  <rect x="10" y="416" width="1030" height="30" rx="0" fill="#fff"/>
+  <text x="20" y="436" font-size="9.5" fill="#212529">EKS / GKE cluster mgmt fee (AKS = free)</text>
+  <text x="245" y="436" font-size="9" fill="#495057">Per cluster-hour</text>
+  <text x="345" y="436" font-size="9" fill="#495057">Standard / Zonal</text>
+  <text x="490" y="436" text-anchor="middle" font-size="10" font-weight="bold" fill="#e65100">$0.10</text>
+  <text x="565" y="436" text-anchor="middle" font-size="9" fill="#e65100">$0.10</text>
+  <text x="635" y="436" text-anchor="middle" font-size="9" fill="#0078d4">$0.00</text>
+  <text x="710" y="436" text-anchor="middle" font-size="9" fill="#0078d4">$0.00</text>
+  <text x="785" y="436" text-anchor="middle" font-size="9" fill="#0078d4">$0.00</text>
+  <text x="855" y="436" text-anchor="middle" font-size="9" fill="#34a853">$0.10</text>
+  <text x="925" y="436" text-anchor="middle" font-size="9" fill="#34a853">$0.10</text>
+  <text x="1000" y="436" text-anchor="middle" font-size="9" fill="#34a853">$0.10</text>
+
+  <!-- footnotes -->
+  <line x1="10" y1="454" x2="1040" y2="454" stroke="#dee2e6" stroke-width="1"/>
+  <text x="15" y="470" font-size="9" fill="#6c757d">* Azure Cosmos DB Serverless: $0.25/1M RU — comparable to DynamoDB on-demand at discovered PAY_PER_REQUEST billing mode.</text>
+  <text x="15" y="484" font-size="9" fill="#6c757d">** GCP Firestore: $0.06/100K reads = $0.60/1M reads — 2.4× AWS DynamoDB per read, but offset by free tier (50K reads/day free).</text>
+  <text x="15" y="498" font-size="9" fill="#34a853">GCP Pub/Sub: first 10 GiB/month FREE — at ~2M × 1KB avg = 2GB, cicgov messaging cost ≈ $0/month vs AWS $0.80–$1.00/month.</text>
+  <text x="15" y="512" font-size="9" fill="#34a853">GCP Cloud Logging: first 50 GiB/month FREE — at ~50 GB ingested, cicgov logging cost ≈ $0/month vs AWS CloudWatch $25/month.</text>
+  <text x="15" y="526" font-size="9" fill="#6c757d">Confidence: High for row-level unit prices; Medium for volume-based totals (actual DynamoDB billing_mode=var.billing_mode — assumed PAY_PER_REQUEST).</text>
+</svg>

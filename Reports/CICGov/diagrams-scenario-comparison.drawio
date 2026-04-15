@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="scenario-comparison" id="scenario-comparison">
+    <mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/>
+      <mxCell id="2" value="cicgov Migration — scenario-comparison" style="text;html=1;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1"><mxGeometry x="0" y="0" width="1000" height="40" as="geometry"/></mxCell>
+      <mxCell id="3" value="See diagrams-scenario-comparison.svg for rendered chart" style="text;html=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="100" y="60" width="800" height="40" as="geometry"/></mxCell>
+    </root></mxGraphModel>
+  </diagram>
+</mxfile>

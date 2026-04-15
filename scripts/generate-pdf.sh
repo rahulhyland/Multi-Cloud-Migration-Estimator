@@ -124,6 +124,7 @@ import mimetypes
 import os
 import re
 import sys
+from typing import Optional, Tuple
 from pathlib import Path
 
 md_path = Path(sys.argv[1])
@@ -136,7 +137,7 @@ in_fence = False
 out_lines = []
 missing_assets = []
 
-def resolve_local_image(src_raw: str) -> tuple[str, str] | None:
+def resolve_local_image(src_raw: str) -> Optional[Tuple[str, str]]:
   src = src_raw.strip()
   if src.startswith("<") and src.endswith(">"):
     src = src[1:-1]

@@ -20,7 +20,7 @@ The agent analyzes Terraform from either local cloned repository paths or remote
 - Migration challenge and risk register
 - Effort scoring and a dynamic implementation timeline based on discovered infrastructure complexity
 - Open questions for architects
-- Claude-first analytical execution policy when available (with fallback transparency when unavailable)
+- Claude Sonnet-first analytical execution policy for the best results
 - Component diagrams delivered as dedicated draw.io artifacts (AWS source, Azure target, GCP target), with one draw.io file per SVG output, saved in a per-run timestamped folder under `Reports/`
 - Mandatory supplemental draw.io chart artifacts: cost comparison, cost-by-capability, metered-billing, one-time-vs-runrate, effort-risk, and scenario comparison, each with a matching SVG in the same per-run folder
 
@@ -28,8 +28,9 @@ The agent analyzes Terraform from either local cloned repository paths or remote
 
 1. Open Copilot Chat in VS Code.
 2. Select the agent named `Multi-Cloud Migration Estimator`.
-3. Provide your scope and assumptions.
-4. Ask for a report.
+3. Use Claude Sonnet as the active model for the session.
+4. Provide your scope and assumptions.
+5. Ask for a report.
 
 ## Recommended Permissions Mode
 
@@ -38,6 +39,14 @@ For the best experience with tool execution and permission prompts, use **Autopi
 - Recommended: set chat permissions mode to **Autopilot (preview)** so the agent can run approved read/search/edit/execute flows with fewer manual interruptions.
 - Benefit: smoother end-to-end runs for report generation, artifact creation, and optional publish steps.
 - Note: this controls tool permission flow, not model selection. Model preference/enforcement (for example Claude-first behavior) remains defined in the agent instructions.
+
+## Recommended Model
+
+Use Claude Sonnet with this agent.
+
+- Recommendation: select Claude Sonnet before running the migration estimator.
+- Reason: the agent instructions explicitly enforce Claude Sonnet for the main analytical workflow.
+- If Claude Sonnet is unavailable, switch models first rather than expecting the agent to continue on a fallback model.
 
 ## Recommended Prompt Input
 

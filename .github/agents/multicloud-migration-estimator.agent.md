@@ -74,7 +74,7 @@ When **one repository** (local path or GitHub URL) is provided:
 
 ```
 Reports/<repo-name>-<YYYYMMDD-HHMMSS-utc>/
-   └─ report.md
+  └─ report.md
   └─ diagrams-*.drawio
   └─ diagrams-*.svg
   └─ report.pdf (optional)
@@ -83,7 +83,7 @@ Reports/<repo-name>-<YYYYMMDD-HHMMSS-utc>/
 Example (single local repo):
 ```
 Reports/hxpr-20260415-153022-utc/
-   └─ report.md
+  └─ report.md
   └─ diagrams-aws-source.drawio
   └─ diagrams-aws-source.svg
   └─ ... (other diagram files)
@@ -92,7 +92,7 @@ Reports/hxpr-20260415-153022-utc/
 Example (single GitHub repo):
 ```
 Reports/terraform-aws-migration-20260415-153022-utc/
-   └─ report.md
+  └─ report.md
   └─ ... (diagram files)
 ```
 
@@ -104,7 +104,7 @@ When **two or more repositories** (local paths and/or GitHub URLs) are provided:
 
 ```
 Reports/<common-term>-<YYYYMMDD-HHMMSS-utc>/
-   └─ report.md
+  └─ report.md
   └─ diagrams-*.drawio
   └─ diagrams-*.svg
   └─ report.pdf (optional)

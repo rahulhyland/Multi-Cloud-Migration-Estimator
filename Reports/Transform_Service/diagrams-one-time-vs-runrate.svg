@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="900" height="480" style="background:#0d1726;font-family:Arial,sans-serif;">
+  <defs>
+    <style>
+      .title { font-size:14px; font-weight:bold; fill:#FFD700; }
+      .axis-label { font-size:10px; fill:#B0D4F0; }
+      .bar-label { font-size:10px; fill:#FFD700; font-weight:bold; }
+      .cat-label { font-size:10px; fill:#AAD8FF; font-weight:bold; }
+      .legend-text { font-size:11px; fill:#E8F4FD; }
+    </style>
+  </defs>
+  <text x="450" y="26" text-anchor="middle" class="title">One-Time Migration Cost vs 30-Day Run-Rate (USD)</text>
+
+  <line x1="130" y1="420" x2="130" y2="50" stroke="#555" stroke-width="1"/>
+  <line x1="130" y1="420" x2="870" y2="420" stroke="#555" stroke-width="1"/>
+
+  <!-- Y labels (max $18K → 420px, px/$ = 420/18000 = 0.0233) -->
+  <text x="125" y="424" text-anchor="end" class="axis-label">$0</text>
+  <text x="125" y="374" text-anchor="end" class="axis-label">$2K</text>
+  <text x="125" y="324" text-anchor="end" class="axis-label">$4K</text>
+  <text x="125" y="274" text-anchor="end" class="axis-label">$6K</text>
+  <text x="125" y="224" text-anchor="end" class="axis-label">$8K</text>
+  <text x="125" y="174" text-anchor="end" class="axis-label">$10K</text>
+  <text x="125" y="124" text-anchor="end" class="axis-label">$12K</text>
+  <text x="125" y="74" text-anchor="end" class="axis-label">$14K</text>
+
+  <line x1="130" y1="374" x2="870" y2="374" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="324" x2="870" y2="324" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="274" x2="870" y2="274" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="224" x2="870" y2="224" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="130" y1="174" x2="870" y2="174" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- One-time migration costs: AWS baseline $0 (no migration), Azure $42K, GCP $38K -->
+  <!-- Scale: max $50K view → 420/50000 px/$ = 0.0084 -->
+  <!-- Reframe: show in $K units, max 50K -->
+  <!-- Let's re-scale to max $50K: 420px / $50K = 0.0084 px/$ -->
+
+  <!-- One-time: AWS $0 / Azure $42K h=353 y=67 / GCP $38K h=319 y=101 -->
+  <text x="280" y="452" text-anchor="middle" class="cat-label">One-Time Migration Cost</text>
+  <!-- AWS: $0 baseline -->
+  <rect x="175" y="417" width="35" height="3" fill="#FF9900" opacity="0.9"/>
+  <text x="192" y="413" text-anchor="middle" class="bar-label">$0</text>
+  <!-- Azure: $42K h=353 y=67 -->
+  <rect x="220" y="67" width="35" height="353" fill="#0078D4" opacity="0.9"/>
+  <text x="237" y="63" text-anchor="middle" class="bar-label">$42K</text>
+  <!-- GCP: $38K h=319 y=101 -->
+  <rect x="265" y="101" width="35" height="319" fill="#34A853" opacity="0.9"/>
+  <text x="282" y="97" text-anchor="middle" class="bar-label">$38K</text>
+
+  <!-- 30-day run-rate: AWS $2,820 / Azure $2,530 / GCP $2,210 -->
+  <!-- Scale for run-rate: use same axis but different segment -->
+  <!-- $2,820 max → at scale 0.0084 → h=24. Too small. Use separate visual scale marker. -->
+  <!-- Change: show run-rate as a separate set of bars with its own annotation -->
+  <text x="560" y="452" text-anchor="middle" class="cat-label">30-Day Run-Rate</text>
+  <!-- Showing relative: multiply by 5 for visibility. $2,820 × 15 = 42,300 → h=355  -->
+  <rect x="465" y="65" width="35" height="355" fill="#FF9900" opacity="0.7"/>
+  <text x="482" y="61" text-anchor="middle" class="bar-label">$2,820/mo</text>
+  <!-- Azure $2,530 × 15 = 37,950 → h=319 y=101 -->
+  <rect x="510" y="101" width="35" height="319" fill="#0078D4" opacity="0.7"/>
+  <text x="527" y="97" text-anchor="middle" class="bar-label">$2,530/mo</text>
+  <!-- GCP $2,210 × 15 = 33,150 → h=279 y=141 -->
+  <rect x="555" y="141" width="35" height="279" fill="#34A853" opacity="0.7"/>
+  <text x="572" y="137" text-anchor="middle" class="bar-label">$2,210/mo</text>
+
+  <!-- Break-even annotation -->
+  <text x="735" y="100" font-size="11" fill="#00FF88" font-weight="bold">Azure break-even:</text>
+  <text x="735" y="118" font-size="11" fill="#00FF88">~15 months</text>
+  <text x="735" y="140" font-size="11" fill="#34A853" font-weight="bold">GCP break-even:</text>
+  <text x="735" y="158" font-size="11" fill="#34A853">~13 months</text>
+
+  <text x="735" y="190" font-size="9" fill="#888">vs AWS current run-rate</text>
+  <text x="735" y="205" font-size="9" fill="#888">(one-time / monthly savings)</text>
+
+  <!-- Note on run-rate scale -->
+  <text x="480" y="470" text-anchor="middle" font-size="9" fill="#888">Run-rate bars scaled ×15 for visual comparison with one-time cost. Actual values labeled.</text>
+
+  <!-- Legend -->
+  <rect x="680" y="260" width="15" height="12" fill="#FF9900"/><text x="700" y="271" class="legend-text">AWS baseline</text>
+  <rect x="680" y="280" width="15" height="12" fill="#0078D4"/><text x="700" y="291" class="legend-text">Azure</text>
+  <rect x="680" y="300" width="15" height="12" fill="#34A853"/><text x="700" y="311" class="legend-text">GCP</text>
+</svg>

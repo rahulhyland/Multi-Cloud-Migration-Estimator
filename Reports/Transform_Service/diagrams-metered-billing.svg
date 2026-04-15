@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" style="background:#0d1726;font-family:Arial,sans-serif;">
+  <defs>
+    <style>
+      .title { font-size:15px; font-weight:bold; fill:#FFD700; }
+      .axis-label { font-size:9px; fill:#B0D4F0; }
+      .bar-label { font-size:8px; fill:#FFD700; font-weight:bold; }
+      .cat-label { font-size:8px; fill:#AAD8FF; font-weight:bold; }
+      .legend-text { font-size:10px; fill:#E8F4FD; }
+    </style>
+  </defs>
+  <text x="600" y="26" text-anchor="middle" class="title">Metered Billing Tier — Per-Unit Cost Comparison (USD, US-East)</text>
+
+  <line x1="160" y1="440" x2="160" y2="50" stroke="#555" stroke-width="1"/>
+  <line x1="160" y1="440" x2="1170" y2="440" stroke="#555" stroke-width="1"/>
+
+  <!-- Y labels (scale: max $0.60 → 440px, $0.60 → 440, px/$ = 733) -->
+  <text x="155" y="444" text-anchor="end" class="axis-label">$0.00</text>
+  <text x="155" y="370" text-anchor="end" class="axis-label">$0.10</text>
+  <text x="155" y="296" text-anchor="end" class="axis-label">$0.20</text>
+  <text x="155" y="222" text-anchor="end" class="axis-label">$0.30</text>
+  <text x="155" y="148" text-anchor="end" class="axis-label">$0.40</text>
+  <text x="155" y="74" text-anchor="end" class="axis-label">$0.50</text>
+
+  <line x1="160" y1="370" x2="1170" y2="370" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="160" y1="296" x2="1170" y2="296" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="160" y1="222" x2="1170" y2="222" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="160" y1="148" x2="1170" y2="148" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- SQS vs Service Bus vs Pub/Sub (per 1M messages) -->
+  <!-- AWS SQS: $0.40/1M → h=293 y=147 -->
+  <text x="255" y="460" text-anchor="middle" class="cat-label">Queue/Msg (per 1M)</text>
+  <rect x="185" y="147" width="22" height="293" fill="#FF9900" opacity="0.9"/>
+  <text x="196" y="143" text-anchor="middle" class="bar-label">$0.40</text>
+  <!-- Azure SB Standard: $0.08/1M → h=59 y=381 -->
+  <rect x="211" y="381" width="22" height="59" fill="#0078D4" opacity="0.9"/>
+  <text x="222" y="377" text-anchor="middle" class="bar-label">$0.08</text>
+  <!-- GCP Pub/Sub: $0.05/GiB equiv → h=37 y=403 -->
+  <rect x="237" y="403" width="22" height="37" fill="#34A853" opacity="0.9"/>
+  <text x="248" y="399" text-anchor="middle" class="bar-label">$0.05</text>
+
+  <!-- SNS vs Service Bus vs Pub/Sub (per 1M publishes) -->
+  <text x="400" y="460" text-anchor="middle" class="cat-label">Topic Pub (per 1M)</text>
+  <!-- AWS SNS: $0.50 → h=367 y=73 -->
+  <rect x="325" y="73" width="22" height="367" fill="#FF9900" opacity="0.9"/>
+  <text x="336" y="69" text-anchor="middle" class="bar-label">$0.50</text>
+  <!-- Azure SB Premium: $0.08 → h=59 y=381 -->
+  <rect x="351" y="381" width="22" height="59" fill="#0078D4" opacity="0.9"/>
+  <text x="362" y="377" text-anchor="middle" class="bar-label">$0.08</text>
+  <!-- GCP Pub/Sub: $0.06 → h=44 y=396 -->
+  <rect x="377" y="396" width="22" height="44" fill="#34A853" opacity="0.9"/>
+  <text x="388" y="392" text-anchor="middle" class="bar-label">$0.06</text>
+
+  <!-- KMS CMK (per 10K API calls) -->
+  <text x="543" y="460" text-anchor="middle" class="cat-label">KMS (per 10K calls)</text>
+  <!-- AWS KMS: $0.03 → h=22 y=418 -->
+  <rect x="468" y="440" width="22" height="0" fill="#FF9900" opacity="0.9"/>
+  <!-- too small, use minimum bar of 3px -->
+  <rect x="468" y="418" width="22" height="22" fill="#FF9900" opacity="0.9"/>
+  <text x="479" y="414" text-anchor="middle" class="bar-label">$0.03</text>
+  <!-- Azure Key Vault: $0.03 → h=22 y=418 -->
+  <rect x="494" y="418" width="22" height="22" fill="#0078D4" opacity="0.9"/>
+  <text x="505" y="414" text-anchor="middle" class="bar-label">$0.03</text>
+  <!-- GCP KMS: $0.03 → h=22 y=418 -->
+  <rect x="520" y="418" width="22" height="22" fill="#34A853" opacity="0.9"/>
+  <text x="531" y="414" text-anchor="middle" class="bar-label">$0.03</text>
+
+  <!-- EFS/Azure Files/Filestore (per GB-month) -->
+  <text x="692" y="460" text-anchor="middle" class="cat-label">File Storage (GB-month)</text>
+  <!-- AWS EFS: $0.30 → h=220 y=220 -->
+  <rect x="620" y="220" width="22" height="220" fill="#FF9900" opacity="0.9"/>
+  <text x="631" y="216" text-anchor="middle" class="bar-label">$0.30</text>
+  <!-- Azure Files Premium: $0.21 → h=154 y=286 -->
+  <rect x="646" y="286" width="22" height="154" fill="#0078D4" opacity="0.9"/>
+  <text x="657" y="282" text-anchor="middle" class="bar-label">$0.21</text>
+  <!-- GCP Filestore: $0.20 → h=147 y=293 -->
+  <rect x="672" y="293" width="22" height="147" fill="#34A853" opacity="0.9"/>
+  <text x="683" y="289" text-anchor="middle" class="bar-label">$0.20</text>
+
+  <!-- S3 / Blob / GCS (per GB-month) -->
+  <text x="840" y="460" text-anchor="middle" class="cat-label">Object Storage (GB-month)</text>
+  <!-- AWS S3: $0.023 → h=17 y=423 -->
+  <rect x="768" y="423" width="22" height="17" fill="#FF9900" opacity="0.9"/>
+  <text x="779" y="419" text-anchor="middle" class="bar-label">$0.023</text>
+  <!-- Azure Blob LRS: $0.018 → h=13 y=427 -->
+  <rect x="794" y="427" width="22" height="13" fill="#0078D4" opacity="0.9"/>
+  <text x="805" y="423" text-anchor="middle" class="bar-label">$0.018</text>
+  <!-- GCP GCS: $0.020 → h=15 y=425 -->
+  <rect x="820" y="425" width="22" height="15" fill="#34A853" opacity="0.9"/>
+  <text x="831" y="421" text-anchor="middle" class="bar-label">$0.020</text>
+
+  <!-- EKS / AKS / GKE cluster mgmt fee (per hour) -->
+  <text x="998" y="460" text-anchor="middle" class="cat-label">K8s Cluster Mgmt (per hr)</text>
+  <!-- AWS EKS: $0.10 → h=73 -->
+  <rect x="928" y="367" width="22" height="73" fill="#FF9900" opacity="0.9"/>
+  <text x="939" y="363" text-anchor="middle" class="bar-label">$0.10</text>
+  <!-- Azure AKS: $0.00 free → 3px -->
+  <rect x="954" y="437" width="22" height="3" fill="#0078D4" opacity="0.9"/>
+  <text x="965" y="433" text-anchor="middle" class="bar-label">Free</text>
+  <!-- GCP GKE: $0.10 → h=73 -->
+  <rect x="980" y="367" width="22" height="73" fill="#34A853" opacity="0.9"/>
+  <text x="991" y="363" text-anchor="middle" class="bar-label">$0.10</text>
+
+  <!-- Legend -->
+  <rect x="1050" y="100" width="15" height="12" fill="#FF9900"/><text x="1070" y="111" class="legend-text">AWS</text>
+  <rect x="1050" y="120" width="15" height="12" fill="#0078D4"/><text x="1070" y="131" class="legend-text">Azure</text>
+  <rect x="1050" y="140" width="15" height="12" fill="#34A853"/><text x="1070" y="151" class="legend-text">GCP</text>
+
+  <text x="600" y="498" text-anchor="middle" font-size="8" fill="#888">Directional estimates using official published pricing. SQS/SNS: standard tier first 1M free then per-request. Service Bus standard. Pub/Sub per TiB.</text>
+</svg>

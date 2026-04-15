@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600" style="background:#0d1726;font-family:Arial,sans-serif;">
+  <defs>
+    <style>
+      .title { font-size:15px; font-weight:bold; fill:#FFD700; }
+      .axis-label { font-size:10px; fill:#B0D4F0; }
+      .dot-label { font-size:10px; fill:#FFD700; font-weight:bold; }
+      .legend-text { font-size:11px; fill:#E8F4FD; }
+      .cap-label { font-size:10px; fill:#AAD8FF; }
+    </style>
+    <marker id="ah" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#555"/></marker>
+  </defs>
+  <text x="450" y="28" text-anchor="middle" class="title">Migration Effort vs Risk by Capability</text>
+
+  <!-- Axes -->
+  <!-- X: Effort S=1 M=2 L=3 (150–750 mapped) -->
+  <!-- Y: Risk L=1 M=2 H=3 (500–100 mapped) -->
+  <line x1="120" y1="530" x2="800" y2="530" stroke="#555" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="120" y1="530" x2="120" y2="70" stroke="#555" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- X labels -->
+  <text x="263" y="550" text-anchor="middle" class="axis-label">Small (S)</text>
+  <text x="460" y="550" text-anchor="middle" class="axis-label">Medium (M)</text>
+  <text x="657" y="550" text-anchor="middle" class="axis-label">Large (L)</text>
+  <text x="460" y="575" text-anchor="middle" font-size="11" fill="#AAD8FF" font-weight="bold">Migration Effort →</text>
+
+  <!-- Y labels -->
+  <text x="115" y="483" text-anchor="end" class="axis-label">Low</text>
+  <text x="115" y="313" text-anchor="end" class="axis-label">Med</text>
+  <text x="115" y="143" text-anchor="end" class="axis-label">High</text>
+  <text x="30" y="313" text-anchor="middle" font-size="11" fill="#AAD8FF" font-weight="bold" transform="rotate(-90,30,313)">Risk →</text>
+
+  <!-- Grid zones -->
+  <!-- Low risk zone (bottom) -->
+  <rect x="120" y="378" width="680" height="152" fill="#0a1f0a" opacity="0.5"/>
+  <!-- Medium risk zone -->
+  <rect x="120" y="208" width="680" height="170" fill="#1f1a0a" opacity="0.5"/>
+  <!-- High risk zone (top) -->
+  <rect x="120" y="70" width="680" height="138" fill="#2a0a0a" opacity="0.4"/>
+
+  <!-- Zone labels -->
+  <text x="790" y="455" text-anchor="end" font-size="10" fill="#22aa22" opacity="0.7">LOW RISK</text>
+  <text x="790" y="295" text-anchor="end" font-size="10" fill="#aaaa22" opacity="0.7">MEDIUM RISK</text>
+  <text x="790" y="135" text-anchor="end" font-size="10" fill="#aa2222" opacity="0.7">HIGH RISK</text>
+
+  <!-- Capability dots (x=effort S/M/L, y=risk L/M/H) -->
+  <!-- Compute (EKS→AKS/GKE): Effort=L, Risk=M → x=657 y=313 -->
+  <circle cx="657" cy="313" r="22" fill="#FF9900" opacity="0.85"/>
+  <text x="657" y="317" text-anchor="middle" class="dot-label" font-size="9">Compute</text>
+  <text x="657" y="345" text-anchor="middle" class="cap-label">L / M</text>
+
+  <!-- Networking (ALB/NLB→App GW): Effort=M, Risk=M → x=460 y=313 -->
+  <circle cx="460" cy="280" r="22" fill="#0078D4" opacity="0.85"/>
+  <text x="460" y="284" text-anchor="middle" class="dot-label" font-size="9">Networking</text>
+  <text x="460" y="312" text-anchor="middle" class="cap-label">M / M</text>
+
+  <!-- Messaging (SQS/SNS→SB/Pub/Sub): Effort=L, Risk=H → x=657 y=143 -->
+  <circle cx="657" cy="143" r="22" fill="#EA4335" opacity="0.85"/>
+  <text x="657" y="147" text-anchor="middle" class="dot-label" font-size="9">Messaging</text>
+  <text x="657" y="175" text-anchor="middle" class="cap-label">L / H</text>
+
+  <!-- Storage (S3/EFS→Blob/GCS): Effort=M, Risk=L → x=460 y=460 -->
+  <circle cx="460" cy="460" r="22" fill="#34A853" opacity="0.85"/>
+  <text x="460" y="464" text-anchor="middle" class="dot-label" font-size="9">Storage</text>
+  <text x="460" y="492" text-anchor="middle" class="cap-label">M / L</text>
+
+  <!-- Security/IAM (IRSA→Managed ID): Effort=M, Risk=H → x=460 y=143 -->
+  <circle cx="460" cy="143" r="22" fill="#9C27B0" opacity="0.85"/>
+  <text x="460" y="147" text-anchor="middle" class="dot-label" font-size="9">Security/IAM</text>
+  <text x="460" y="175" text-anchor="middle" class="cap-label">M / H</text>
+
+  <!-- Observability (Datadog retained): Effort=S, Risk=L → x=263 y=460 -->
+  <circle cx="263" cy="460" r="22" fill="#00BCD4" opacity="0.85"/>
+  <text x="263" y="464" text-anchor="middle" class="dot-label" font-size="9">Observability</text>
+  <text x="263" y="492" text-anchor="middle" class="cap-label">S / L</text>
+
+  <!-- Backup/DR (Velero→Blob/GCS): Effort=S, Risk=M → x=263 y=313 -->
+  <circle cx="263" cy="313" r="22" fill="#FF6F00" opacity="0.85"/>
+  <text x="263" y="317" text-anchor="middle" class="dot-label" font-size="9">Backup/DR</text>
+  <text x="263" y="345" text-anchor="middle" class="cap-label">S / M</text>
+
+  <!-- Legend -->
+  <text x="30" y="580" font-size="10" fill="#888">Bubble = capability. X = migration effort (S/M/L). Y = risk level (Low/Med/High). Color = capability group.</text>
+</svg>

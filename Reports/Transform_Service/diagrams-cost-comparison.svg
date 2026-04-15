@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" style="background:#0d1726;font-family:Arial,sans-serif;">
+  <defs>
+    <style>
+      .title { font-size:16px; font-weight:bold; fill:#FFD700; }
+      .axis-label { font-size:11px; fill:#B0D4F0; }
+      .bar-label { font-size:10px; fill:#FFD700; font-weight:bold; }
+      .legend-text { font-size:11px; fill:#E8F4FD; }
+      .cat-label { font-size:10px; fill:#AAD8FF; font-weight:bold; }
+    </style>
+  </defs>
+  <text x="600" y="30" text-anchor="middle" class="title">Regional Cost Comparison — AWS vs Azure vs GCP (USD/month, Directional)</text>
+
+  <!-- Y axis -->
+  <line x1="110" y1="480" x2="110" y2="60" stroke="#555" stroke-width="1"/>
+  <!-- X axis -->
+  <line x1="110" y1="480" x2="1150" y2="480" stroke="#555" stroke-width="1"/>
+
+  <!-- Y axis labels -->
+  <text x="105" y="484" text-anchor="end" class="axis-label">$0</text>
+  <text x="105" y="424" text-anchor="end" class="axis-label">$500</text>
+  <text x="105" y="364" text-anchor="end" class="axis-label">$1,000</text>
+  <text x="105" y="304" text-anchor="end" class="axis-label">$1,500</text>
+  <text x="105" y="244" text-anchor="end" class="axis-label">$2,000</text>
+  <text x="105" y="184" text-anchor="end" class="axis-label">$2,500</text>
+  <text x="105" y="124" text-anchor="end" class="axis-label">$3,000</text>
+  <!-- Grid lines -->
+  <line x1="110" y1="424" x2="1150" y2="424" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="364" x2="1150" y2="364" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="304" x2="1150" y2="304" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="244" x2="1150" y2="244" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="184" x2="1150" y2="184" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="124" x2="1150" y2="124" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Scale: 1 px = $0.6, max $3000 = 480px height, base at y=480 -->
+  <!-- Group width: 3 regions × 3 clouds + gaps -->
+
+  <!-- US East group -->
+  <text x="250" y="500" text-anchor="middle" class="cat-label">US (East)</text>
+  <!-- AWS US: $2,820 → height = 2820/0.6 = 4700... scale: 480/3000 = 0.16 px per $ -->
+  <!-- AWS US ~$2820 → bar height = 2820*0.16 = 451  y start = 480-451=29 -->
+  <rect x="140" y="29" width="35" height="451" fill="#FF9900" opacity="0.9"/>
+  <text x="157" y="24" text-anchor="middle" class="bar-label">$2,820</text>
+  <!-- Azure US ~$2,530 → h=405  y=75 -->
+  <rect x="185" y="75" width="35" height="405" fill="#0078D4" opacity="0.9"/>
+  <text x="202" y="70" text-anchor="middle" class="bar-label">$2,530</text>
+  <!-- GCP US ~$2,210 → h=354  y=126 -->
+  <rect x="230" y="126" width="35" height="354" fill="#34A853" opacity="0.9"/>
+  <text x="247" y="121" text-anchor="middle" class="bar-label">$2,210</text>
+
+  <!-- EU group -->
+  <text x="510" y="500" text-anchor="middle" class="cat-label">EU (Frankfurt/West Europe)</text>
+  <!-- AWS EU ~$3,050 scale: 3000→480, so 3050→488 clip to 480  y=0 -->
+  <rect x="400" y="0" width="35" height="480" fill="#FF9900" opacity="0.9"/>
+  <text x="417" y="-5" text-anchor="middle" class="bar-label">$3,050</text>
+  <!-- Azure EU ~$2,730 h=436  y=44 -->
+  <rect x="445" y="44" width="35" height="436" fill="#0078D4" opacity="0.9"/>
+  <text x="462" y="39" text-anchor="middle" class="bar-label">$2,730</text>
+  <!-- GCP EU ~$2,390 h=382  y=98 -->
+  <rect x="490" y="98" width="35" height="382" fill="#34A853" opacity="0.9"/>
+  <text x="507" y="93" text-anchor="middle" class="bar-label">$2,390</text>
+
+  <!-- AU group -->
+  <text x="770" y="500" text-anchor="middle" class="cat-label">AU (Sydney/Southeast)</text>
+  <!-- AWS AU ~$3,280 → cap at 480 y=0 -->
+  <rect x="660" y="0" width="35" height="480" fill="#FF9900" opacity="0.9"/>
+  <text x="677" y="-5" text-anchor="middle" class="bar-label">$3,280</text>
+  <!-- Azure AU ~$2,960 h=474  y=6 -->
+  <rect x="705" y="6" width="35" height="474" fill="#0078D4" opacity="0.9"/>
+  <text x="722" y="1" text-anchor="middle" class="bar-label">$2,960</text>
+  <!-- GCP AU ~$2,580 h=413  y=67 -->
+  <rect x="750" y="67" width="35" height="413" fill="#34A853" opacity="0.9"/>
+  <text x="767" y="62" text-anchor="middle" class="bar-label">$2,580</text>
+
+  <!-- Legend -->
+  <rect x="900" y="100" width="15" height="12" fill="#FF9900"/>
+  <text x="920" y="111" class="legend-text">AWS (Baseline)</text>
+  <rect x="900" y="125" width="15" height="12" fill="#0078D4"/>
+  <text x="920" y="136" class="legend-text">Azure</text>
+  <rect x="900" y="150" width="15" height="12" fill="#34A853"/>
+  <text x="920" y="161" class="legend-text">GCP</text>
+
+  <text x="600" y="535" text-anchor="middle" font-size="10" fill="#888">All values are directional estimates in USD. Includes compute (EKS/AKS/GKE m5.xlarge equiv), messaging, storage, observability, networking.</text>
+</svg>

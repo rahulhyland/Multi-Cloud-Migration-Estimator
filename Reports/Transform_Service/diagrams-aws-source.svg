@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" width="1600" height="1100" style="background:#1a2a3a;font-family:Arial,sans-serif;">
+  <defs>
+    <style>
+      text { font-family: Arial, sans-serif; }
+      .title { font-size:15px; font-weight:bold; fill:#FFD700; text-shadow: 0 0 4px #000; }
+      .label { font-size:11px; fill:#E8F4FD; font-weight:bold; }
+      .sublabel { font-size:9px; fill:#B0D4F0; }
+      .section-title { font-size:13px; font-weight:bold; fill:#00FFCC; }
+      .aws-box { fill:#232F3E; stroke:#FF9900; stroke-width:2; rx:6; }
+      .eks-bg { fill:#1a3a1a; stroke:#5d8a5e; stroke-width:2; rx:8; }
+      .ns-bg { fill:#2a2a2a; stroke:#888; stroke-width:1.5; rx:6; }
+      .pod { fill:#1E4620; stroke:#4CAF50; stroke-width:1.5; rx:5; }
+      .engine { fill:#1a2a4a; stroke:#6c8ebf; stroke-width:1.5; rx:5; }
+      .addon { fill:#3a3a1a; stroke:#d6b656; stroke-width:1.5; rx:5; }
+      .security { fill:#3a1a1a; stroke:#f44336; stroke-width:1.5; rx:5; }
+      .messaging { fill:#3a2a1a; stroke:#FF9900; stroke-width:1.5; rx:5; }
+      .storage { fill:#2a3a1a; stroke:#FF9900; stroke-width:1.5; rx:5; }
+      .monitoring { fill:#2a1a3a; stroke:#9C27B0; stroke-width:1.5; rx:5; }
+      .arrow { stroke:#00FF88; stroke-width:2.5; fill:none; marker-end:url(#ah); }
+      .arrow-msg { stroke:#FF9900; stroke-width:2; fill:none; stroke-dasharray:6,3; marker-end:url(#ah-o); }
+      .arrow-sec { stroke:#FF4444; stroke-width:2; fill:none; stroke-dasharray:4,3; marker-end:url(#ah-r); }
+      .arrow-obs { stroke:#AA00FF; stroke-width:2; fill:none; stroke-dasharray:3,3; marker-end:url(#ah-p); }
+    </style>
+    <marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00FF88"/>
+    </marker>
+    <marker id="ah-o" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#FF9900"/>
+    </marker>
+    <marker id="ah-r" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#FF4444"/>
+    </marker>
+    <marker id="ah-p" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#AA00FF"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- AWS VPC wrapper -->
+  <rect x="10" y="10" width="1580" height="1080" class="aws-box" fill="#101820" stroke="#FF9900" stroke-width="3"/>
+  <text x="20" y="35" class="title" filter="url(#glow)">AWS VPC — HxTS Production (us-east-1 / eu-central-1)</text>
+
+  <!-- Region badges -->
+  <rect x="1350" y="12" width="230" height="28" rx="4" fill="#FF9900" opacity="0.9"/>
+  <text x="1360" y="30" font-size="11" font-weight="bold" fill="#000">US: us-east-1  |  EU: eu-central-1</text>
+
+  <!-- INTERNET/DNS row -->
+  <rect x="20" y="48" width="110" height="55" class="security" rx="6"/>
+  <text x="30" y="68" class="label">Route 53</text>
+  <text x="30" y="82" class="sublabel">DNS</text>
+
+  <rect x="145" y="48" width="120" height="55" class="security" rx="6"/>
+  <text x="155" y="68" class="label">WAFv2</text>
+  <text x="155" y="82" class="sublabel">AWSCommonRuleSet</text>
+
+  <rect x="280" y="48" width="150" height="55" class="messaging" rx="6"/>
+  <text x="290" y="68" class="label">ALB</text>
+  <text x="290" y="82" class="sublabel">transform-ingress (HTTPS)</text>
+
+  <rect x="445" y="48" width="160" height="55" class="messaging" rx="6"/>
+  <text x="455" y="68" class="label">NLB Private</text>
+  <text x="455" y="82" class="sublabel">transform-eks-nlb-priv</text>
+
+  <rect x="620" y="48" width="160" height="55" class="security" rx="6"/>
+  <text x="630" y="68" class="label">VPC Endpoint Svc</text>
+  <text x="630" y="82" class="sublabel">PrivateLink → HxPR</text>
+
+  <rect x="800" y="48" width="130" height="55" class="security" rx="6"/>
+  <text x="810" y="68" class="label">ACM Cert</text>
+  <text x="810" y="82" class="sublabel">*.experience.hyland.com</text>
+
+  <rect x="950" y="48" width="160" height="55" class="monitoring" rx="6"/>
+  <text x="960" y="68" class="label">CloudWatch Logs</text>
+  <text x="960" y="82" class="sublabel">WAF + EKS audit (14d)</text>
+
+  <rect x="1130" y="48" width="200" height="55" class="security" rx="6"/>
+  <text x="1140" y="68" class="label">IAM / IRSA (OIDC)</text>
+  <text x="1140" y="82" class="sublabel">hxts-sa-role / keda-role</text>
+
+  <!-- Arrows: DNS→WAF→ALB→NLB -->
+  <line x1="130" y1="75" x2="142" y2="75" class="arrow"/>
+  <line x1="265" y1="75" x2="278" y2="75" class="arrow"/>
+  <line x1="430" y1="75" x2="443" y2="75" class="arrow"/>
+  <line x1="605" y1="75" x2="618" y2="75" class="arrow"/>
+
+  <!-- EKS cluster -->
+  <rect x="20" y="118" width="1560" height="730" class="eks-bg" rx="8"/>
+  <text x="30" y="140" class="section-title">EKS Cluster — m5.xlarge (min:3 / max:25) · Bottlerocket OS · IRSA enabled</text>
+
+  <!-- Cluster addons row -->
+  <rect x="30" y="148" width="130" height="50" class="addon" rx="5"/>
+  <text x="40" y="167" class="label">Karpenter</text>
+  <text x="40" y="181" class="sublabel">v1.10.0 node autoscaler</text>
+
+  <rect x="175" y="148" width="130" height="50" class="addon" rx="5"/>
+  <text x="185" y="167" class="label">KEDA</text>
+  <text x="185" y="181" class="sublabel">v2.17.2 SQS scaler</text>
+
+  <rect x="320" y="148" width="150" height="50" class="addon" rx="5"/>
+  <text x="330" y="167" class="label">ingress-nginx</text>
+  <text x="330" y="181" class="sublabel">v4.15.0 private NLB</text>
+
+  <rect x="485" y="148" width="150" height="50" class="addon" rx="5"/>
+  <text x="495" y="167" class="label">cert-manager</text>
+  <text x="495" y="181" class="sublabel">v1.20.0 Route53</text>
+
+  <rect x="650" y="148" width="160" height="50" class="addon" rx="5"/>
+  <text x="660" y="167" class="label">AWS LB Controller</text>
+  <text x="660" y="181" class="sublabel">v3.1.0</text>
+
+  <rect x="825" y="148" width="160" height="50" class="monitoring" rx="5"/>
+  <text x="835" y="167" class="label">Datadog Agent</text>
+  <text x="835" y="181" class="sublabel">v3.146.1 APM+infra</text>
+
+  <rect x="1000" y="148" width="150" height="50" class="security" rx="5"/>
+  <text x="1010" y="167" class="label">Velero</text>
+  <text x="1010" y="181" class="sublabel">v11.4.0 → S3</text>
+
+  <rect x="1165" y="148" width="150" height="50" class="storage" rx="5"/>
+  <text x="1175" y="167" class="label">EFS CSI Driver</text>
+  <text x="1175" y="181" class="sublabel">v3.4.1 shared vol</text>
+
+  <rect x="1330" y="148" width="150" height="50" class="addon" rx="5"/>
+  <text x="1340" y="167" class="label">EKS Addons</text>
+  <text x="1340" y="181" class="sublabel">vpc-cni/coredns/proxy</text>
+
+  <!-- HXTS Namespace -->
+  <rect x="30" y="210" width="1540" height="510" class="ns-bg" rx="6"/>
+  <text x="42" y="232" font-size="12" font-weight="bold" fill="#FFD700">Namespace: hxts-&#123;environment&#125;</text>
+
+  <!-- REST + Router pods -->
+  <rect x="42" y="244" width="210" height="100" class="pod" rx="5"/>
+  <text x="52" y="264" class="label">REST Pod</text>
+  <text x="52" y="278" class="sublabel">hxp-transform-rest:3.0.597</text>
+  <text x="52" y="292" class="sublabel">CPU: 800m–2000m</text>
+  <text x="52" y="306" class="sublabel">Mem: 750Mi–1500Mi</text>
+  <text x="52" y="320" class="sublabel">Spring Boot · port 8095</text>
+  <text x="52" y="334" class="sublabel">replicaCount: 0 (KEDA-managed)</text>
+
+  <rect x="265" y="244" width="210" height="100" class="pod" rx="5"/>
+  <text x="275" y="264" class="label">Router Pod</text>
+  <text x="275" y="278" class="sublabel">hxp-transform-router:3.0.597</text>
+  <text x="275" y="292" class="sublabel">CPU: 800m–2000m</text>
+  <text x="275" y="306" class="sublabel">Mem: 750Mi–1500Mi</text>
+  <text x="275" y="320" class="sublabel">Routes to engine queues</text>
+  <text x="275" y="334" class="sublabel">sqs_receive: 10 msgs</text>
+
+  <!-- Engine pods -->
+  <rect x="42" y="360" width="175" height="80" class="engine" rx="5"/>
+  <text x="52" y="378" class="label">Tika Engine</text>
+  <text x="52" y="392" class="sublabel">hxp-transform-tika:3.0.597</text>
+  <text x="52" y="406" class="sublabel">sqs_receive: 3 / port:8090</text>
+  <text x="52" y="420" class="sublabel">CPU:800m Mem:750Mi</text>
+
+  <rect x="230" y="360" width="185" height="80" class="engine" rx="5"/>
+  <text x="240" y="378" class="label">ImageMagick Engine</text>
+  <text x="240" y="392" class="sublabel">hxp-transform-imagemagick</text>
+  <text x="240" y="406" class="sublabel">sqs_receive: 3 / port:8090</text>
+  <text x="240" y="420" class="sublabel">Mem lim: 2000Mi</text>
+
+  <rect x="428" y="360" width="175" height="80" class="engine" rx="5"/>
+  <text x="438" y="378" class="label">LibreOffice Engine</text>
+  <text x="438" y="392" class="sublabel">hxp-transform-libreoffice</text>
+  <text x="438" y="406" class="sublabel">sqs_receive: 10 / port:8090</text>
+  <text x="438" y="420" class="sublabel">CPU:800m Mem:750Mi</text>
+
+  <rect x="616" y="360" width="175" height="80" class="engine" rx="5"/>
+  <text x="626" y="378" class="label">DocFilters Engine</text>
+  <text x="626" y="392" class="sublabel">hxp-transform-docfilters</text>
+  <text x="626" y="406" class="sublabel">sqs_receive: 2 / port:8090</text>
+  <text x="626" y="420" class="sublabel">CPU:800m Mem:750Mi</text>
+
+  <rect x="804" y="360" width="175" height="80" class="engine" rx="5"/>
+  <text x="814" y="378" class="label">DocMerge Engine</text>
+  <text x="814" y="392" class="sublabel">hxp-transform-docmerge</text>
+  <text x="814" y="406" class="sublabel">sqs_receive: 2 / port:8090</text>
+  <text x="814" y="420" class="sublabel">CPU:800m Mem:750Mi</text>
+
+  <rect x="992" y="360" width="155" height="80" class="engine" rx="5"/>
+  <text x="1002" y="378" class="label">Misc Engine</text>
+  <text x="1002" y="392" class="sublabel">hxp-transform-misc</text>
+  <text x="1002" y="406" class="sublabel">sqs_receive: 3 / port:8090</text>
+  <text x="1002" y="420" class="sublabel">CPU:800m Mem:750Mi</text>
+
+  <rect x="1160" y="360" width="155" height="80" class="engine" rx="5"/>
+  <text x="1170" y="378" class="label">AIO Engine</text>
+  <text x="1170" y="392" class="sublabel">hxp-transform-aio</text>
+  <text x="1170" y="406" class="sublabel">sqs_receive: 2 / port:8090</text>
+  <text x="1170" y="420" class="sublabel">CPU:800m Mem:750Mi</text>
+
+  <!-- K8s Secrets / Network Policies / IdP -->
+  <rect x="42" y="458" width="190" height="60" class="addon" rx="5"/>
+  <text x="52" y="477" class="label">Kubernetes Secrets</text>
+  <text x="52" y="491" class="sublabel">quay-registry-secret</text>
+  <text x="52" y="505" class="sublabel">env creds per namespace</text>
+
+  <rect x="245" y="458" width="175" height="60" class="addon" rx="5"/>
+  <text x="255" y="477" class="label">Network Policies</text>
+  <text x="255" y="491" class="sublabel">engine isolation</text>
+  <text x="255" y="505" class="sublabel">ingress/egress rules</text>
+
+  <rect x="432" y="458" width="185" height="60" class="security" rx="5"/>
+  <text x="442" y="477" class="label">HxP IdP Client</text>
+  <text x="442" y="491" class="sublabel">OAuth2 / OIDC</text>
+  <text x="442" y="505" class="sublabel">subscription_token_exchange</text>
+
+  <!-- AWS Services row (bottom) -->
+  <rect x="20" y="860" width="230" height="120" class="messaging" rx="6"/>
+  <text x="30" y="882" class="label">SQS Queues</text>
+  <text x="30" y="897" class="sublabel">transform-request (from SNS)</text>
+  <text x="30" y="912" class="sublabel">transform-reply</text>
+  <text x="30" y="927" class="sublabel">7× engine-specific queues</text>
+  <text x="30" y="942" class="sublabel">KMS encrypted (gp3 CMK)</text>
+  <text x="30" y="957" class="sublabel">retention: 4d  visibility: 1s</text>
+
+  <rect x="265" y="860" width="220" height="120" class="messaging" rx="6"/>
+  <text x="275" y="882" class="label">SNS Topics</text>
+  <text x="275" y="897" class="sublabel">hxts-transform-request</text>
+  <text x="275" y="912" class="sublabel">hxts-transform-reply</text>
+  <text x="275" y="927" class="sublabel">FIFO: false / KMS encrypted</text>
+  <text x="275" y="942" class="sublabel">Cross-account to HxPR</text>
+
+  <rect x="500" y="860" width="185" height="120" class="security" rx="6"/>
+  <text x="510" y="882" class="label">KMS CMK</text>
+  <text x="510" y="897" class="sublabel">SQS + SNS + EBS + EFS</text>
+  <text x="510" y="912" class="sublabel">+ S3 + Secrets encryption</text>
+  <text x="510" y="927" class="sublabel">key_rotation: enabled</text>
+  <text x="510" y="942" class="sublabel">deletion_window: configurable</text>
+
+  <rect x="700" y="860" width="195" height="120" class="security" rx="6"/>
+  <text x="710" y="882" class="label">Secrets Manager</text>
+  <text x="710" y="897" class="sublabel">/hxts/idp_client_secret</text>
+  <text x="710" y="912" class="sublabel">/hxts/consumer_client_secret</text>
+  <text x="710" y="927" class="sublabel">40-char random secrets</text>
+
+  <rect x="910" y="860" width="185" height="120" class="storage" rx="6"/>
+  <text x="920" y="882" class="label">S3 (Velero Backup)</text>
+  <text x="920" y="897" class="sublabel">velero-hxts-{env}.{region}-hy</text>
+  <text x="920" y="912" class="sublabel">Versioned + CRR 15min</text>
+  <text x="920" y="927" class="sublabel">KMS-SSE encrypted</text>
+  <text x="920" y="942" class="sublabel">deny-insecure-transport</text>
+
+  <rect x="1110" y="860" width="185" height="120" class="storage" rx="6"/>
+  <text x="1120" y="882" class="label">EFS</text>
+  <text x="1120" y="897" class="sublabel">generalPurpose + elastic</text>
+  <text x="1120" y="912" class="sublabel">encrypted (KMS)</text>
+  <text x="1120" y="927" class="sublabel">AWS backup enabled</text>
+  <text x="1120" y="942" class="sublabel">hxts-efs-tf-{env}</text>
+
+  <rect x="1310" y="860" width="165" height="120" class="storage" rx="6"/>
+  <text x="1320" y="882" class="label">ECR</text>
+  <text x="1320" y="897" class="sublabel">hxp-transform-rest</text>
+  <text x="1320" y="912" class="sublabel">hxp-transform-router</text>
+  <text x="1320" y="927" class="sublabel">+ 7 engine images</text>
+  <text x="1320" y="942" class="sublabel">tag: 3.0.597</text>
+
+  <!-- Messaging flow arrows -->
+  <line x1="147" y1="344" x2="147" y2="860" class="arrow-msg"/>
+  <line x1="147" y1="344" x2="375" y2="344" class="arrow-msg"/>
+  <line x1="375" y1="344" x2="375" y2="860" class="arrow-msg"/>
+
+  <!-- KEDA → SQS scaling signal -->
+  <line x1="240" y1="198" x2="135" y2="860" class="arrow-obs" stroke-dasharray="5,3"/>
+
+  <!-- Datadog obs flow -->
+  <line x1="905" y1="198" x2="950" y2="860" class="arrow-obs" stroke-dasharray="3,3"/>
+
+  <!-- Legend -->
+  <rect x="20" y="990" width="700" height="80" rx="6" fill="#111" stroke="#555"/>
+  <text x="30" y="1010" font-size="12" font-weight="bold" fill="#FFD700">Legend</text>
+  <line x1="30" y1="1025" x2="80" y2="1025" class="arrow"/><text x="85" y="1030" class="sublabel">Request flow</text>
+  <line x1="180" y1="1025" x2="230" y2="1025" class="arrow-msg"/><text x="235" y="1030" class="sublabel">Messaging flow</text>
+  <line x1="350" y1="1025" x2="400" y2="1025" class="arrow-obs"/><text x="405" y="1030" class="sublabel">Observability / scaling signal</text>
+  <line x1="560" y1="1025" x2="610" y2="1025" class="arrow-sec"/><text x="615" y="1030" class="sublabel">Security dependency</text>
+  <rect x="30" y="1045" width="15" height="10" class="pod"/><text x="50" y="1055" class="sublabel">Core service pods</text>
+  <rect x="140" y="1045" width="15" height="10" class="engine"/><text x="160" y="1055" class="sublabel">Transform engine pods</text>
+  <rect x="280" y="1045" width="15" height="10" class="addon"/><text x="300" y="1055" class="sublabel">Cluster add-ons</text>
+  <rect x="390" y="1045" width="15" height="10" class="security"/><text x="410" y="1055" class="sublabel">Security/identity components</text>
+  <rect x="560" y="1045" width="15" height="10" class="messaging"/><text x="580" y="1055" class="sublabel">Messaging/storage</text>
+</svg>

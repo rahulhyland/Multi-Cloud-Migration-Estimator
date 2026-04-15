@@ -166,8 +166,11 @@ Return one markdown report with these sections in order:
 5. Regional Cost Analysis (Directional)
    - 30-Day Total Cost Table: Capability | AWS US (baseline, USD) | AWS EU (USD) | AWS AU (USD) | Azure US (USD) | Azure EU (USD) | Azure AU (USD) | GCP US (USD) | GCP EU (USD) | GCP AU (USD) | Confidence
    - Include a cost-delta row at the bottom of the 30-Day table: delta % vs. AWS for each cloud/region column
+   - Immediately after the 30-Day Total Cost table, generate a grouped bar chart (draw.io + SVG, slug `cost-by-capability`) that visualises total monthly cost (USD) per capability row across AWS US, Azure US, and GCP US. Save as `diagrams-cost-by-capability.drawio` and `diagrams-cost-by-capability.svg` and embed it right below the table: `![30-Day Cost by Capability](diagrams-cost-by-capability.svg)`
    - Metered Billing Tier Table: Service | Metering unit | Tier/Band | AWS US (baseline, USD) | AWS EU (USD) | Azure US (USD) | Azure EU (USD) | Azure AU (USD) | GCP US (USD) | GCP EU (USD) | GCP AU (USD) | Confidence
+   - Immediately after the Metered Billing Tier table, generate a grouped bar chart (draw.io + SVG, slug `metered-billing`) that visualises per-unit cost (USD) per service row across AWS US, Azure US, and GCP US. Save as `diagrams-metered-billing.drawio` and `diagrams-metered-billing.svg` and embed it right below the table: `![Metered Billing Tier Comparison](diagrams-metered-billing.svg)`
    - 5.4 One-Time Migration Cost Versus Run-Rate Table: Cost segment | AWS (baseline, USD) | Azure (USD) | GCP (USD) | Confidence
+   - Immediately after the One-Time Migration Cost Versus Run-Rate table, generate a grouped bar chart (draw.io + SVG, slug `one-time-vs-runrate`) that visualises one-time migration cost versus 30-day run-rate side-by-side for AWS, Azure, and GCP. Save as `diagrams-one-time-vs-runrate.drawio` and `diagrams-one-time-vs-runrate.svg` and embed it right below the table: `![One-Time vs Run-Rate Cost](diagrams-one-time-vs-runrate.svg)`
    - If non-USD currency is used, state it explicitly in section 5.1 assumptions and in each affected cost table header.
    - Include assumptions, usage volumes, and unit economics used
    - Explicitly show tier segmentation when relevant (for example `< 1M requests` and `> 1M requests`), following official vendor pricing structures
@@ -226,14 +229,17 @@ Generate a PDF version of the report as a secondary artifact in the same folder,
 
 #### Draw.io + SVG Generation Rule (Mandatory)
 - For every generated report, create matching `.drawio` artifacts in the same output folder, with one `.drawio` file per required SVG.
-- Create exactly six `.drawio` files: `diagrams-aws-source.drawio`, `diagrams-azure-target.drawio`, `diagrams-gcp-target.drawio`, `diagrams-cost-comparison.drawio`, `diagrams-effort-risk.drawio`, and `diagrams-scenario-comparison.drawio`.
+- Create exactly nine `.drawio` files: `diagrams-aws-source.drawio`, `diagrams-azure-target.drawio`, `diagrams-gcp-target.drawio`, `diagrams-cost-comparison.drawio`, `diagrams-cost-by-capability.drawio`, `diagrams-metered-billing.drawio`, `diagrams-one-time-vs-runrate.drawio`, `diagrams-effort-risk.drawio`, and `diagrams-scenario-comparison.drawio`.
 - Export exactly one SVG per draw.io file and save all SVG files in the same output folder as the report.
 - The markdown report must embed these generated SVG files using relative markdown image links in their designated sections.
 
 - Generate matching draw.io diagram artifacts in the same new folder using filename format: `diagrams-{slug}.drawio`.
-- Generate six SVG exports from those draw.io files — one per architecture view and one each for cost comparison, effort-risk, and scenario comparison charts — using filename format: `diagrams-aws-source.svg`, `diagrams-azure-target.svg`, `diagrams-gcp-target.svg`, `diagrams-cost-comparison.svg`, `diagrams-effort-risk.svg`, and `diagrams-scenario-comparison.svg`. Save all SVG files in the same new folder.
-- **Always generate cost comparison, effort-risk, and scenario comparison chart SVGs** (all mandatory, not conditional).
+- Generate nine SVG exports from those draw.io files — one per architecture view and one each for the six charts — using filename format: `diagrams-aws-source.svg`, `diagrams-azure-target.svg`, `diagrams-gcp-target.svg`, `diagrams-cost-comparison.svg`, `diagrams-cost-by-capability.svg`, `diagrams-metered-billing.svg`, `diagrams-one-time-vs-runrate.svg`, `diagrams-effort-risk.svg`, and `diagrams-scenario-comparison.svg`. Save all SVG files in the same new folder.
+- **Always generate cost comparison, cost-by-capability, metered-billing, one-time-vs-runrate, effort-risk, and scenario comparison chart SVGs** (all mandatory, not conditional).
 - Embed SVG files in their corresponding sections throughout the markdown report using markdown image links with relative filenames (the report and SVG files are in the same folder):
+  - **Section 5 (30-Day Cost by Capability Chart):** Always embed `diagrams-cost-by-capability.svg` immediately after the 30-Day Total Cost table and **ONLY in this section**.
+  - **Section 5 (Metered Billing Chart):** Always embed `diagrams-metered-billing.svg` immediately after the Metered Billing Tier table and **ONLY in this section**.
+  - **Section 5.4 (One-Time vs Run-Rate Chart):** Always embed `diagrams-one-time-vs-runrate.svg` immediately after the One-Time Migration Cost Versus Run-Rate table and **ONLY in this section**.
   - **Section 5.5 (Regional Cost Analysis Chart):** Always embed the cost comparison chart SVG and **ONLY in this section**. Do not duplicate cost chart in Section 11.
   - **Section 7 (Migration Effort View):** Always embed the effort-risk chart SVG and **ONLY in this section**. Do not embed in any other section.
   - **Section 8 (Decision Scenarios):** Always embed the scenario comparison chart SVG and **ONLY in this section**. Do not embed in any other section.
@@ -245,11 +251,14 @@ Generate a PDF version of the report as a secondary artifact in the same folder,
 
 ### Post-Generation Validation (Required Before Finalizing Report)
 - **SVG Embedding Verification:** After generating the report, search for each SVG filename in the markdown to confirm:
+  - `cost-by-capability.svg` appears exactly 1 time (in Section 5 only, after the 30-Day table)
+  - `metered-billing.svg` appears exactly 1 time (in Section 5 only, after the Metered Billing Tier table)
+  - `one-time-vs-runrate.svg` appears exactly 1 time (in Section 5.4 only, after the One-Time vs Run-Rate table)
   - `cost-comparison.svg` appears exactly 1 time (in Section 5.5 only)
   - `effort-risk.svg` appears exactly 1 time (in Section 7 only)
   - `scenario-comparison.svg` appears exactly 1 time (in Section 8 only)
   - `aws-source.svg`, `azure-target.svg`, `gcp-target.svg` each appear exactly 1 time (in Section 11 only)
-  - **Total SVG references = 6 (all mandatory: 3 architecture diagrams + 3 charts)**
+  - **Total SVG references = 9 (all mandatory: 3 architecture diagrams + 6 charts)**
   - No SVG file is referenced in multiple locations (report sections)
 - If duplicates are found, remove all but the intended single occurrence immediately before confirming to user.
 - Document any validation results that reveal deviations from expected embedding pattern.

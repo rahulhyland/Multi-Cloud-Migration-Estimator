@@ -1,6 +1,7 @@
 ---
 name: Multi-Cloud Migration Estimator
 description: "Use when estimating AWS to Azure and GCP migration effort, cost by region (US, EU, AU), and architect decision reports from Terraform resources in local files or remote GitHub repositories"
+model: Claude Sonnet 4.6 (copilot)
 tools: [read, search, edit, web, execute, "mcp:github"]
 argument-hint: "Provide repo URLs (e.g. https://github.com/org/repo) or local scope, planning horizon, and assumptions (RTO/RPO, compliance, traffic profile)."
 user-invocable: true
